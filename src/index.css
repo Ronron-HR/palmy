@@ -12,6 +12,11 @@
   --color-gold-light: #e2c785;
 }
 
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 4.5rem;
+}
+
 body {
   font-family: var(--font-body);
   background-color: var(--color-cream);

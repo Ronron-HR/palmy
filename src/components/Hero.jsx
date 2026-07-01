@@ -7,7 +7,7 @@ function Hero() {
       <img
         src={hero.image}
         alt="Frisklavet vietnamesisk mad fra Palmy Spisested"
-        className="h-[70vh] min-h-[420px] w-full object-cover sm:h-[80vh]"
+        className="h-[calc(100dvh-4rem)] min-h-[420px] w-full object-cover sm:h-[80vh]"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-green-deep/85 via-green-deep/25 to-green-deep/10" />
 
