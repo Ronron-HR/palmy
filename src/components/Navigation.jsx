@@ -37,7 +37,7 @@ function Navigation() {
             href={`tel:${business.phone}`}
             className="rounded-full bg-green-deep px-5 py-2.5 text-sm font-semibold text-cream transition-colors hover:bg-green-deep-light"
           >
-            📞 Ring nu
+            Ring nu
           </a>
         </div>
 
@@ -46,7 +46,7 @@ function Navigation() {
             href={`tel:${business.phone}`}
             className="rounded-full bg-green-deep px-4 py-2 text-sm font-semibold text-cream"
           >
-            📞 Ring nu
+            Ring nu
           </a>
           <button
             type="button"

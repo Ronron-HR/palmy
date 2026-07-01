@@ -26,7 +26,7 @@ function Hero() {
                 href="#historie"
                 className="inline-flex items-center justify-center gap-2 rounded-full bg-gold px-6 py-3.5 text-base font-semibold text-green-deep transition-colors hover:bg-gold-light"
               >
-                📖 Hør vores historie
+                Hør vores historie
               </a>
             </div>
           </div>

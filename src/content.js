@@ -23,3 +23,14 @@ export const hero = {
   heading: 'Smag kvalitet – frisklavet mad hver weekend.',
   subheading: 'Ring og bestil – vi har åbent fredag og lørdag, 16:00–20:30.',
 }
+
+export const historie = {
+  image: '/images/placeholder-historie.png',
+  paragraphs: [
+    'Palmy Spisested er en familiedrevet restaurant, startet af Thi og Nam. Med familiens opskrifter som fundament åbnede de deres vietnamesiske restaurant i Danmark – og den blev hurtigt et sted med mange glade, loyale gæster.',
+    'Da livet ændrede sig, satte de restauranten på pause for at fokusere på uddannelse, arbejde og familie. Men drømmen om en dag at åbne igen forsvandt aldrig.',
+    'I dag har de valgt at genåbne. Restauranten har åbent hver fredag og lørdag fra kl. 16.00 til 20.30, hvor de personligt tilbereder maden med samme kærlighed og omhu som altid.',
+    'Når du besøger os, håber vi du får mere end et godt måltid – en oplevelse, hvor smagen og stemningen bringer dig tættere på vietnamesisk mad lavet med hjertet.',
+  ],
+  closing: 'Kom forbi og smag selv – fredag eller lørdag.',
+}
