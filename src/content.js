@@ -3,9 +3,8 @@
 
 export const business = {
   name: 'Palmy Spisested',
-  // PLADSHOLDER — indsæt rigtigt telefonnummer
-  phone: '+45 12 34 56 78',
-  phoneDisplay: '12 34 56 78',
+  phone: '+45 81 75 42 99',
+  phoneDisplay: '81 75 42 99',
   address: 'Hjortshøj Stationsvej 6, 8530 Hjortshøj',
   googleMapsUrl: 'https://maps.google.com/?q=Hjortshøj+Stationsvej+6,+8530+Hjortshøj',
 }
