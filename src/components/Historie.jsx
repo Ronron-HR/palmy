@@ -28,7 +28,6 @@ function SideText({ side }) {
 
 function Historie() {
   const [textRef, textInView] = useInView()
-  const [imageRef, imageInView] = useInView()
 
   return (
     <section id="historie" className="relative bg-cream">
@@ -55,25 +54,10 @@ function Historie() {
       <SideText side="left" />
       <SideText side="right" />
 
-      <div className="mx-auto grid max-w-6xl gap-12 px-4 py-20 sm:px-6 sm:py-28 lg:grid-cols-2 lg:items-center lg:gap-16">
-        <div
-          ref={imageRef}
-          className={`order-1 transition-all duration-1000 ease-out lg:order-2 ${
-            imageInView ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'
-          }`}
-        >
-          {/* PLADSHOLDER — udskiftes når rigtige fotos er taget */}
-          <img
-            src={historie.image}
-            alt="Thi og Nam tilbereder mad hos Palmy Spisested"
-            loading="lazy"
-            className="aspect-4/3 w-full rounded-2xl object-cover shadow-lg"
-          />
-        </div>
-
+      <div className="mx-auto max-w-3xl px-4 py-20 sm:px-6 sm:py-28">
         <div
           ref={textRef}
-          className={`relative order-2 transition-all duration-1000 ease-out lg:order-1 ${
+          className={`relative transition-all duration-1000 ease-out ${
             textInView ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'
           }`}
         >

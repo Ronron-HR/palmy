@@ -28,17 +28,6 @@ function ChevronIcon({ className }) {
 function DishRow({ dish }) {
   return (
     <div className="flex items-center gap-4 py-4">
-      {dish.billede && (
-        <>
-          {/* PLADSHOLDER — udskiftes når rigtige fotos er taget */}
-          <img
-            src={dish.billede}
-            alt=""
-            loading="lazy"
-            className="h-16 w-16 flex-shrink-0 rounded-lg object-cover shadow-sm sm:h-20 sm:w-20"
-          />
-        </>
-      )}
       <div className="flex flex-1 items-baseline justify-between gap-4">
         <span className="text-green-deep">{dish.navn}</span>
         <span className="whitespace-nowrap font-medium text-green-deep">{dish.pris}</span>
