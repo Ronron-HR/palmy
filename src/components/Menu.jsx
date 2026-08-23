@@ -1,4 +1,4 @@
-import { menu } from '../content'
+import { menu, business, hours } from '../content'
 
 const categories = [
   { key: 'forretter', title: 'Forretter' },
@@ -70,9 +70,18 @@ function Menu() {
           ))}
         </div>
 
-        <p className="mt-16 text-center text-lg text-green-deep/80">
-          Ring og bestil – vi tager imod bestillinger fra kl. 16.00.
-        </p>
+        <div className="mt-16 text-center">
+          <p className="text-lg text-green-deep/80">Klar til at bestille?</p>
+          <a
+            href={`tel:${business.phone}`}
+            className="mt-4 inline-flex items-center justify-center gap-2 rounded-full bg-green-deep px-8 py-4 text-lg font-semibold text-cream transition-colors hover:bg-green-deep-light"
+          >
+            Ring og bestil – {business.phoneDisplay}
+          </a>
+          <p className="mt-3 text-sm text-green-deep/60">
+            Vi tager imod bestillinger {hours.days.toLowerCase()} kl. {hours.time}.
+          </p>
+        </div>
       </div>
     </section>
   )

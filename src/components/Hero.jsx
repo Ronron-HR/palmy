@@ -1,4 +1,4 @@
-import { hero } from '../content'
+import { hero, business } from '../content'
 
 function Hero() {
   return (
@@ -20,10 +20,16 @@ function Hero() {
               {hero.subheading}
             </p>
 
-            <div className="mt-8">
+            <div className="mt-8 flex flex-wrap gap-3">
+              <a
+                href={`tel:${business.phone}`}
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-gold px-6 py-3.5 text-base font-semibold text-green-deep transition-colors hover:bg-gold-light"
+              >
+                Ring og bestil – {business.phoneDisplay}
+              </a>
               <a
                 href="#historie"
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-gold px-6 py-3.5 text-base font-semibold text-green-deep transition-colors hover:bg-gold-light"
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-cream/70 px-6 py-3.5 text-base font-semibold text-cream transition-colors hover:bg-cream/10"
               >
                 Hør vores historie
               </a>

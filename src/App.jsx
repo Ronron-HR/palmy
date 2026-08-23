@@ -4,6 +4,7 @@ import Historie from './components/Historie'
 import Menu from './components/Menu'
 import Aabningstider from './components/Aabningstider'
 import Kontakt from './components/Kontakt'
+import RingNuBar from './components/RingNuBar'
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <Menu />
       <Aabningstider />
       <Kontakt />
+      <RingNuBar />
     </>
   )
 }
