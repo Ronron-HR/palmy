@@ -3,7 +3,6 @@ import { hero } from '../content'
 function Hero() {
   return (
     <section id="forside" className="relative">
-      {/* PLADSHOLDER — udskiftes når rigtige fotos er taget */}
       <img
         src={hero.image}
         alt="Frisklavet vietnamesisk mad fra Palmy Spisested"

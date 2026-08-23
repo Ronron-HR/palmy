@@ -37,7 +37,7 @@ export const nav = [
 ]
 
 export const hero = {
-  image: '/images/placeholder-hero.jpg',
+  image: '/images/palmy-hero-banner.png',
   heading: 'Smag kvalitet – frisklavet mad hver weekend.',
   subheading: 'Ring og bestil – vi har åbent fredag og lørdag, 16:00–20:30.',
 }
