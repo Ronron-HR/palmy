@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { business } from '../content'
+import RingKnap from './RingKnap'
 
 // Kun mobil: fast bar i bunden, synlig når hero er scrollet forbi
 // og kontaktsektionen ikke er på skærmen.
@@ -43,13 +44,9 @@ function RingNuBar() {
         visible ? 'translate-y-0' : 'translate-y-full'
       }`}
     >
-      <a
-        href={`tel:${business.phone}`}
-        tabIndex={visible ? 0 : -1}
-        className="flex items-center justify-center gap-2 rounded-full bg-green-deep px-6 py-3.5 text-base font-semibold text-cream transition-colors hover:bg-green-deep-light"
-      >
+      <RingKnap variant="green" className="flex w-full">
         Ring og bestil – {business.phoneDisplay}
-      </a>
+      </RingKnap>
     </div>
   )
 }

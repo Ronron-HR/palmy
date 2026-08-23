@@ -1,4 +1,5 @@
 import { hero, business } from '../content'
+import RingKnap from './RingKnap'
 
 function Hero() {
   return (
@@ -21,12 +22,9 @@ function Hero() {
             </p>
 
             <div className="mt-8 flex flex-wrap gap-3">
-              <a
-                href={`tel:${business.phone}`}
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-gold px-6 py-3.5 text-base font-semibold text-green-deep transition-colors hover:bg-gold-light"
-              >
+              <RingKnap variant="gold">
                 Ring og bestil – {business.phoneDisplay}
-              </a>
+              </RingKnap>
               <a
                 href="#historie"
                 className="inline-flex items-center justify-center gap-2 rounded-full border border-cream/70 px-6 py-3.5 text-base font-semibold text-cream transition-colors hover:bg-cream/10"
