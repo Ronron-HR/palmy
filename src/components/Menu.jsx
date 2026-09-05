@@ -1,40 +1,13 @@
 import { business, hours } from '../content'
-import { SECTIONS, getDishesBySection, getDisplayPrice, formatChoicesQuestion } from '../data/menu'
+import { SECTIONS, getDishesBySection } from '../data/menu'
 import RingKnap from './RingKnap'
-import NumberBadge from './menu/NumberBadge'
+import SectionHeader from './menu/SectionHeader'
+import DishCard from './menu/DishCard'
 
-function DishRow({ dish }) {
-  return (
-    <div className="flex items-start gap-3 py-4">
-      <NumberBadge number={dish.number} />
-      <div className="flex flex-1 flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-        <div>
-          <span className="text-green-deep">{dish.name}</span>
-          {dish.choices && (
-            <p className="mt-0.5 text-sm text-green-deep/70">
-              Vælg: {formatChoicesQuestion(dish.choices)}
-            </p>
-          )}
-          {dish.note && <p className="mt-0.5 text-sm italic text-green-deep/60">{dish.note}</p>}
-        </div>
-        <span className="whitespace-nowrap font-medium text-green-deep">
-          {getDisplayPrice(dish)}
-        </span>
-      </div>
-    </div>
-  )
-}
-
-function DishList({ dishes }) {
-  return (
-    <div className="divide-y divide-gold/30">
-      {dishes.map((dish) => (
-        <DishRow key={`${dish.section}-${dish.number ?? dish.name}`} dish={dish} />
-      ))}
-    </div>
-  )
-}
-
+// Forsidens menu er hele menukortet: alle sektioner ligger fremme, der er
+// intet at klikke ud og intet link videre. Retterne renderes med samme
+// DishCard som /menu og print-versionen — beskrivelse, valg-linje og fulde
+// prislinjer — så de tre visninger aldrig kan skride fra hinanden.
 function Menu() {
   return (
     <section id="menu" className="bg-cream py-20 sm:py-28">
@@ -43,20 +16,18 @@ function Menu() {
           Menu
         </h2>
 
-        {/* Hele menukortet ligger fremme — ingen sektioner at klikke ud, og
-            intet link videre til /menu. Kunden skal kunne læse hver ret med
-            det samme. */}
-        <div className="mt-12 divide-y divide-gold/30">
-          {SECTIONS.map(({ id, title, note }) => {
-            const sectionDishes = getDishesBySection(id)
+        <div className="mt-12">
+          {SECTIONS.map((section) => {
+            const sectionDishes = getDishesBySection(section.id)
             if (sectionDishes.length === 0) return null
 
             return (
-              <div key={id} className="py-6">
-                <h3 className="font-display text-xl font-semibold text-green-deep">{title}</h3>
-                {note && <p className="mt-1 text-sm italic text-green-deep/60">{note}</p>}
-                <div className="mt-2">
-                  <DishList dishes={sectionDishes} />
+              <div key={section.id} className="mb-10">
+                <SectionHeader title={section.title} note={section.note} />
+                <div className="divide-y divide-gold/20">
+                  {sectionDishes.map((dish) => (
+                    <DishCard key={`${dish.section}-${dish.number ?? dish.name}`} dish={dish} />
+                  ))}
                 </div>
               </div>
             )
