@@ -32,6 +32,7 @@ function DishRow({ dish }) {
               Vælg: {formatChoicesQuestion(dish.choices)}
             </p>
           )}
+          {dish.note && <p className="mt-0.5 text-sm italic text-green-deep/60">{dish.note}</p>}
         </div>
         <span className="whitespace-nowrap font-medium text-green-deep">
           {getDisplayPrice(dish)}

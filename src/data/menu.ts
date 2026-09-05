@@ -135,7 +135,8 @@ export const dishes: Dish[] = [
       { label: 'Med kylling', price: 95 },
       { label: 'Med oksekød', price: 95 },
     ],
-    choices: ['Ris', 'Risnudler'],
+    // Bevidst ingen `choices`: valget står allerede i rettens navn, præcis som
+    // på det trykte kort. En "Vælg:"-linje ville gentage navnet ord for ord.
     section: 'hovedretter',
   },
   {
@@ -154,7 +155,8 @@ export const dishes: Dish[] = [
       { label: 'Med kylling', price: 95 },
       { label: 'Med rejer', price: 105 },
     ],
-    choices: ['Ris', 'Risnudler'],
+    // Ordret som på det trykte kort — derfor `note` og ikke `choices`.
+    note: 'Kan serveres med ris eller risnudler.',
     section: 'hovedretter',
   },
   // Nr. 18 og 19 hører til Hovedretter, selvom de står talmæssigt efter
