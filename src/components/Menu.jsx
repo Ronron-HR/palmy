@@ -1,14 +1,8 @@
-import { menu, business, hours } from '../content'
+import { business, hours } from '../content'
+import { SECTIONS, getDishesBySection, getDisplayPrice } from '../data/menu'
 import RingKnap from './RingKnap'
-
-const categories = [
-  { key: 'forretter', title: 'Forretter' },
-  { key: 'hovedretter', title: 'Hovedretter' },
-  { key: 'ekstraRetter', title: 'Ekstra retter' },
-  { key: 'boernemenu', title: 'Børnemenu' },
-  { key: 'drikkevarer', title: 'Drikkevarer' },
-  { key: 'tilbehoer', title: 'Tilbehør' },
-]
+import NumberBadge from './menu/NumberBadge'
+import Link from './Link'
 
 function ChevronIcon({ className }) {
   return (
@@ -28,10 +22,13 @@ function ChevronIcon({ className }) {
 
 function DishRow({ dish }) {
   return (
-    <div className="flex items-center gap-4 py-4">
+    <div className="flex items-center gap-3 py-4">
+      <NumberBadge number={dish.number} />
       <div className="flex flex-1 items-baseline justify-between gap-4">
-        <span className="text-green-deep">{dish.navn}</span>
-        <span className="whitespace-nowrap font-medium text-green-deep">{dish.pris}</span>
+        <span className="text-green-deep">{dish.name}</span>
+        <span className="whitespace-nowrap font-medium text-green-deep">
+          {getDisplayPrice(dish)}
+        </span>
       </div>
     </div>
   )
@@ -41,7 +38,7 @@ function DishList({ dishes }) {
   return (
     <div className="divide-y divide-gold/30">
       {dishes.map((dish) => (
-        <DishRow key={dish.navn} dish={dish} />
+        <DishRow key={`${dish.section}-${dish.number ?? dish.name}`} dish={dish} />
       ))}
     </div>
   )
@@ -56,8 +53,8 @@ function Menu() {
         </h2>
 
         <div className="mt-12 divide-y divide-gold/30">
-          {categories.map(({ key, title }, index) => (
-            <details key={key} name="menu-category" open={index === 0} className="group py-4">
+          {SECTIONS.map(({ id, title }, index) => (
+            <details key={id} name="menu-category" open={index === 0} className="group py-4">
               <summary className="flex cursor-pointer items-center justify-between marker:content-none [&::-webkit-details-marker]:hidden">
                 <span className="font-display text-xl font-semibold text-green-deep">
                   {title}
@@ -65,7 +62,7 @@ function Menu() {
                 <ChevronIcon className="h-4 w-4 flex-shrink-0 text-green-deep transition-transform duration-200 group-open:rotate-180" />
               </summary>
               <div className="pt-4">
-                <DishList dishes={menu[key]} />
+                <DishList dishes={getDishesBySection(id)} />
               </div>
             </details>
           ))}
@@ -79,6 +76,12 @@ function Menu() {
           <p className="mt-3 text-sm text-green-deep/60">
             Vi tager imod bestillinger {hours.days.toLowerCase()} kl. {hours.time}.
           </p>
+          <Link
+            to="/menu"
+            className="mt-4 inline-block text-sm font-medium text-green-deep/70 underline decoration-gold/50 underline-offset-4 hover:text-green-deep"
+          >
+            Se hele menukortet →
+          </Link>
         </div>
       </div>
     </section>

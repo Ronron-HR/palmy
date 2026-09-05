@@ -21,8 +21,7 @@ export const hours = {
 }
 
 export const frame = {
-  // PLADSHOLDER — indsæt rigtigt website-domæne når det findes
-  website: 'palmyspisested.dk',
+  website: 'palmyspisested.com',
   tagline: 'Vietnamesisk mad med kærlighed',
   // PLADSHOLDER — indsæt rigtigt Instagram/Facebook-handle, eller udelad
   social: '@palmyspisested',
@@ -57,50 +56,5 @@ export const kontakt = {
   closing: 'Vi glæder os til at se dig – fredag eller lørdag.',
 }
 
-export const menu = {
-  forretter: [
-    { navn: 'Luksus forårsruller (1 stk)', pris: '45 kr', billede: '/images/placeholder-food.jpg' },
-    { navn: 'Luksus forårsruller (3 stk)', pris: '120 kr', billede: '/images/placeholder-food.jpg' },
-    { navn: 'Fem små forårsruller', pris: '45 kr', billede: '/images/placeholder-food.jpg' },
-  ],
-  hovedretter: [
-    { navn: 'Stegte nudler med kylling og grøntsager', pris: '95 kr', billede: '/images/placeholder-food.jpg' },
-    { navn: 'Stegte nudler med oksekød og grøntsager', pris: '95 kr', billede: '/images/placeholder-food.jpg' },
-    { navn: 'Stegte ris med skinke, rejer, gulerødder, ærter og æg', pris: '95 kr', billede: '/images/placeholder-food.jpg' },
-    { navn: 'Stegt and med ris/nudler og kinesisk svampe sauce', pris: '115 kr', billede: '/images/placeholder-food.jpg' },
-    { navn: 'Indbagte store rejer med sur-sød sauce (ris)', pris: '95 kr', billede: '/images/placeholder-food.jpg' },
-    { navn: 'Risnudler med rejer og grøntsager (Tom Yum Goong) – stærk', pris: '95 kr', billede: '/images/placeholder-food.jpg' },
-    { navn: 'Ris med stegt kylling, grøntsager, ingefær og chili – stærk', pris: '95 kr', billede: '/images/placeholder-food.jpg' },
-    { navn: 'Oksekød eller kylling med peberfrugt, løg og bambus i rød karry – stærk', pris: '95 kr', billede: '/images/placeholder-food.jpg' },
-    { navn: 'Rød karry med ris/risnudler (med and)', pris: '115 kr', billede: '/images/placeholder-food.jpg' },
-    { navn: 'Rød karry med ris/risnudler (med kylling)', pris: '95 kr', billede: '/images/placeholder-food.jpg' },
-    { navn: 'Rød karry med ris/risnudler (med oksekød)', pris: '95 kr', billede: '/images/placeholder-food.jpg' },
-  ],
-  ekstraRetter: [
-    { navn: '1/2 grillkylling med pommes frites', pris: '110 kr', billede: '/images/placeholder-food.jpg' },
-    { navn: 'Pommes frites (stor portion)', pris: '35 kr', billede: '/images/placeholder-food.jpg' },
-    { navn: 'Vietnamesisk bún special', pris: '110 kr', billede: '/images/placeholder-food.jpg' },
-    { navn: 'Tom kha gai (med kylling)', pris: '95 kr', billede: '/images/placeholder-food.jpg' },
-    { navn: 'Tom kha gai (med rejer)', pris: '105 kr', billede: '/images/placeholder-food.jpg' },
-    { navn: 'Indbagt kylling med sur-sød sauce (ris)', pris: '95 kr', billede: '/images/placeholder-food.jpg' },
-    { navn: 'Indbagte rejer med sur-sød sauce (ris)', pris: '95 kr', billede: '/images/placeholder-food.jpg' },
-  ],
-  boernemenu: [
-    { navn: 'Crispy chicken burger (med salat, agurk, pommes frites)', pris: '79 kr', billede: '/images/placeholder-food.jpg' },
-    { navn: 'Chicken nuggets (6 stk, med pommes frites og ketchup)', pris: '69 kr', billede: '/images/placeholder-food.jpg' },
-  ],
-  drikkevarer: [
-    { navn: 'Pepsi 33 cl', pris: '20 kr' },
-    { navn: 'Pepsi Max 33 cl', pris: '20 kr' },
-  ],
-  tilbehoer: [
-    { navn: 'Ekstra ris', pris: '20 kr' },
-    { navn: 'Ekstra kylling', pris: '25 kr' },
-    { navn: 'Ekstra svinekød', pris: '25 kr' },
-    { navn: 'Ekstra oksekød', pris: '25 kr' },
-    { navn: 'Ekstra and', pris: '30 kr' },
-    { navn: 'Ekstra nudler', pris: '20 kr' },
-    { navn: 'Ekstra peanuts', pris: '10 kr' },
-    { navn: 'Ekstra sur-sød sauce', pris: '10 kr' },
-  ],
-}
+// Menudata (retter, priser, numre) bor i ../data/menu.ts — det er den eneste
+// kilde til menuen, delt af kundemenuen, bestillingsvisningen og printkortet.
