@@ -154,7 +154,7 @@ export const dishes: Dish[] = [
       { label: 'Med kylling', price: 95 },
       { label: 'Med rejer', price: 105 },
     ],
-    note: 'Kan serveres med ris eller risnudler.',
+    choices: ['Ris', 'Risnudler'],
     section: 'hovedretter',
   },
   // Nr. 18 og 19 hører til Hovedretter, selvom de står talmæssigt efter

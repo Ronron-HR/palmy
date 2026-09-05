@@ -1,3 +1,4 @@
+import { formatChoicesQuestion } from '../../data/menu'
 import NumberBadge from './NumberBadge'
 import PriceList from './PriceList'
 
@@ -21,7 +22,9 @@ function DishCard({ dish }) {
             <p className="mt-0.5 text-sm italic text-slate-dish/60">{dish.description}</p>
           )}
           {dish.choices && (
-            <p className="mt-0.5 text-sm text-green-deep/70">Vælg: {dish.choices.join(' / ')}</p>
+            <p className="mt-0.5 text-sm text-green-deep/70">
+              Vælg: {formatChoicesQuestion(dish.choices)}
+            </p>
           )}
           {dish.note && <p className="mt-0.5 text-sm italic text-slate-dish/50">{dish.note}</p>}
         </div>
