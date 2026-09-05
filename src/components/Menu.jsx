@@ -2,23 +2,6 @@ import { business, hours } from '../content'
 import { SECTIONS, getDishesBySection, getDisplayPrice, formatChoicesQuestion } from '../data/menu'
 import RingKnap from './RingKnap'
 import NumberBadge from './menu/NumberBadge'
-import Link from './Link'
-
-function ChevronIcon({ className }) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className={className}
-    >
-      <path d="M6 9l6 6 6-6" />
-    </svg>
-  )
-}
 
 function DishRow({ dish }) {
   return (
@@ -60,20 +43,24 @@ function Menu() {
           Menu
         </h2>
 
+        {/* Hele menukortet ligger fremme — ingen sektioner at klikke ud, og
+            intet link videre til /menu. Kunden skal kunne læse hver ret med
+            det samme. */}
         <div className="mt-12 divide-y divide-gold/30">
-          {SECTIONS.map(({ id, title }, index) => (
-            <details key={id} name="menu-category" open={index === 0} className="group py-4">
-              <summary className="flex cursor-pointer items-center justify-between marker:content-none [&::-webkit-details-marker]:hidden">
-                <span className="font-display text-xl font-semibold text-green-deep">
-                  {title}
-                </span>
-                <ChevronIcon className="h-4 w-4 flex-shrink-0 text-green-deep transition-transform duration-200 group-open:rotate-180" />
-              </summary>
-              <div className="pt-4">
-                <DishList dishes={getDishesBySection(id)} />
+          {SECTIONS.map(({ id, title, note }) => {
+            const sectionDishes = getDishesBySection(id)
+            if (sectionDishes.length === 0) return null
+
+            return (
+              <div key={id} className="py-6">
+                <h3 className="font-display text-xl font-semibold text-green-deep">{title}</h3>
+                {note && <p className="mt-1 text-sm italic text-green-deep/60">{note}</p>}
+                <div className="mt-2">
+                  <DishList dishes={sectionDishes} />
+                </div>
               </div>
-            </details>
-          ))}
+            )
+          })}
         </div>
 
         <div className="mt-16 text-center">
@@ -84,12 +71,6 @@ function Menu() {
           <p className="mt-3 text-sm text-green-deep/60">
             Vi tager imod bestillinger {hours.days.toLowerCase()} kl. {hours.time}.
           </p>
-          <Link
-            to="/menu"
-            className="mt-4 inline-block text-sm font-medium text-green-deep/70 underline decoration-gold/50 underline-offset-4 hover:text-green-deep"
-          >
-            Se hele menukortet →
-          </Link>
         </div>
       </div>
     </section>
