@@ -1,5 +1,5 @@
 import { business, hours } from '../content'
-import { SECTIONS, getDishesBySection, getDisplayPrice } from '../data/menu'
+import { SECTIONS, getDishesBySection, getDisplayPrice, formatChoicesQuestion } from '../data/menu'
 import RingKnap from './RingKnap'
 import NumberBadge from './menu/NumberBadge'
 import Link from './Link'
@@ -22,10 +22,17 @@ function ChevronIcon({ className }) {
 
 function DishRow({ dish }) {
   return (
-    <div className="flex items-center gap-3 py-4">
+    <div className="flex items-start gap-3 py-4">
       <NumberBadge number={dish.number} />
-      <div className="flex flex-1 items-baseline justify-between gap-4">
-        <span className="text-green-deep">{dish.name}</span>
+      <div className="flex flex-1 flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+        <div>
+          <span className="text-green-deep">{dish.name}</span>
+          {dish.choices && (
+            <p className="mt-0.5 text-sm text-green-deep/70">
+              Vælg: {formatChoicesQuestion(dish.choices)}
+            </p>
+          )}
+        </div>
         <span className="whitespace-nowrap font-medium text-green-deep">
           {getDisplayPrice(dish)}
         </span>
