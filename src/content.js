@@ -18,6 +18,7 @@ export const hours = {
     { day: 'Lørdag', time: '16:00–20:30' },
   ],
   note: 'Vi har kun åbent fredag og lørdag – så kig forbi, mens vi har åbent.',
+  preorderNote: 'Du kan ringe og forudbestille allerede fra kl. 15.00 – vi åbner og henter/serverer først kl. 16.00.',
 }
 
 export const frame = {

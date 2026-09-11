@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { business, kontakt } from '../content'
+import { business, hours, kontakt } from '../content'
 
 function MapPinIcon({ className }) {
   return (
@@ -35,6 +35,8 @@ function Kontakt() {
         >
           Ring nu – {business.phoneDisplay}
         </a>
+
+        <p className="mt-3 text-sm text-green-deep/60">{hours.preorderNote}</p>
 
         <p className="mt-8 text-lg text-green-deep/80">{business.address}</p>
 

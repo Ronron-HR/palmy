@@ -232,6 +232,7 @@ export const dishes: Dish[] = [
     price: 10,
     section: 'tilbehoer',
   },
+  { number: null, name: 'Reje chips', price: 10, section: 'tilbehoer' },
 ]
 
 // ── Nummer-integritet ────────────────────────────────────────

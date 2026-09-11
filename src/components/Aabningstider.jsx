@@ -20,6 +20,7 @@ function Aabningstider() {
         </div>
 
         <p className="mt-12 text-lg text-green-deep/80">{hours.note}</p>
+        <p className="mt-2 text-base text-green-deep/60">{hours.preorderNote}</p>
       </div>
     </section>
   )

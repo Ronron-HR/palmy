@@ -42,6 +42,7 @@ function Menu() {
           <p className="mt-3 text-sm text-green-deep/60">
             Vi tager imod bestillinger {hours.days.toLowerCase()} kl. {hours.time}.
           </p>
+          <p className="mt-1 text-sm text-green-deep/60">{hours.preorderNote}</p>
         </div>
       </div>
     </section>
