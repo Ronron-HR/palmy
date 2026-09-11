@@ -1,4 +1,4 @@
-import { hero, business } from '../content'
+import { hero, business, hours } from '../content'
 import RingKnap from './RingKnap'
 
 function Hero() {
@@ -32,6 +32,8 @@ function Hero() {
                 Hør vores historie
               </a>
             </div>
+
+            <p className="mt-4 text-sm text-cream/80">{hours.preorderNote}</p>
           </div>
         </div>
       </div>
