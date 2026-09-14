@@ -80,7 +80,7 @@ function SignaturRetter() {
                 ref={(node) => (slideRefs.current[index] = node)}
                 className="w-[84vw] max-w-sm shrink-0 snap-center sm:w-auto sm:max-w-none"
               >
-                <div className="group relative aspect-[4/5] overflow-hidden rounded-2xl bg-green-deep-light/40 shadow-lg ring-1 ring-cream/10">
+                <div className="group relative aspect-square overflow-hidden rounded-2xl bg-green-deep-light/40 shadow-lg ring-1 ring-cream/10">
                   <picture>
                     <source
                       type="image/webp"
@@ -90,7 +90,7 @@ function SignaturRetter() {
                     <img
                       src={`${IMG_BASE}/${item.image}-800.webp`}
                       width={800}
-                      height={1000}
+                      height={800}
                       alt={item.alt}
                       loading="lazy"
                       decoding="async"

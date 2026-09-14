@@ -17,10 +17,11 @@ const root = join(__dirname, '..')
 const srcDir = join(root, 'public', 'images', 'MAD BILLEDER')
 const outDir = join(root, 'public', 'images', 'signatur')
 
-// Ensartet portræt-ratio (bredde:højde). Fælles ratio => carousellen "hopper"
-// ikke, og vi undgår layout shift.
-const RATIO_W = 4
-const RATIO_H = 5
+// Ensartet kvadratisk ratio (1:1). Bred nok til at et liggende foto (nr. 4)
+// kan vise HELE tallerkenen uden at skære siderne af — og fælles ratio, så
+// carousellen ikke "hopper" og vi undgår layout shift.
+const RATIO_W = 1
+const RATIO_H = 1
 const WIDTHS = [800, 1200]
 const QUALITY = 74
 
@@ -37,7 +38,7 @@ const QUALITY = 74
 const IMAGES = [
   { file: '11A29F48-6ED2-47BE-B085-E8B58E8B9B55.jpg', out: 'nr3', cropBottom: 0, focusX: 0.5 },
   { file: '6638025D-3529-4B3A-B1C3-E3DCD2E1E37E.jpg', out: 'nr6', cropBottom: 0, focusX: 0.5 },
-  { file: 'IMG_0124.JPG', out: 'nr4', cropBottom: 0, focusX: 0.37 },
+  { file: 'IMG_0124.JPG', out: 'nr4', cropBottom: 0, focusX: 0.36 },
 ]
 
 // Beregner et udsnit i forholdet (rw:rh) inden for (w × h) med horisontalt fokus.
