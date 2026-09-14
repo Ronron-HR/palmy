@@ -1,4 +1,4 @@
-import { business, hours } from '../content'
+import { business, hours, menuInfo } from '../content'
 import { SECTIONS, getDishesBySection } from '../data/menu'
 import RingKnap from './RingKnap'
 import SectionHeader from './menu/SectionHeader'
@@ -15,6 +15,9 @@ function Menu() {
         <h2 className="text-center font-display text-3xl font-semibold text-green-deep sm:text-4xl">
           Menu
         </h2>
+        <p className="mx-auto mt-3 max-w-xl text-center text-sm text-green-deep/70">
+          {menuInfo.numberNote}
+        </p>
 
         <div className="mt-12">
           {SECTIONS.map((section) => {

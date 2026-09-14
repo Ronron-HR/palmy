@@ -107,7 +107,7 @@ export const dishes: Dish[] = [
   {
     number: 8,
     name: 'Risnudler med rejer og grøntsager',
-    description: 'Tom Yum Goong – stærk',
+    description: 'Tom Yum Goong',
     price: 95,
     spicy: true,
     section: 'hovedretter',
@@ -120,7 +120,7 @@ export const dishes: Dish[] = [
   },
   {
     number: 10,
-    name: 'Oksekød eller kylling med peberfrugt, løg og bambus i rød karry (Stærk)',
+    name: 'Oksekød eller kylling med peberfrugt, løg og bambus i rød karry',
     price: 95,
     spicy: true,
     choices: ['Oksekød', 'Kylling'],

@@ -34,6 +34,11 @@ export const hours = {
   pickupLine: 'Afhentning fra kl. 16.00 og frem til vi lukker kl. 20.30.',
 }
 
+export const menuInfo = {
+  numberNote:
+    'Numrene følger vores menukort – du kan bestille efter nummer, når du ringer.',
+}
+
 export const frame = {
   website: 'palmyspisested.com',
   tagline: 'Vietnamesisk mad med kærlighed',

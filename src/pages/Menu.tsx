@@ -1,4 +1,5 @@
 import { SECTIONS, getDishesBySection } from '../data/menu'
+import { menuInfo } from '../content'
 import SectionHeader from '../components/menu/SectionHeader'
 import DishCard from '../components/menu/DishCard'
 import Link from '../components/Link'
@@ -14,6 +15,7 @@ function MenuPage() {
             Menukort
           </h1>
           <p className="mt-3 text-green-deep/70">Palmy Spisested — vietnamesisk mad</p>
+          <p className="mx-auto mt-4 max-w-xl text-sm text-green-deep/70">{menuInfo.numberNote}</p>
         </div>
 
         <div className="mt-12 columns-1 gap-x-12 md:columns-2 [&>*]:break-inside-avoid">

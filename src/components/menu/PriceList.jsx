@@ -1,8 +1,10 @@
-// Viser en rets pris: enten ét fast beløb, eller en liste af varianter
-// (label + pris) når prisen afhænger af et valg med prisforskel.
+import { Fragment } from 'react'
+
+// Viser en rets pris: enten ét fast beløb, eller varianter i et 2-kolonne grid
+// (variantnavn venstre, pris højre) så variantpriserne flugter — både internt i
+// retten og med de faste priser i kolonnen ude til højre.
 function PriceList({ dish, size = 'normal' }) {
-  const priceClass =
-    size === 'large' ? 'text-2xl font-bold sm:text-3xl' : 'font-semibold'
+  const priceClass = size === 'large' ? 'text-2xl font-bold sm:text-3xl' : 'font-semibold'
 
   if (dish.price != null) {
     return <span className={`whitespace-nowrap text-red-warm ${priceClass}`}>{dish.price} kr</span>
@@ -10,12 +12,14 @@ function PriceList({ dish, size = 'normal' }) {
 
   if (dish.variants && dish.variants.length > 0) {
     return (
-      <div className="flex flex-col items-end gap-0.5">
+      <div className="grid grid-cols-[auto_auto] items-baseline gap-x-4 gap-y-0.5">
         {dish.variants.map((variant) => (
-          <div key={variant.label} className="flex items-baseline gap-2 whitespace-nowrap">
-            <span className="text-sm text-green-deep/70">{variant.label}</span>
-            <span className={`text-red-warm ${priceClass}`}>{variant.price} kr</span>
-          </div>
+          <Fragment key={variant.label}>
+            <span className="text-left text-sm text-green-deep/70">{variant.label}</span>
+            <span className={`whitespace-nowrap text-right text-red-warm ${priceClass}`}>
+              {variant.price} kr
+            </span>
+          </Fragment>
         ))}
       </div>
     )
