@@ -9,29 +9,37 @@ export const business = {
   googleMapsUrl: 'https://maps.google.com/?q=Hjortshøj+Stationsvej+6,+8530+Hjortshøj',
 }
 
+// ── Tider ét sted ────────────────────────────────────────────
+// De tre tidspunkter findes KUN her (HH:MM). Alle visningstekster og den live
+// åben/lukket-status (src/lib/openStatus.js) afledes af dem, så tiderne aldrig
+// kommer i utakt.
+const preorderStart = '15:00' // telefonen åbner for forudbestilling
+const openTime = '16:00' // første afhentning
+const closeTime = '20:30' // sidste afhentning / lukketid
+const dk = (t) => t.replace(':', '.') // '16:00' → '16.00' (dansk visning)
+
 export const hours = {
   days: 'Fredag & lørdag',
   daysShort: 'Fre & lør',
-  time: '16.00–20.30',
-  // Strukturerede tider — bruges både til visning og til den live åben/lukket-
-  // status (src/lib/openStatus.js). openDays: 0=søndag … 5=fredag, 6=lørdag.
+  // openDays: 0=søndag … 5=fredag, 6=lørdag.
   openDays: [5, 6],
-  preorderFromMinutes: 15 * 60, // kl. 15.00: telefonen åbner for forudbestilling
-  openFromMinutes: 16 * 60, // kl. 16.00: første afhentning
-  openUntilMinutes: 20 * 60 + 30, // kl. 20.30: sidste afhentning / lukketid
-  preorderFrom: '15.00',
-  openFrom: '16.00',
-  openUntil: '20.30',
+  // Manuelle lukkedage (ISO 'yyyy-mm-dd') der OVERTRUMFER openDays — slår både
+  // OPEN og PREORDER fra (helligdage, ferie). Fx: ['2025-12-24', '2025-12-25'].
+  closedDates: [],
+  preorderStart, // '15:00'
+  openTime, // '16:00'
+  closeTime, // '20:30'
+  time: `${dk(openTime)}–${dk(closeTime)}`,
   schedule: [
-    { day: 'Fredag', time: '16:00–20:30' },
-    { day: 'Lørdag', time: '16:00–20:30' },
+    { day: 'Fredag', time: `${openTime}–${closeTime}` },
+    { day: 'Lørdag', time: `${openTime}–${closeTime}` },
   ],
   note: 'Vi har kun åbent fredag og lørdag – så kig forbi, mens vi har åbent.',
-  // Kort linje brugt flere steder (hero, menu, kontakt).
-  preorderNote: 'Forudbestil fra kl. 15.00 – afhent fra kl. 16.00 og helt frem til lukketid kl. 20.30.',
+  // Kort linje brugt flere steder (menu, kontakt, footer).
+  preorderNote: `Forudbestil fra kl. ${dk(preorderStart)} – afhent fra kl. ${dk(openTime)} og helt frem til lukketid kl. ${dk(closeTime)}.`,
   // Todelt forklaring til Åbningstider-sektionen.
-  preorderLine: 'Ring og forudbestil allerede fra kl. 15.00.',
-  pickupLine: 'Afhentning fra kl. 16.00 og frem til vi lukker kl. 20.30.',
+  preorderLine: `Ring og forudbestil allerede fra kl. ${dk(preorderStart)}.`,
+  pickupLine: `Afhentning fra kl. ${dk(openTime)} og frem til vi lukker kl. ${dk(closeTime)}.`,
 }
 
 export const menuInfo = {

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { business } from '../content'
 import RingKnap from './RingKnap'
+import { useOpenStatus } from '../hooks/useOpenStatus'
 
 // Kun mobil: fast bar i bunden. Synlig når hero er scrollet forbi, og skjult
 // igen fra kontakt-sektionen og ned (så baren aldrig flimrer over eller dækker
@@ -8,6 +9,7 @@ import RingKnap from './RingKnap'
 // IntersectionObserver-flimmer nær bunden.
 function RingNuBar() {
   const [visible, setVisible] = useState(false)
+  const status = useOpenStatus()
 
   useEffect(() => {
     let frame = 0
@@ -55,7 +57,7 @@ function RingNuBar() {
       }`}
     >
       <RingKnap variant="green" track="bar" className="flex w-full">
-        Ring og bestil – {business.phoneDisplay}
+        {status.cta} – {business.phoneDisplay}
       </RingKnap>
     </div>
   )

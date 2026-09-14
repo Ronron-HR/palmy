@@ -1,8 +1,11 @@
-import { hero, business, hours } from '../content'
+import { hero, business } from '../content'
 import RingKnap from './RingKnap'
 import AabenStatus from './AabenStatus'
+import { useOpenStatus } from '../hooks/useOpenStatus'
 
 function Hero() {
+  const status = useOpenStatus()
+
   return (
     <section id="forside" className="relative">
       {/* LCP-billede: WebP med responsive varianter + JPG-fallback. Ingen
@@ -38,7 +41,7 @@ function Hero() {
 
             <div className="mt-8 flex flex-wrap gap-3">
               <RingKnap variant="gold" track="content">
-                Ring og bestil – {business.phoneDisplay}
+                {status.cta} – {business.phoneDisplay}
               </RingKnap>
               <a
                 href="#menu"
@@ -54,7 +57,9 @@ function Hero() {
               </a>
             </div>
 
-            <p className="mt-4 text-sm text-cream/80">{hours.preorderNote}</p>
+            {status.subLine && (
+              <p className="mt-4 text-sm text-cream/80">{status.subLine}</p>
+            )}
           </div>
         </div>
       </div>

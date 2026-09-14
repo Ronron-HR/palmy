@@ -1,15 +1,29 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { business, nav } from '../content'
 import { usePathname } from '../hooks/usePathname'
 import { trackCall } from '../lib/track'
 
 function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
+  const menuButtonRef = useRef(null)
   const pathname = usePathname()
   const onHome = pathname === '/'
   // Fra en underside skal ankre pege på forsiden først (/#…), så browseren
   // navigerer hjem og scroller til sektionen.
   const hrefFor = (hash) => (onHome ? hash : `/${hash}`)
+
+  // Escape lukker mobilmenuen og sender fokus tilbage til knappen.
+  useEffect(() => {
+    if (!isOpen) return
+    const onKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        setIsOpen(false)
+        menuButtonRef.current?.focus()
+      }
+    }
+    document.addEventListener('keydown', onKeyDown)
+    return () => document.removeEventListener('keydown', onKeyDown)
+  }, [isOpen])
 
   return (
     <header className="sticky top-0 z-50 bg-cream border-b border-green-deep/10">
@@ -50,20 +64,17 @@ function Navigation() {
           </a>
         </div>
 
-        <div className="flex items-center gap-3 md:hidden">
-          <a
-            href={`tel:${business.phone}`}
-            onClick={() => trackCall('header')}
-            className="rounded-full bg-green-deep px-4 py-2 text-sm font-semibold text-cream"
-          >
-            Ring nu
-          </a>
+        {/* Mobil: kun hamburger. Opkalds-CTA'en dækkes af den faste bund-bar,
+            så header-CTA'en er bevidst desktop-only (se md:flex-klyngen ovenfor). */}
+        <div className="flex items-center md:hidden">
           <button
+            ref={menuButtonRef}
             type="button"
-            aria-label="Åbn menu"
+            aria-label={isOpen ? 'Luk menu' : 'Åbn menu'}
             aria-expanded={isOpen}
+            aria-controls="mobil-menu"
             onClick={() => setIsOpen((open) => !open)}
-            className="flex h-9 w-9 flex-col items-center justify-center gap-1.5"
+            className="flex h-9 w-9 flex-col items-center justify-center gap-1.5 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-green-deep focus-visible:ring-offset-2 focus-visible:ring-offset-cream"
           >
             <span className="block h-0.5 w-6 bg-green-deep" />
             <span className="block h-0.5 w-6 bg-green-deep" />
@@ -73,13 +84,16 @@ function Navigation() {
       </div>
 
       {isOpen && (
-        <nav className="flex flex-col gap-1 border-t border-green-deep/10 px-4 pb-4 md:hidden">
+        <nav
+          id="mobil-menu"
+          className="flex flex-col gap-1 border-t border-green-deep/10 px-4 pb-4 md:hidden"
+        >
           {nav.map((item) => (
             <a
               key={item.href}
               href={hrefFor(item.href)}
               onClick={() => setIsOpen(false)}
-              className="rounded-lg px-2 py-3 text-base font-medium text-green-deep hover:bg-green-deep/5"
+              className="rounded-lg px-2 py-3 text-base font-medium text-green-deep hover:bg-green-deep/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-deep"
             >
               {item.label}
             </a>
