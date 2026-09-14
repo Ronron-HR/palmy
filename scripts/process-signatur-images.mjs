@@ -70,10 +70,12 @@ async function processOne(img) {
       const sq = focusCrop(meta.width, usableHeight, 1, 1, img.focusX)
       const cropped = await sharp(inputPath).rotate().extract(sq).toBuffer()
 
+      // Kraftig blur + mørk nedtoning, så top/bund læses som en diskret mørk
+      // skygge (ikke genkendelig "tåget" mad) — bedst på lille mobilskærm.
       const background = await sharp(cropped)
         .resize(width, height, { fit: 'cover', position: 'centre' })
-        .blur(26)
-        .modulate({ brightness: 0.82 })
+        .blur(42)
+        .modulate({ brightness: 0.48, saturation: 0.7 })
         .toBuffer()
       const foreground = await sharp(cropped)
         .resize(width, height, { fit: 'inside' })
