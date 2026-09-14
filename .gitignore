@@ -12,6 +12,11 @@ dist
 dist-ssr
 *.local
 
+# Rå kildefotos til Signaturretter — behandles lokalt af
+# scripts/process-signatur-images.mjs. De optimerede WebP i
+# public/images/signatur/ committes; originalerne skal ikke deployes.
+public/images/MAD BILLEDER/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

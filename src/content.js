@@ -42,6 +42,20 @@ export const hero = {
   subheading: 'Ring og bestil – vi har åbent fredag og lørdag, 16:00–20:30.',
 }
 
+// Kuraterede favoritter til foto-carousellen under heroen. `number` peger på
+// en ret i data/menu.ts — navn og pris hentes DERFRA (aldrig hardcode her), så
+// sektionen aldrig kan skride fra menukortet. `image` er filnavn-stammen i
+// /images/signatur/ (script: scripts/process-signatur-images.mjs).
+export const signatur = {
+  heading: 'Smag et par af favoritterne',
+  intro: 'Et lille udpluk fra kortet – frisklavet, som du får det hos os.',
+  dishes: [
+    { number: 3, image: 'nr3', alt: 'Stegte nudler med kylling, broccoli og gulerod på tallerken' },
+    { number: 6, image: 'nr6', alt: 'Sprødstegt and med ris og mørk kinesisk sød sauce' },
+    { number: 4, image: 'nr4', alt: 'Stegte nudler med oksekød og friske grøntsager' },
+  ],
+}
+
 export const historie = {
   image: '/images/placeholder-historie.jpg',
   paragraphs: [
