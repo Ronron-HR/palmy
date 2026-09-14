@@ -1,7 +1,7 @@
 // ÉNESTE KILDE TIL MENUDATA — Kundemenu, Bestillingsvisning og Printlayout
 // renderes alle ud fra dette ét sted. Ret KUN her.
 //
-// ⚠️ Numrene 1–19 er dem der står på det trykte kort. Stamkunder bestiller
+// ⚠️ Numrene 1–20 er dem der står på det trykte kort. Stamkunder bestiller
 // efter dem i telefonen. De må IKKE ændres, omnummereres eller sorteres om.
 // Numre er DATA, ikke visningsrækkefølge — retter renderes altid i deres
 // sektionsrækkefølge (array-rækkefølgen nedenfor), aldrig sorteret på nummer.
@@ -173,6 +173,12 @@ export const dishes: Dish[] = [
     price: 95,
     section: 'hovedretter',
   },
+  {
+    number: 20,
+    name: 'Kyllingspyd med Pomfritter',
+    price: 89,
+    section: 'hovedretter',
+  },
 
   // ── EKSTRA RETTER ────────────────────────────────────────
   {
@@ -237,8 +243,8 @@ export const dishes: Dish[] = [
 
 // ── Nummer-integritet ────────────────────────────────────────
 // Håndhæves i koden, ikke kun i en kommentar: fejler build/dev øjeblikkeligt
-// hvis to retter deler et nummer, eller hvis et nummer i 1–19 mangler.
-const REQUIRED_NUMBER_RANGE = { min: 1, max: 19 } as const
+// hvis to retter deler et nummer, eller hvis et nummer i 1–20 mangler.
+const REQUIRED_NUMBER_RANGE = { min: 1, max: 20 } as const
 
 function assertMenuNumberIntegrity(allDishes: Dish[]): void {
   const ownerOf = new Map<number, string>()
