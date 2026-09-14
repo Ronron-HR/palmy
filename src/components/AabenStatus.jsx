@@ -8,7 +8,7 @@ const styles = {
   dark: {
     open: 'bg-green-deep/10 text-green-deep ring-green-deep/20',
     preorder: 'bg-gold/15 text-green-deep ring-gold/40',
-    closed: 'bg-green-deep/5 text-green-deep/60 ring-green-deep/15',
+    closed: 'bg-green-deep/5 text-green-deep/70 ring-green-deep/15',
     dotLive: 'bg-green-deep',
     dotClosed: 'bg-green-deep/40',
   },

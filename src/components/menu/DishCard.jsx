@@ -19,7 +19,7 @@ function DishCard({ dish }) {
             )}
           </div>
           {dish.description && (
-            <p className="mt-0.5 text-sm italic text-slate-dish/60">{dish.description}</p>
+            <p className="mt-0.5 text-sm italic text-slate-dish/70">{dish.description}</p>
           )}
           {dish.choices && (
             <p className="mt-0.5 text-sm text-green-deep/70">

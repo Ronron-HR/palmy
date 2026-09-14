@@ -39,10 +39,10 @@ function Menu() {
           <RingKnap variant="green" className="mt-4 px-8 py-4 text-lg">
             Ring og bestil – {business.phoneDisplay}
           </RingKnap>
-          <p className="mt-3 text-sm text-green-deep/60">
+          <p className="mt-3 text-sm text-green-deep/70">
             Vi tager imod bestillinger {hours.days.toLowerCase()} kl. {hours.time}.
           </p>
-          <p className="mt-1 text-sm text-green-deep/60">{hours.preorderNote}</p>
+          <p className="mt-1 text-sm text-green-deep/70">{hours.preorderNote}</p>
         </div>
       </div>
     </section>

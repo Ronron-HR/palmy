@@ -11,7 +11,7 @@ function Navigation() {
   const hrefFor = (hash) => (onHome ? hash : `/${hash}`)
 
   return (
-    <header className="sticky top-0 z-50 bg-cream/95 backdrop-blur-sm border-b border-green-deep/10">
+    <header className="sticky top-0 z-50 bg-cream border-b border-green-deep/10">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6">
         <a
           href={onHome ? '#forside' : '/'}
@@ -35,7 +35,7 @@ function Navigation() {
         <div className="hidden items-center gap-4 md:flex">
           <a
             href={`tel:${business.phone}`}
-            className="text-sm font-normal text-green-deep/60 transition-colors hover:text-green-deep"
+            className="text-sm font-normal text-green-deep/70 transition-colors hover:text-green-deep"
           >
             {business.phoneDisplay}
           </a>

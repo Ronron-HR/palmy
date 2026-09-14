@@ -79,7 +79,7 @@ function Bestilling() {
     <div className="min-h-screen bg-cream">
       <div className="mx-auto max-w-3xl px-4 py-8 sm:px-6">
         <h1 className="font-display text-2xl font-bold text-green-deep">Bestilling</h1>
-        <p className="text-sm text-green-deep/60">Palmy Spisested — internt opslag</p>
+        <p className="text-sm text-green-deep/70">Palmy Spisested — internt opslag</p>
 
         <div className="relative mt-6">
           <input
@@ -134,7 +134,7 @@ function Bestilling() {
                     {dish.name}
                   </h2>
                   {dish.description && (
-                    <p className="mt-1 italic text-green-deep/60">{dish.description}</p>
+                    <p className="mt-1 italic text-green-deep/70">{dish.description}</p>
                   )}
                   {dish.spicy && (
                     <span className="mt-2 inline-block rounded bg-red-warm/10 px-2 py-1 text-sm font-bold uppercase tracking-wide text-red-warm">
@@ -156,7 +156,7 @@ function Bestilling() {
               )}
 
               {dish.note && (
-                <p className="mt-4 text-sm italic text-green-deep/60">{dish.note}</p>
+                <p className="mt-4 text-sm italic text-green-deep/70">{dish.note}</p>
               )}
 
               <div className="mt-6 border-t border-gold/20 pt-4">

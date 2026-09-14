@@ -36,7 +36,7 @@ function Kontakt() {
           Ring nu – {business.phoneDisplay}
         </a>
 
-        <p className="mt-3 text-sm text-green-deep/60">{hours.preorderNote}</p>
+        <p className="mt-3 text-sm text-green-deep/70">{hours.preorderNote}</p>
 
         <p className="mt-8 text-lg text-green-deep/80">{business.address}</p>
 
@@ -59,7 +59,7 @@ function Kontakt() {
             >
               <MapPinIcon className="h-8 w-8 text-green-deep/60" />
               <span className="font-medium text-green-deep">Vis kort</span>
-              <span className="text-sm text-green-deep/60">
+              <span className="text-sm text-green-deep/70">
                 Indlæser Google Maps først når du klikker
               </span>
             </button>
