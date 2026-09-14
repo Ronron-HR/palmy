@@ -26,6 +26,12 @@ function Hero() {
                 Ring og bestil – {business.phoneDisplay}
               </RingKnap>
               <a
+                href="#menu"
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-cream/70 px-6 py-3.5 text-base font-semibold text-cream transition-colors hover:bg-cream/10"
+              >
+                Se menuen
+              </a>
+              <a
                 href="#historie"
                 className="inline-flex items-center justify-center gap-2 rounded-full border border-cream/70 px-6 py-3.5 text-base font-semibold text-cream transition-colors hover:bg-cream/10"
               >

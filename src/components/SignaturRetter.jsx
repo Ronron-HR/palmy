@@ -51,7 +51,17 @@ function SignaturRetter() {
   if (slides.length === 0) return null
 
   return (
-    <section id="signaturretter" className="bg-cream py-16 sm:py-24">
+    <section
+      id="signaturretter"
+      className="bg-green-deep py-16 sm:py-24"
+      style={{
+        // Diskret guld-prikmønster på mørkegrøn — giver madfotoene kontrast
+        // og et roligt, premium-look uden kitsch.
+        backgroundColor: '#1f3a2e',
+        backgroundImage: 'radial-gradient(rgba(201, 162, 75, 0.11) 1px, transparent 1.6px)',
+        backgroundSize: '22px 22px',
+      }}
+    >
       <div
         ref={sectionRef}
         className={`transition-all duration-1000 ease-out ${
@@ -59,10 +69,10 @@ function SignaturRetter() {
         }`}
       >
         <div className="mx-auto max-w-5xl px-4 text-center sm:px-6">
-          <h2 className="font-display text-3xl font-semibold text-green-deep sm:text-4xl">
+          <h2 className="font-display text-3xl font-semibold text-cream sm:text-4xl">
             {signatur.heading}
           </h2>
-          <p className="mx-auto mt-4 max-w-xl text-base text-green-deep/70 sm:text-lg">
+          <p className="mx-auto mt-4 max-w-xl text-base text-cream/75 sm:text-lg">
             {signatur.intro}
           </p>
         </div>
@@ -80,7 +90,7 @@ function SignaturRetter() {
                 ref={(node) => (slideRefs.current[index] = node)}
                 className="w-[84vw] max-w-sm shrink-0 snap-center sm:w-auto sm:max-w-none"
               >
-                <div className="group relative aspect-[4/5] overflow-hidden rounded-2xl bg-green-deep/5 shadow-sm ring-1 ring-green-deep/10">
+                <div className="group relative aspect-[4/5] overflow-hidden rounded-2xl bg-green-deep-light/40 shadow-lg ring-1 ring-cream/10">
                   <picture>
                     <source
                       type="image/webp"
@@ -130,10 +140,32 @@ function SignaturRetter() {
               aria-label={`Vis ret ${index + 1} af ${slides.length}`}
               aria-current={index === active}
               className={`h-2 rounded-full transition-all ${
-                index === active ? 'w-6 bg-gold' : 'w-2 bg-green-deep/25'
+                index === active ? 'w-6 bg-gold' : 'w-2 bg-cream/30'
               }`}
             />
           ))}
+        </div>
+
+        {/* Peger videre ned til det fulde menukort. */}
+        <div className="mt-10 flex justify-center sm:mt-14">
+          <a
+            href="#menu"
+            className="group inline-flex flex-col items-center gap-2 text-xs font-semibold uppercase tracking-[0.25em] text-gold-light transition-colors hover:text-gold"
+          >
+            Menu nedenfor
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+              className="h-5 w-5 animate-bounce motion-reduce:animate-none"
+            >
+              <path d="M6 9l6 6 6-6" />
+            </svg>
+          </a>
         </div>
       </div>
     </section>
