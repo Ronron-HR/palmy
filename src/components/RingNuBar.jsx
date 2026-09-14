@@ -2,41 +2,48 @@ import { useEffect, useState } from 'react'
 import { business } from '../content'
 import RingKnap from './RingKnap'
 
-// Kun mobil: fast bar i bunden, synlig når hero er scrollet forbi og
-// hverken kontakt- eller footer-sektionen er på skærmen (så baren aldrig
-// dækker kontaktknappen eller footeren).
+// Kun mobil: fast bar i bunden. Synlig når hero er scrollet forbi, og skjult
+// igen fra kontakt-sektionen og ned (så baren aldrig flimrer over eller dækker
+// kontaktknappen/footeren). Ren scroll-baseret beregning — ingen
+// IntersectionObserver-flimmer nær bunden.
 function RingNuBar() {
   const [visible, setVisible] = useState(false)
 
   useEffect(() => {
-    const hero = document.getElementById('forside')
-    if (!hero) return
+    let frame = 0
 
-    let heroVisible = true
-    const bottomEls = ['kontakt', 'footer']
-      .map((id) => document.getElementById(id))
-      .filter(Boolean)
-    const bottomVisible = new Set()
-    const update = () => setVisible(!heroVisible && bottomVisible.size === 0)
+    const compute = () => {
+      frame = 0
+      const vh = window.innerHeight
+      const scrollY = window.scrollY
+      const viewportBottom = scrollY + vh
 
-    const heroObserver = new IntersectionObserver(([entry]) => {
-      heroVisible = entry.isIntersecting
-      update()
-    })
-    heroObserver.observe(hero)
+      // Vis først når man er scrollet et godt stykke forbi heroen.
+      const pastHero = scrollY > vh * 0.6
 
-    const bottomObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) bottomVisible.add(entry.target)
-        else bottomVisible.delete(entry.target)
-      })
-      update()
-    })
-    bottomEls.forEach((el) => bottomObserver.observe(el))
+      // Skjul fra kontakt-sektionen og ned (footeren ligger under den).
+      const kontakt = document.getElementById('kontakt')
+      const hideFrom = kontakt
+        ? kontakt.getBoundingClientRect().top + scrollY
+        : document.documentElement.scrollHeight
+      const reachedBottomZone = viewportBottom >= hideFrom + 80
+
+      setVisible(pastHero && !reachedBottomZone)
+    }
+
+    const onScroll = () => {
+      if (frame) return
+      frame = window.requestAnimationFrame(compute)
+    }
+
+    compute()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onScroll)
 
     return () => {
-      heroObserver.disconnect()
-      bottomObserver.disconnect()
+      if (frame) window.cancelAnimationFrame(frame)
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
     }
   }, [])
 

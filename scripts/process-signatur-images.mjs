@@ -37,7 +37,7 @@ const QUALITY = 74
 const IMAGES = [
   { file: '11A29F48-6ED2-47BE-B085-E8B58E8B9B55.jpg', out: 'nr3', cropBottom: 0, focusX: 0.5 },
   { file: '6638025D-3529-4B3A-B1C3-E3DCD2E1E37E.jpg', out: 'nr6', cropBottom: 0, focusX: 0.5 },
-  { file: 'IMG_0124.JPG', out: 'nr4', cropBottom: 0, focusX: 0.34, fit: 'blur' },
+  { file: 'IMG_0124.JPG', out: 'nr4', cropBottom: 0, focusX: 0.37 },
 ]
 
 // Beregner et udsnit i forholdet (rw:rh) inden for (w × h) med horisontalt fokus.
