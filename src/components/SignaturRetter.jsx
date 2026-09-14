@@ -51,17 +51,7 @@ function SignaturRetter() {
   if (slides.length === 0) return null
 
   return (
-    <section
-      id="signaturretter"
-      className="bg-green-deep py-16 sm:py-24"
-      style={{
-        // Diskret guld-prikmønster på mørkegrøn — giver madfotoene kontrast
-        // og et roligt, premium-look uden kitsch.
-        backgroundColor: '#1f3a2e',
-        backgroundImage: 'radial-gradient(rgba(201, 162, 75, 0.11) 1px, transparent 1.6px)',
-        backgroundSize: '22px 22px',
-      }}
-    >
+    <section id="signaturretter" className="bg-green-deep py-16 sm:py-24">
       <div
         ref={sectionRef}
         className={`transition-all duration-1000 ease-out ${
