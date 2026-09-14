@@ -56,7 +56,7 @@ export const dishes: Dish[] = [
   // ── FORRETTER ─────────────────────────────────────────────
   {
     number: 1,
-    name: 'Luksus Forårsruller',
+    name: 'Hjemmelavede Luksus Forårsruller',
     description: 'Med rejer, kylling, hakket oksekød, skinke og grøntsager',
     variants: [
       { label: '1 stk.', price: 45 },
@@ -66,7 +66,7 @@ export const dishes: Dish[] = [
   },
   {
     number: 2,
-    name: 'Fem Små Forårsruller',
+    name: 'Hjemmelavede Fem Små Forårsruller',
     description: 'Med sød chili sauce',
     price: 45,
     section: 'forretter',
