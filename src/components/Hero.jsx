@@ -1,5 +1,6 @@
 import { hero, business, hours } from '../content'
 import RingKnap from './RingKnap'
+import AabenStatus from './AabenStatus'
 
 function Hero() {
   return (
@@ -14,6 +15,7 @@ function Hero() {
       <div className="absolute inset-0 flex items-end sm:items-center">
         <div className="mx-auto w-full max-w-6xl px-4 pb-10 sm:px-6 sm:pb-0">
           <div className="max-w-xl">
+            <AabenStatus tone="light" className="mb-5" />
             <h1 className="font-display text-3xl font-semibold leading-tight text-cream sm:text-5xl">
               {hero.heading}
             </h1>

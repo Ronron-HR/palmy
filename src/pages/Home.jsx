@@ -5,6 +5,7 @@ import Historie from '../components/Historie'
 import Menu from '../components/Menu'
 import Aabningstider from '../components/Aabningstider'
 import Kontakt from '../components/Kontakt'
+import Footer from '../components/Footer'
 import RingNuBar from '../components/RingNuBar'
 
 function Home() {
@@ -17,6 +18,7 @@ function Home() {
       <Menu />
       <Aabningstider />
       <Kontakt />
+      <Footer />
       <RingNuBar />
     </>
   )

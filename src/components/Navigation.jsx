@@ -1,14 +1,20 @@
 import { useState } from 'react'
 import { business, nav } from '../content'
+import { usePathname } from '../hooks/usePathname'
 
 function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
+  const pathname = usePathname()
+  const onHome = pathname === '/'
+  // Fra en underside skal ankre pege på forsiden først (/#…), så browseren
+  // navigerer hjem og scroller til sektionen.
+  const hrefFor = (hash) => (onHome ? hash : `/${hash}`)
 
   return (
     <header className="sticky top-0 z-50 bg-cream/95 backdrop-blur-sm border-b border-green-deep/10">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6">
         <a
-          href="#forside"
+          href={onHome ? '#forside' : '/'}
           className="font-display text-xl font-semibold text-green-deep sm:text-2xl"
         >
           {business.name}
@@ -18,7 +24,7 @@ function Navigation() {
           {nav.map((item) => (
             <a
               key={item.href}
-              href={item.href}
+              href={hrefFor(item.href)}
               className="text-sm font-medium text-green-deep transition-colors hover:text-gold"
             >
               {item.label}
@@ -67,7 +73,7 @@ function Navigation() {
           {nav.map((item) => (
             <a
               key={item.href}
-              href={item.href}
+              href={hrefFor(item.href)}
               onClick={() => setIsOpen(false)}
               className="rounded-lg px-2 py-3 text-base font-medium text-green-deep hover:bg-green-deep/5"
             >

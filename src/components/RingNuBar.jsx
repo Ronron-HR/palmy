@@ -2,19 +2,22 @@ import { useEffect, useState } from 'react'
 import { business } from '../content'
 import RingKnap from './RingKnap'
 
-// Kun mobil: fast bar i bunden, synlig når hero er scrollet forbi
-// og kontaktsektionen ikke er på skærmen.
+// Kun mobil: fast bar i bunden, synlig når hero er scrollet forbi og
+// hverken kontakt- eller footer-sektionen er på skærmen (så baren aldrig
+// dækker kontaktknappen eller footeren).
 function RingNuBar() {
   const [visible, setVisible] = useState(false)
 
   useEffect(() => {
     const hero = document.getElementById('forside')
-    const kontakt = document.getElementById('kontakt')
     if (!hero) return
 
     let heroVisible = true
-    let kontaktVisible = false
-    const update = () => setVisible(!heroVisible && !kontaktVisible)
+    const bottomEls = ['kontakt', 'footer']
+      .map((id) => document.getElementById(id))
+      .filter(Boolean)
+    const bottomVisible = new Set()
+    const update = () => setVisible(!heroVisible && bottomVisible.size === 0)
 
     const heroObserver = new IntersectionObserver(([entry]) => {
       heroVisible = entry.isIntersecting
@@ -22,18 +25,18 @@ function RingNuBar() {
     })
     heroObserver.observe(hero)
 
-    let kontaktObserver = null
-    if (kontakt) {
-      kontaktObserver = new IntersectionObserver(([entry]) => {
-        kontaktVisible = entry.isIntersecting
-        update()
+    const bottomObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) bottomVisible.add(entry.target)
+        else bottomVisible.delete(entry.target)
       })
-      kontaktObserver.observe(kontakt)
-    }
+      update()
+    })
+    bottomEls.forEach((el) => bottomObserver.observe(el))
 
     return () => {
       heroObserver.disconnect()
-      kontaktObserver?.disconnect()
+      bottomObserver.disconnect()
     }
   }, [])
 

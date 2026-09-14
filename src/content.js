@@ -13,12 +13,25 @@ export const hours = {
   days: 'Fredag & lørdag',
   daysShort: 'Fre & lør',
   time: '16.00–20.30',
+  // Strukturerede tider — bruges både til visning og til den live åben/lukket-
+  // status (src/lib/openStatus.js). openDays: 0=søndag … 5=fredag, 6=lørdag.
+  openDays: [5, 6],
+  preorderFromMinutes: 15 * 60, // kl. 15.00: telefonen åbner for forudbestilling
+  openFromMinutes: 16 * 60, // kl. 16.00: første afhentning
+  openUntilMinutes: 20 * 60 + 30, // kl. 20.30: sidste afhentning / lukketid
+  preorderFrom: '15.00',
+  openFrom: '16.00',
+  openUntil: '20.30',
   schedule: [
     { day: 'Fredag', time: '16:00–20:30' },
     { day: 'Lørdag', time: '16:00–20:30' },
   ],
   note: 'Vi har kun åbent fredag og lørdag – så kig forbi, mens vi har åbent.',
-  preorderNote: 'Du kan ringe og forudbestille allerede fra kl. 15.00 – vi åbner og henter/serverer først kl. 16.00.',
+  // Kort linje brugt flere steder (hero, menu, kontakt).
+  preorderNote: 'Forudbestil fra kl. 15.00 – afhent fra kl. 16.00 og helt frem til lukketid kl. 20.30.',
+  // Todelt forklaring til Åbningstider-sektionen.
+  preorderLine: 'Ring og forudbestil allerede fra kl. 15.00.',
+  pickupLine: 'Afhentning fra kl. 16.00 og frem til vi lukker kl. 20.30.',
 }
 
 export const frame = {

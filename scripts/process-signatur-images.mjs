@@ -30,47 +30,68 @@ const QUALITY = 74
 //  focusX: horisontalt fokuspunkt 0..1 (0.5 = centreret). Bruges til at flytte
 //    udsnittet, når motivet ikke er centreret — fx IMG_0124 (landscape), hvor
 //    tallerkenen sidder til venstre og soya-skålen skal ud af billedet.
+//  fit: 'cover' (default) center-cropper til 4:5. 'blur' viser HELE motivet
+//    (kvadratisk udsnit) inde i 4:5-rammen med en blødt udtonet, uskarp
+//    udgave af billedet selv som top/bund-fyld — bruges når et landscape-foto
+//    (IMG_0124) ellers ville blive beskåret for tæt. Ingen AI, kun eget billede.
 const IMAGES = [
   { file: '11A29F48-6ED2-47BE-B085-E8B58E8B9B55.jpg', out: 'nr3', cropBottom: 0, focusX: 0.5 },
   { file: '6638025D-3529-4B3A-B1C3-E3DCD2E1E37E.jpg', out: 'nr6', cropBottom: 0, focusX: 0.5 },
-  { file: 'IMG_0124.JPG', out: 'nr4', cropBottom: 0, focusX: 0.38 },
+  { file: 'IMG_0124.JPG', out: 'nr4', cropBottom: 0, focusX: 0.34, fit: 'blur' },
 ]
 
-// Beregner et 4:5-udsnit inden for (w × h) med et horisontalt fokuspunkt.
-function coverCrop(w, h, focusX = 0.5) {
-  const targetRatio = RATIO_W / RATIO_H
+// Beregner et udsnit i forholdet (rw:rh) inden for (w × h) med horisontalt fokus.
+function focusCrop(w, h, rw, rh, focusX = 0.5) {
+  const targetRatio = rw / rh
   let cropW = w
   let cropH = Math.round(w / targetRatio)
   if (cropH > h) {
     cropH = h
     cropW = Math.round(h * targetRatio)
   }
-  const maxLeft = w - cropW
-  const left = Math.min(Math.max(Math.round(focusX * w - cropW / 2), 0), maxLeft)
-  return {
-    left,
-    top: Math.round((h - cropH) / 2),
-    width: cropW,
-    height: cropH,
-  }
+  const left = Math.min(Math.max(Math.round(focusX * w - cropW / 2), 0), w - cropW)
+  const top = Math.min(Math.max(Math.round(0.5 * h - cropH / 2), 0), h - cropH)
+  return { left, top, width: cropW, height: cropH }
 }
 
 async function processOne(img) {
   const inputPath = join(srcDir, img.file)
-  const base = sharp(inputPath).rotate() // respektér EXIF-orientering
-  const meta = await base.metadata()
-
+  const meta = await sharp(inputPath).rotate().metadata()
   const usableHeight = meta.height - (img.cropBottom || 0)
-  const region = coverCrop(meta.width, usableHeight, img.focusX)
 
   for (const width of WIDTHS) {
+    const height = Math.round((width * RATIO_H) / RATIO_W)
     const outName = `${img.out}-${width}.webp`
-    await sharp(inputPath)
-      .rotate()
-      .extract(region)
-      .resize({ width })
-      .webp({ quality: QUALITY })
-      .toFile(join(outDir, outName))
+    const outPath = join(outDir, outName)
+
+    if (img.fit === 'blur') {
+      // Kvadratisk udsnit om motivet (fjerner fx soya-skålen), så HELE
+      // tallerkenen er med — derefter contain i 4:5 med uskarp bagved.
+      const sq = focusCrop(meta.width, usableHeight, 1, 1, img.focusX)
+      const cropped = await sharp(inputPath).rotate().extract(sq).toBuffer()
+
+      const background = await sharp(cropped)
+        .resize(width, height, { fit: 'cover', position: 'centre' })
+        .blur(26)
+        .modulate({ brightness: 0.82 })
+        .toBuffer()
+      const foreground = await sharp(cropped)
+        .resize(width, height, { fit: 'inside' })
+        .toBuffer()
+
+      await sharp(background)
+        .composite([{ input: foreground, gravity: 'centre' }])
+        .webp({ quality: QUALITY })
+        .toFile(outPath)
+    } else {
+      const region = focusCrop(meta.width, usableHeight, RATIO_W, RATIO_H, img.focusX)
+      await sharp(inputPath)
+        .rotate()
+        .extract(region)
+        .resize({ width })
+        .webp({ quality: QUALITY })
+        .toFile(outPath)
+    }
     console.log(`  ✓ ${outName}`)
   }
 }

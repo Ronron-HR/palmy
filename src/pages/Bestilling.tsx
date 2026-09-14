@@ -9,7 +9,8 @@ import Link from '../components/Link'
 // opfølgende spørgsmål der skal stilles og hvad det koster. Ingen
 // animationer, ingen effekter — hurtig og kedelig med vilje.
 
-const ALL_NUMBERS = Array.from({ length: 19 }, (_, i) => i + 1)
+// Afledt fra menuen (ikke hardcodet), så nye numre automatisk kommer med.
+const ALL_NUMBERS = Array.from(dishesByNumber.keys()).sort((a, b) => a - b)
 const KEYPAD_KEYS = ['1', '2', '3', '4', '5', '6', '7', '8', '9', 'C', '0', '⌫']
 
 function normalize(value: string): string {
@@ -213,7 +214,7 @@ function Bestilling() {
           )}
         </div>
 
-        {/* Hele nummeroversigten 1–19 som kompakt klikbart grid. */}
+        {/* Hele nummeroversigten som kompakt klikbart grid. */}
         <div className="mt-10 border-t border-green-deep/10 pt-6">
           <p className="mb-3 text-xs font-bold uppercase tracking-wide text-green-deep/40">
             Alle numre
