@@ -37,7 +37,7 @@ function Hero() {
             </p>
 
             <div className="mt-8 flex flex-wrap gap-3">
-              <RingKnap variant="gold">
+              <RingKnap variant="gold" track="content">
                 Ring og bestil – {business.phoneDisplay}
               </RingKnap>
               <a

@@ -72,5 +72,16 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+
+    <!-- Cloudflare Web Analytics — cookieless, kræver ikke consent-banner.
+         INDSÆT TOKEN: Cloudflare-dashboard → Web Analytics → tilføj dette site
+         → kopiér token ind nedenfor (erstat REPLACE_WITH_TOKEN). Uden en gyldig
+         token opsamles ingen data. Alternativt kan Web Analytics slås til på
+         selve Cloudflare Pages-projektet, som auto-injicerer beacon'en. -->
+    <script
+      defer
+      src="https://static.cloudflareinsights.com/beacon.min.js"
+      data-cf-beacon='{"token": "REPLACE_WITH_TOKEN"}'
+    ></script>
   </body>
 </html>

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { business, nav } from '../content'
 import { usePathname } from '../hooks/usePathname'
+import { trackCall } from '../lib/track'
 
 function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
@@ -35,12 +36,14 @@ function Navigation() {
         <div className="hidden items-center gap-4 md:flex">
           <a
             href={`tel:${business.phone}`}
+            onClick={() => trackCall('header')}
             className="text-sm font-normal text-green-deep/70 transition-colors hover:text-green-deep"
           >
             {business.phoneDisplay}
           </a>
           <a
             href={`tel:${business.phone}`}
+            onClick={() => trackCall('header')}
             className="rounded-full bg-green-deep px-5 py-2.5 text-sm font-semibold text-cream transition-colors hover:bg-green-deep-light"
           >
             Ring nu
@@ -50,6 +53,7 @@ function Navigation() {
         <div className="flex items-center gap-3 md:hidden">
           <a
             href={`tel:${business.phone}`}
+            onClick={() => trackCall('header')}
             className="rounded-full bg-green-deep px-4 py-2 text-sm font-semibold text-cream"
           >
             Ring nu

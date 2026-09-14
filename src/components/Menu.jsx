@@ -39,7 +39,7 @@ function Menu() {
 
         <div className="mt-16 text-center">
           <p className="text-lg text-green-deep/80">Klar til at bestille?</p>
-          <RingKnap variant="green" className="mt-4 px-8 py-4 text-lg">
+          <RingKnap variant="green" track="content" className="mt-4 px-8 py-4 text-lg">
             Ring og bestil – {business.phoneDisplay}
           </RingKnap>
           <p className="mt-3 text-sm text-green-deep/70">

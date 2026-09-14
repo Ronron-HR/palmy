@@ -54,7 +54,7 @@ function RingNuBar() {
         visible ? 'translate-y-0' : 'translate-y-full'
       }`}
     >
-      <RingKnap variant="green" className="flex w-full">
+      <RingKnap variant="green" track="bar" className="flex w-full">
         Ring og bestil – {business.phoneDisplay}
       </RingKnap>
     </div>

@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { business, hours, kontakt } from '../content'
+import { trackCall } from '../lib/track'
 
 function MapPinIcon({ className }) {
   return (
@@ -31,6 +32,7 @@ function Kontakt() {
 
         <a
           href={`tel:${business.phone}`}
+          onClick={() => trackCall('content')}
           className="mt-10 inline-flex items-center justify-center rounded-full bg-green-deep px-10 py-4 text-lg font-semibold text-cream transition-colors hover:bg-green-deep-light"
         >
           Ring nu – {business.phoneDisplay}
