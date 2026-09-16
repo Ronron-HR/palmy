@@ -213,14 +213,17 @@ export function getRouteSeo(pathname) {
   }
 }
 
-// Ruter → filnavne i dist/ (Cloudflare Pages serverer /menu fra /menu/index.html
-// og bruger /404.html til alt, der ikke findes).
+// Ruter → filnavne i dist/. Cloudflare Pages serverer `menu.html` på /menu og
+// 308'er /menu/ → /menu — dvs. URL'en UDEN trailing slash bliver den rigtige,
+// præcis som canonical/sitemap siger. (Med `menu/index.html` ville Pages
+// gøre det omvendte og sende /menu videre til /menu/.) /404.html bruges til
+// alt, der ikke findes.
 export const PRERENDER_ROUTES = [
   { path: '/', file: 'index.html' },
-  { path: '/menu', file: 'menu/index.html' },
-  { path: '/privatliv', file: 'privatliv/index.html' },
-  { path: '/menu/print', file: 'menu/print/index.html' },
-  { path: '/bestilling', file: 'bestilling/index.html' },
+  { path: '/menu', file: 'menu.html' },
+  { path: '/privatliv', file: 'privatliv.html' },
+  { path: '/menu/print', file: 'menu/print.html' },
+  { path: '/bestilling', file: 'bestilling.html' },
   { path: '/404', file: '404.html' },
 ]
 
