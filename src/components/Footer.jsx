@@ -1,11 +1,20 @@
+import { useSyncExternalStore } from 'react'
 import { business, hours, frame } from '../content'
 import Link from './Link'
 
 // Professionel footer — kontakt, åbningstider, sidelinks og juridisk.
 // Sektions-ankre bruger plain <a href="/#..."> så de virker fra alle ruter
 // (browseren håndterer selv hash-scroll); side-ruter bruger intern Link.
+// Kolonnetitlerne er bevidst <p>, ikke headings: de er navigation, ikke
+// indhold, og skal ikke gentage sidens H2'er ("Kontakt", "Åbningstider").
+const colTitle = 'text-xs font-semibold uppercase tracking-[0.15em] text-gold'
+const subscribeNever = () => () => {}
+const currentYear = () => new Date().getFullYear()
+
 function Footer() {
-  const year = new Date().getFullYear()
+  // Årstal: build-året i den prerenderede HTML, klientens år efter hydration
+  // (useSyncExternalStore lader React skifte uden hydration-fejl ved nytår).
+  const year = useSyncExternalStore(subscribeNever, currentYear, currentYear)
 
   return (
     <footer id="footer" className="bg-green-deep text-cream/80">
@@ -15,23 +24,24 @@ function Footer() {
           <div>
             <p className="font-display text-xl font-semibold text-cream">{business.name}</p>
             <p className="mt-3 text-sm text-cream/70">{frame.tagline}</p>
+            <p className="mt-1 text-sm text-cream/70">
+              Vietnamesisk restaurant og takeaway i {business.city}
+            </p>
           </div>
 
           {/* Kontakt */}
           <div>
-            <h2 className="text-xs font-semibold uppercase tracking-[0.15em] text-gold">
-              Kontakt
-            </h2>
-            <ul className="mt-4 space-y-2 text-sm">
-              <li>
+            <p className={colTitle}>Kontakt</p>
+            <address className="mt-4 space-y-2 text-sm not-italic">
+              <p>
                 <a
-                  href={`tel:${business.phone}`}
+                  href={`tel:${business.phoneHref}`}
                   className="transition-colors hover:text-cream"
                 >
                   Tlf. {business.phoneDisplay}
                 </a>
-              </li>
-              <li>
+              </p>
+              <p>
                 <a
                   href={business.googleMapsUrl}
                   target="_blank"
@@ -40,15 +50,13 @@ function Footer() {
                 >
                   {business.address}
                 </a>
-              </li>
-            </ul>
+              </p>
+            </address>
           </div>
 
           {/* Åbningstider */}
           <div>
-            <h2 className="text-xs font-semibold uppercase tracking-[0.15em] text-gold">
-              Åbningstider
-            </h2>
+            <p className={colTitle}>Åbningstider</p>
             <ul className="mt-4 space-y-2 text-sm">
               {hours.schedule.map((entry) => (
                 <li key={entry.day} className="flex justify-between gap-4">
@@ -61,10 +69,8 @@ function Footer() {
           </div>
 
           {/* Sider */}
-          <div>
-            <h2 className="text-xs font-semibold uppercase tracking-[0.15em] text-gold">
-              Genveje
-            </h2>
+          <nav aria-label="Genveje">
+            <p className={colTitle}>Genveje</p>
             <ul className="mt-4 space-y-2 text-sm">
               <li>
                 <Link to="/" className="transition-colors hover:text-cream">
@@ -82,6 +88,11 @@ function Footer() {
                 </a>
               </li>
               <li>
+                <a href="/#aabningstider" className="transition-colors hover:text-cream">
+                  Åbningstider
+                </a>
+              </li>
+              <li>
                 <a href="/#kontakt" className="transition-colors hover:text-cream">
                   Find vej
                 </a>
@@ -92,7 +103,7 @@ function Footer() {
                 </Link>
               </li>
             </ul>
-          </div>
+          </nav>
         </div>
 
         <div className="mt-12 flex flex-col gap-2 border-t border-cream/10 pt-6 text-xs text-cream/50 sm:flex-row sm:items-center sm:justify-between">

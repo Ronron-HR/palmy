@@ -1,1 +1,9 @@
-/*    /index.html   200
+# Cloudflare Pages redirects.
+#
+# Ét kanonisk domæne: apex → www (301), så Google ikke ser to kopier af
+# sitet. Skal matche SITE_URL i src/seo.js, robots.txt og sitemap.xml.
+https://palmyspisested.com/* https://www.palmyspisested.com/:splat 301
+
+# Ingen SPA-fallback længere: alle ruter prerenderes til rigtige HTML-filer
+# ved build (scripts/prerender.mjs), og ukendte adresser får dist/404.html
+# med status 404 i stedet for forsiden med status 200.

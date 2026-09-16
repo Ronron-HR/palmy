@@ -1,6 +1,8 @@
 import { useOpenStatus } from '../hooks/useOpenStatus'
 
 // Live status-pille: OPEN (grøn prik), PREORDER (guld prik), CLOSED (grå prik).
+// UNKNOWN er den neutrale tilstand i den prerenderede HTML, før klienten har
+// beregnet den rigtige status (se hooks/useOpenStatus.js).
 // tone: 'dark' til lys baggrund (grøn tekst), 'light' til mørk baggrund (cream).
 const pill = {
   dark: {
@@ -17,12 +19,13 @@ const dotByState = {
   OPEN: 'bg-green-500',
   PREORDER: 'bg-gold',
   CLOSED: 'bg-neutral-400',
+  UNKNOWN: 'bg-neutral-400',
 }
 
 function AabenStatus({ tone = 'dark', className = '' }) {
   const status = useOpenStatus()
   const t = pill[tone] ?? pill.dark
-  const isLive = status.state !== 'CLOSED'
+  const isLive = status.state === 'OPEN' || status.state === 'PREORDER'
 
   return (
     <span
@@ -32,7 +35,7 @@ function AabenStatus({ tone = 'dark', className = '' }) {
     >
       <span
         aria-hidden="true"
-        className={`h-2 w-2 rounded-full ${dotByState[status.state]} ${
+        className={`h-2 w-2 rounded-full ${dotByState[status.state] ?? dotByState.CLOSED} ${
           status.state === 'OPEN' ? 'motion-safe:animate-pulse' : ''
         }`}
       />

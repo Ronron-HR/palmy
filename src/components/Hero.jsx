@@ -22,7 +22,7 @@ function Hero() {
           height={864}
           fetchPriority="high"
           decoding="async"
-          alt="Frisklavet vietnamesisk mad fra Palmy Spisested"
+          alt={hero.alt}
           className="h-[calc(100dvh-4rem)] min-h-[420px] w-full object-cover sm:h-[80vh]"
         />
       </picture>

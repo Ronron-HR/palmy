@@ -13,7 +13,7 @@ function Menu() {
     <section id="menu" className="bg-cream py-20 sm:py-28">
       <div className="mx-auto max-w-3xl px-4 sm:px-6">
         <h2 className="text-center font-display text-3xl font-semibold text-green-deep sm:text-4xl">
-          Menu
+          Vores menu
         </h2>
         <p className="mx-auto mt-3 max-w-xl text-center text-sm text-green-deep/70">
           {menuInfo.numberNote}

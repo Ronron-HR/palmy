@@ -23,7 +23,7 @@ function Privatliv() {
               <p className="mt-2 leading-relaxed">
                 {business.name}, {business.address}. Har du spørgsmål til denne politik, er du
                 velkommen til at ringe på{' '}
-                <a href={`tel:${business.phone}`} className="font-medium text-green-deep underline decoration-gold/50 underline-offset-4">
+                <a href={`tel:${business.phoneHref}`} className="font-medium text-green-deep underline decoration-gold/50 underline-offset-4">
                   {business.phoneDisplay}
                 </a>
                 .

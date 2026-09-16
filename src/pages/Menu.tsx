@@ -1,5 +1,5 @@
 import { SECTIONS, getDishesBySection } from '../data/menu'
-import { menuInfo } from '../content'
+import { business, hours, menuInfo } from '../content'
 import SectionHeader from '../components/menu/SectionHeader'
 import DishCard from '../components/menu/DishCard'
 import Link from '../components/Link'
@@ -8,14 +8,26 @@ import Link from '../components/Link'
 // i fast sektionsrækkefølge (aldrig sorteret på menunummer).
 function MenuPage() {
   return (
-    <section className="bg-cream py-16 sm:py-24">
+    <main id="indhold" className="bg-cream py-16 sm:py-24">
       <div className="mx-auto max-w-5xl px-4 sm:px-6">
         <div className="text-center">
           <h1 className="font-display text-4xl font-semibold text-green-deep sm:text-5xl">
             Menukort
           </h1>
-          <p className="mt-3 text-green-deep/70">Palmy Spisested — vietnamesisk mad</p>
+          <p className="mt-3 text-green-deep/70">
+            {business.name} – vietnamesisk mad og takeaway i {business.city}
+          </p>
           <p className="mx-auto mt-4 max-w-xl text-sm text-green-deep/70">{menuInfo.numberNote}</p>
+          <p className="mx-auto mt-2 max-w-xl text-sm text-green-deep/70">
+            Ring på{' '}
+            <a
+              href={`tel:${business.phoneHref}`}
+              className="font-medium text-green-deep underline decoration-gold/50 underline-offset-4"
+            >
+              {business.phoneDisplay}
+            </a>{' '}
+            – åbent {hours.daysLong} kl. {hours.time}.
+          </p>
         </div>
 
         <div className="mt-12 columns-1 gap-x-12 md:columns-2 [&>*]:break-inside-avoid">
@@ -51,7 +63,7 @@ function MenuPage() {
           </Link>
         </div>
       </div>
-    </section>
+    </main>
   )
 }
 

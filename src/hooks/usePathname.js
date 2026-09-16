@@ -1,9 +1,17 @@
 import { useEffect, useState } from 'react'
 
 // Minimal pathname-router — ingen ny afhængighed. Dækker de faste ruter
-// '/', '/menu', '/bestilling' og '/menu/print' som App.jsx slår op i.
+// '/', '/menu', '/privatliv', '/bestilling' og '/menu/print' som App.jsx slår
+// op i. Alt andet renderes som 404.
 
 let patched = false
+
+// Ved prerendering (scripts/prerender.mjs) findes der intet window; entry-server
+// sætter ruten her, før hver side renderes til statisk HTML.
+let ssrPathname = '/'
+export function setSsrPathname(pathname) {
+  ssrPathname = pathname
+}
 
 function patchHistory() {
   if (patched || typeof window === 'undefined') return
@@ -28,11 +36,14 @@ function patchHistory() {
 export function navigate(path) {
   if (typeof window === 'undefined') return
   window.history.pushState({}, '', path)
+  // Ny side skal starte fra toppen — ellers lander man midt på siden, når man
+  // fx klikker "Menukort" i footeren.
+  window.scrollTo(0, 0)
 }
 
 export function usePathname() {
   const [pathname, setPathname] = useState(() =>
-    typeof window === 'undefined' ? '/' : window.location.pathname,
+    typeof window === 'undefined' ? ssrPathname : window.location.pathname,
   )
 
   useEffect(() => {

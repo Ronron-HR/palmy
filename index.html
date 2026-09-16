@@ -2,14 +2,18 @@
 <html lang="da">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="Autentisk vietnamesisk mad lavet med kærlighed. Palmy Spisested har åbent fredag og lørdag i Hjortshøj – ring og bestil, eller kom forbi."
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="theme-color" content="#1f3a2e" />
+
+    <!-- Skrifttyper: <link> i stedet for CSS @import, så browseren finder dem
+         med det samme (ikke først efter CSS-bundtet er hentet og parset). -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600&display=swap"
     />
-    <link rel="canonical" href="https://palmyspisested.com/" />
-    <title>Palmy Spisested – Vietnamesisk mad i Hjortshøj</title>
 
     <!-- Forudindlæs LCP-hero (rette responsive variant vælges af browseren) -->
     <link
@@ -21,53 +25,31 @@
       imagesizes="100vw"
     />
 
-    <meta property="og:type" content="restaurant" />
-    <meta property="og:title" content="Palmy Spisested – Vietnamesisk mad i Hjortshøj" />
+    <!-- SEO-BLOK: erstattes pr. rute af scripts/prerender.mjs ved build
+         (kilde: src/seo.js). Værdierne herunder er forsidens og bruges kun i
+         dev-serveren. Ret i src/seo.js — ikke her. -->
+    <!--seo:start-->
+    <title>Palmy Spisested | Vietnamesisk restaurant i Hjortshøj</title>
+    <meta
+      name="description"
+      content="Palmy Spisested i Hjortshøj serverer frisklavet vietnamesisk mad. Se menuen, find åbningstider og ring og bestil takeaway – vi har åbent fredag og lørdag."
+    />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://www.palmyspisested.com/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Palmy Spisested" />
+    <meta property="og:locale" content="da_DK" />
+    <meta property="og:title" content="Palmy Spisested | Vietnamesisk restaurant i Hjortshøj" />
     <meta
       property="og:description"
-      content="Autentisk vietnamesisk mad lavet med kærlighed. Palmy Spisested har åbent fredag og lørdag i Hjortshøj – ring og bestil, eller kom forbi."
+      content="Palmy Spisested i Hjortshøj serverer frisklavet vietnamesisk mad. Se menuen, find åbningstider og ring og bestil takeaway – vi har åbent fredag og lørdag."
     />
-    <meta property="og:url" content="https://palmyspisested.com/" />
-    <meta property="og:image" content="https://palmyspisested.com/images/palmy-hero-og.jpg" />
+    <meta property="og:url" content="https://www.palmyspisested.com/" />
+    <meta property="og:image" content="https://www.palmyspisested.com/images/palmy-hero-og.jpg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:locale" content="da_DK" />
     <meta name="twitter:card" content="summary_large_image" />
-
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "Restaurant",
-        "name": "Palmy Spisested",
-        "servesCuisine": "Vietnamese",
-        "url": "https://palmyspisested.com/",
-        "image": "https://palmyspisested.com/images/palmy-hero-1200.webp",
-        "telephone": "+4581754299",
-        "priceRange": "89-120 kr",
-        "acceptsReservations": false,
-        "hasMenu": "https://palmyspisested.com/#menu",
-        "address": {
-          "@type": "PostalAddress",
-          "streetAddress": "Hjortshøj Stationsvej 6",
-          "postalCode": "8530",
-          "addressLocality": "Hjortshøj",
-          "addressCountry": "DK"
-        },
-        "geo": {
-          "@type": "GeoCoordinates",
-          "latitude": 56.2449015,
-          "longitude": 10.2683485
-        },
-        "openingHoursSpecification": [
-          {
-            "@type": "OpeningHoursSpecification",
-            "dayOfWeek": ["Friday", "Saturday"],
-            "opens": "16:00",
-            "closes": "20:30"
-          }
-        ]
-      }
-    </script>
+    <!--seo:end-->
   </head>
   <body>
     <div id="root"></div>

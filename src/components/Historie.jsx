@@ -33,7 +33,7 @@ function Historie() {
     <section id="historie" className="relative bg-cream">
       {/* Mobil: stablet komposition, telefon er mest fremtrædende */}
       <div className="flex flex-col items-center gap-2 bg-green-deep px-6 py-7 text-center lg:hidden">
-        <a href={`tel:${business.phone}`} className="text-xl font-semibold text-cream">
+        <a href={`tel:${business.phoneHref}`} className="text-xl font-semibold text-cream">
           {business.phoneDisplay}
         </a>
         <span className="text-sm text-cream/80">{business.address}</span>
@@ -71,7 +71,7 @@ function Historie() {
           </div>
 
           <h2 className="font-display text-3xl font-semibold text-green-deep sm:text-4xl">
-            Historien om Palmy
+            {historie.heading}
           </h2>
 
           <div className="mt-8 flex flex-col gap-6">

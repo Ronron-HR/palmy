@@ -13,7 +13,7 @@ const variants = {
 function RingKnap({ variant = 'green', className = '', children, track }) {
   return (
     <a
-      href={`tel:${business.phone}`}
+      href={`tel:${business.phoneHref}`}
       onClick={track ? () => trackCall(track) : undefined}
       className={`inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 text-base font-semibold transition-colors ${variants[variant]} ${className}`}
     >
