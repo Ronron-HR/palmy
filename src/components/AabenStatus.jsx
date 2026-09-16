@@ -1,44 +1,32 @@
 import { useOpenStatus } from '../hooks/useOpenStatus'
 
-// Live status-pille: OPEN (grøn prik), PREORDER (guld prik), CLOSED (grå prik).
-// UNKNOWN er den neutrale tilstand i den prerenderede HTML, før klienten har
-// beregnet den rigtige status (se hooks/useOpenStatus.js).
+// Live status-pille — vises KUN når der sker noget: PREORDER (guld prik, fra
+// kl. 15.00 på åbningsdage) og OPEN (grøn pulserende prik). Når der er lukket
+// (CLOSED) og i den prerenderede HTML (UNKNOWN) renderes ingenting; heroens
+// underlinje fortæller i stedet, hvornår vi næste gang tager imod bestillinger.
 // tone: 'dark' til lys baggrund (grøn tekst), 'light' til mørk baggrund (cream).
 const pill = {
-  dark: {
-    live: 'bg-gold/15 text-green-deep ring-gold/40',
-    closed: 'bg-green-deep/5 text-green-deep/70 ring-green-deep/15',
-  },
-  light: {
-    live: 'bg-gold/20 text-cream ring-gold/40',
-    closed: 'bg-cream/10 text-cream/75 ring-cream/25',
-  },
+  dark: 'bg-gold/15 text-green-deep ring-gold/40',
+  light: 'bg-gold/20 text-cream ring-gold/40',
 }
 
 const dotByState = {
-  OPEN: 'bg-green-500',
+  OPEN: 'bg-green-500 motion-safe:animate-pulse',
   PREORDER: 'bg-gold',
-  CLOSED: 'bg-neutral-400',
-  UNKNOWN: 'bg-neutral-400',
 }
 
 function AabenStatus({ tone = 'dark', className = '' }) {
   const status = useOpenStatus()
-  const t = pill[tone] ?? pill.dark
   const isLive = status.state === 'OPEN' || status.state === 'PREORDER'
+  if (!isLive) return null
 
   return (
     <span
       className={`inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-sm font-semibold ring-1 ${
-        isLive ? t.live : t.closed
+        pill[tone] ?? pill.dark
       } ${className}`}
     >
-      <span
-        aria-hidden="true"
-        className={`h-2 w-2 rounded-full ${dotByState[status.state] ?? dotByState.CLOSED} ${
-          status.state === 'OPEN' ? 'motion-safe:animate-pulse' : ''
-        }`}
-      />
+      <span aria-hidden="true" className={`h-2 w-2 rounded-full ${dotByState[status.state]}`} />
       {status.label}
     </span>
   )
