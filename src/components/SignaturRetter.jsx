@@ -51,7 +51,7 @@ function SignaturRetter() {
   if (slides.length === 0) return null
 
   return (
-    <section id="signaturretter" className="bg-green-deep py-16 sm:py-24">
+    <section id="signaturretter" className="bg-[#23372a] py-16 sm:py-24">
       <div
         ref={sectionRef}
         className={`transition-all duration-1000 ease-out ${
