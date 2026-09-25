@@ -1,7 +1,7 @@
 // ÉNESTE KILDE TIL MENUDATA — Kundemenu, Bestillingsvisning og Printlayout
 // renderes alle ud fra dette ét sted. Ret KUN her.
 //
-// ⚠️ Numrene 1–20 er dem der står på det trykte kort. Stamkunder bestiller
+// ⚠️ Numrene 1–21 er dem der står på det trykte kort. Stamkunder bestiller
 // efter dem i telefonen. De må IKKE ændres, omnummereres eller sorteres om.
 // Numre er DATA, ikke visningsrækkefølge — retter renderes altid i deres
 // sektionsrækkefølge (array-rækkefølgen nedenfor), aldrig sorteret på nummer.
@@ -67,7 +67,8 @@ export const dishes: Dish[] = [
   {
     number: 2,
     name: 'Hjemmelavede Fem Små Forårsruller',
-    description: 'Med sød chili sauce',
+    description:
+      'Med hakket svinekød, æg, løg, hvidløgspulver, asiatiske svampe og gulerødder. Serveres med sød chilisauce.',
     price: 45,
     section: 'forretter',
   },
@@ -94,6 +95,7 @@ export const dishes: Dish[] = [
   {
     number: 6,
     name: 'Stegt and med ris eller nudler og kinesisk sød sauce',
+    description: 'Med champignon, løg, porre og rød og grøn peberfrugt',
     price: 115,
     choices: ['Ris', 'Nudler'],
     section: 'hovedretter',
@@ -107,7 +109,8 @@ export const dishes: Dish[] = [
   {
     number: 8,
     name: 'Risnudler med rejer og grøntsager',
-    description: 'Tom Yum Goong',
+    description:
+      'Tom Yum Goong – med løg, porre, bambusskud, majs, rød chili og svampe',
     price: 95,
     spicy: true,
     section: 'hovedretter',
@@ -143,7 +146,7 @@ export const dishes: Dish[] = [
     number: 12,
     name: 'Vietnamesisk Bún Special',
     description:
-      'Grillet svinekød, hjemmelavede forårsruller, friske grøntsager, peanuts og fiskesauce',
+      'Grillet svinekød, hjemmelavede forårsruller, friske grøntsager, peanuts og hjemmelavet fiskesauce med chili, hvidløg og gulerødder',
     price: 110,
     section: 'hovedretter',
   },
@@ -177,6 +180,18 @@ export const dishes: Dish[] = [
     number: 20,
     name: 'Kyllingspyd med Pomfritter',
     price: 89,
+    section: 'hovedretter',
+  },
+  {
+    number: 21,
+    name: 'Grøn karry med risnudler eller ris',
+    description:
+      'Med kokosmælk, svampe, bambusskud, majs, rød og grøn peberfrugt, porre og løg',
+    variants: [
+      { label: 'Med kylling', price: 95 },
+      { label: 'Med oksekød', price: 100 },
+      { label: 'Med and', price: 110 },
+    ],
     section: 'hovedretter',
   },
 
@@ -249,8 +264,8 @@ export const dishes: Dish[] = [
 
 // ── Nummer-integritet ────────────────────────────────────────
 // Håndhæves i koden, ikke kun i en kommentar: fejler build/dev øjeblikkeligt
-// hvis to retter deler et nummer, eller hvis et nummer i 1–20 mangler.
-const REQUIRED_NUMBER_RANGE = { min: 1, max: 20 } as const
+// hvis to retter deler et nummer, eller hvis et nummer i 1–21 mangler.
+const REQUIRED_NUMBER_RANGE = { min: 1, max: 21 } as const
 
 function assertMenuNumberIntegrity(allDishes: Dish[]): void {
   const ownerOf = new Map<number, string>()
