@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { signatur } from '../content'
 import { dishesByNumber, getDisplayPrice } from '../data/menu'
-import { useInView } from '../hooks/useInView'
 import NumberBadge from './menu/NumberBadge'
 
 // Kuraterede favoritter som mobile-first swipe-carousel lige under heroen.
@@ -17,7 +16,6 @@ const slides = signatur.dishes
   .filter((item) => item.dish)
 
 function SignaturRetter() {
-  const [sectionRef, inView] = useInView()
   const trackRef = useRef(null)
   const slideRefs = useRef([])
   const [active, setActive] = useState(0)
@@ -45,42 +43,38 @@ function SignaturRetter() {
 
   function goTo(index) {
     const node = slideRefs.current[index]
-    if (node) node.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' })
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (node) node.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', inline: 'center', block: 'nearest' })
   }
 
   if (slides.length === 0) return null
 
   return (
-    <section id="signaturretter" className="bg-[#23372a] py-16 sm:py-24">
-      <div
-        ref={sectionRef}
-        className={`transition-all duration-1000 ease-out ${
-          inView ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'
-        }`}
-      >
-        <div className="mx-auto max-w-5xl px-4 text-center sm:px-6">
-          <h2 className="font-display text-3xl font-semibold text-cream sm:text-4xl">
+    <section id="signaturretter" className="bg-green-hero py-14 sm:py-20">
+      <div>
+        <div className="mx-auto max-w-5xl px-4 sm:px-6">
+          <h2 className="font-display text-3xl font-semibold tracking-[-0.01em] text-cream sm:text-4xl">
             {signatur.heading}
           </h2>
-          <p className="mx-auto mt-4 max-w-xl text-base text-cream/75 sm:text-lg">
-            {signatur.intro}
-          </p>
+          <p className="mt-3 max-w-xl text-base text-cream/80 sm:text-lg">{signatur.intro}</p>
         </div>
 
         {/* Mobil: swipe-carousel (scroll-snap). Desktop: 3-kolonne grid. */}
         <div
           ref={trackRef}
-          className="mt-10 flex snap-x snap-mandatory gap-4 overflow-x-auto px-[8vw] pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:mx-auto sm:mt-12 sm:grid sm:max-w-5xl sm:snap-none sm:grid-cols-3 sm:gap-6 sm:overflow-visible sm:px-6"
+          tabIndex={0}
+          role="region"
+          aria-label="Udvalgte retter"
+          className="mt-8 flex snap-x snap-mandatory gap-4 overflow-x-auto px-[8vw] pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:mx-auto sm:mt-12 sm:grid sm:max-w-5xl sm:snap-none sm:grid-cols-3 sm:gap-6 sm:overflow-visible sm:px-6"
         >
           {slides.map((item, index) => {
-            const isActive = index === active
             return (
               <figure
                 key={item.number}
                 ref={(node) => (slideRefs.current[index] = node)}
                 className="w-[84vw] max-w-sm shrink-0 snap-center sm:w-auto sm:max-w-none"
               >
-                <div className="group relative aspect-square overflow-hidden rounded-2xl bg-green-deep-light/40 shadow-lg ring-1 ring-cream/10">
+                <div className="aspect-square overflow-hidden rounded-md bg-green-deep-light/40">
                   <picture>
                     <source
                       type="image/webp"
@@ -94,67 +88,58 @@ function SignaturRetter() {
                       alt={item.alt}
                       loading="lazy"
                       decoding="async"
-                      className={`h-full w-full object-cover transition-transform duration-700 ease-out motion-reduce:transform-none sm:group-hover:scale-105 ${
-                        isActive ? 'scale-105 sm:scale-100' : 'scale-100'
-                      }`}
+                      className="h-full w-full object-cover"
                     />
                   </picture>
-
-                  {/* Grøn bund-gradient for læsbar tekst, som i heroen. */}
-                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-green-deep/85 via-green-deep/10 to-transparent" />
-
-                  <figcaption className="absolute inset-x-0 bottom-0 flex items-center gap-3 p-4 sm:p-5">
-                    <NumberBadge number={item.dish.number} size="large" />
-                    <div className="min-w-0 text-left">
-                      <p className="font-display text-lg font-semibold leading-tight text-cream sm:text-xl">
-                        {item.dish.name}
-                      </p>
-                      <p className="mt-0.5 text-sm font-medium text-gold-light">
-                        {getDisplayPrice(item.dish)}
-                      </p>
-                    </div>
-                  </figcaption>
                 </div>
+                {/* Billedtekst under fotoet — maden dækkes ikke af tekst/gradient. */}
+                <figcaption className="mt-3 grid grid-cols-[auto_1fr] items-start gap-x-3 text-left">
+                  <span className="pt-0.5">
+                    <NumberBadge number={item.dish.number} />
+                  </span>
+                  <span>
+                    <span className="block font-display text-lg font-semibold leading-snug text-cream">
+                      {item.dish.name}
+                    </span>
+                    <span className="mt-0.5 block text-sm font-semibold tabular-nums text-gold-light">
+                      {getDisplayPrice(item.dish)}
+                    </span>
+                  </span>
+                </figcaption>
               </figure>
             )
           })}
         </div>
 
         {/* Diskrete dots — kun på mobil, hvor carousellen scroller. */}
-        <div className="mt-6 flex justify-center gap-2 sm:hidden">
+        {/* Diskrete dots — kun på mobil. Selve prikken er lille, men
+            trykfladen er 44px høj. */}
+        <div className="mt-3 flex justify-center sm:hidden">
           {slides.map((item, index) => (
             <button
               key={item.number}
               type="button"
               onClick={() => goTo(index)}
               aria-label={`Vis ret ${index + 1} af ${slides.length}`}
-              aria-current={index === active}
-              className={`h-2 rounded-full transition-all ${
-                index === active ? 'w-6 bg-gold' : 'w-2 bg-cream/30'
-              }`}
-            />
+              aria-current={index === active ? 'true' : undefined}
+              className="flex h-11 w-9 items-center justify-center"
+            >
+              <span
+                aria-hidden="true"
+                className={`block h-2 rounded-full transition-[width,background-color] duration-200 ${
+                  index === active ? 'w-6 bg-gold' : 'w-2 bg-cream/40'
+                }`}
+              />
+            </button>
           ))}
         </div>
 
-        {/* Peger videre ned til det fulde menukort. */}
-        <div className="mt-10 flex justify-center sm:mt-14">
+        <div className="mx-auto mt-6 max-w-5xl px-4 sm:mt-10 sm:px-6">
           <a
             href="#menu"
-            className="group inline-flex flex-col items-center gap-2 text-xs font-semibold uppercase tracking-[0.25em] text-gold-light transition-colors hover:text-gold"
+            className="inline-flex min-h-11 items-center font-semibold text-gold-light underline decoration-gold/60 underline-offset-4 transition-colors hover:text-cream"
           >
-            Menu nedenfor
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
-              className="h-5 w-5 animate-bounce motion-reduce:animate-none"
-            >
-              <path d="M6 9l6 6 6-6" />
-            </svg>
+            Se hele menukortet
           </a>
         </div>
       </div>

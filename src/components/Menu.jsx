@@ -1,51 +1,34 @@
 import { business, hours, menuInfo } from '../content'
-import { SECTIONS, getDishesBySection } from '../data/menu'
 import RingKnap from './RingKnap'
-import SectionHeader from './menu/SectionHeader'
-import DishCard from './menu/DishCard'
+import MenuSections from './menu/MenuSections'
 
-// Forsidens menu er hele menukortet: alle sektioner ligger fremme, der er
-// intet at klikke ud og intet link videre. Retterne renderes med samme
-// DishCard som /menu og print-versionen — beskrivelse, valg-linje og fulde
-// prislinjer — så de tre visninger aldrig kan skride fra hinanden.
+// Forsidens menu er hele menukortet: alle sektioner ligger fremme. Retterne
+// renderes med samme MenuSections/DishCard som /menu (og DishCard i print),
+// så visningerne aldrig kan skride fra hinanden.
 function Menu() {
   return (
-    <section id="menu" className="bg-cream py-20 sm:py-28">
-      <div className="mx-auto max-w-3xl px-4 sm:px-6">
-        <h2 className="text-center font-display text-3xl font-semibold text-green-deep sm:text-4xl">
-          Vores menu
+    <section id="menu" aria-labelledby="menu-titel" className="bg-cream pb-16 pt-2 sm:pb-24 sm:pt-4">
+      <div className="mx-auto max-w-5xl px-4 sm:px-6 [&>*]:max-w-3xl">
+        <h2
+          id="menu-titel"
+          className="font-display text-3xl font-semibold tracking-[-0.01em] text-green-deep sm:text-4xl"
+        >
+          Menukort
         </h2>
-        <p className="mx-auto mt-3 max-w-xl text-center text-sm text-green-deep/70">
-          {menuInfo.numberNote}
-        </p>
+        <p className="mt-3 max-w-xl text-sm text-green-deep/75">{menuInfo.numberNote}</p>
 
-        <div className="mt-12">
-          {SECTIONS.map((section) => {
-            const sectionDishes = getDishesBySection(section.id)
-            if (sectionDishes.length === 0) return null
-
-            return (
-              <div key={section.id} className="mb-10">
-                <SectionHeader title={section.title} note={section.note} />
-                <div className="divide-y divide-gold/20">
-                  {sectionDishes.map((dish) => (
-                    <DishCard key={`${dish.section}-${dish.number ?? dish.name}`} dish={dish} />
-                  ))}
-                </div>
-              </div>
-            )
-          })}
+        <div className="mt-6">
+          <MenuSections idPrefix="menu" />
         </div>
 
-        <div className="mt-16 text-center">
-          <p className="text-lg text-green-deep/80">Klar til at bestille?</p>
-          <RingKnap variant="green" track="content" className="mt-4 px-8 py-4 text-lg">
-            Ring og bestil – {business.phoneDisplay}
-          </RingKnap>
-          <p className="mt-3 text-sm text-green-deep/70">
-            Vi tager imod bestillinger {hours.days.toLowerCase()} kl. {hours.time}.
+        <div className="mt-6 border-t border-green-deep/10 pt-8">
+          <p className="font-display text-xl font-semibold text-green-deep">Klar til at bestille?</p>
+          <p className="mt-1 text-sm text-green-deep/75">
+            Vi tager imod bestillinger {hours.daysLong} kl.&nbsp;{hours.time}.
           </p>
-          <p className="mt-1 text-sm text-green-deep/70">{hours.preorderNote}</p>
+          <RingKnap variant="green" className="mt-4">
+            Ring {business.phoneDisplay}
+          </RingKnap>
         </div>
       </div>
     </section>

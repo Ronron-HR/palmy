@@ -7,7 +7,7 @@ import Link from './Link'
 // (browseren håndterer selv hash-scroll); side-ruter bruger intern Link.
 // Kolonnetitlerne er bevidst <p>, ikke headings: de er navigation, ikke
 // indhold, og skal ikke gentage sidens H2'er ("Kontakt", "Åbningstider").
-const colTitle = 'text-xs font-semibold uppercase tracking-[0.15em] text-gold'
+const colTitle = 'text-sm font-semibold text-cream'
 const subscribeNever = () => () => {}
 const currentYear = () => new Date().getFullYear()
 
@@ -18,7 +18,7 @@ function Footer() {
 
   return (
     <footer id="footer" className="bg-green-deep text-cream/80">
-      <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
+      <div className="mx-auto max-w-5xl px-4 py-14 sm:px-6">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           {/* Brand */}
           <div>
@@ -48,7 +48,7 @@ function Footer() {
                   rel="noopener noreferrer"
                   className="transition-colors hover:text-cream"
                 >
-                  {business.address}
+                  {business.address} <span className="sr-only">(åbner i nyt vindue)</span>
                 </a>
               </p>
             </address>
@@ -65,7 +65,7 @@ function Footer() {
                 </li>
               ))}
             </ul>
-            <p className="mt-3 text-xs leading-relaxed text-cream/50">{hours.preorderNote}</p>
+            <p className="mt-3 text-xs leading-relaxed text-cream/70">{hours.preorderNote}</p>
           </div>
 
           {/* Sider */}
@@ -97,16 +97,11 @@ function Footer() {
                   Find vej
                 </a>
               </li>
-              <li>
-                <Link to="/privatliv" className="transition-colors hover:text-cream">
-                  Privatlivspolitik
-                </Link>
-              </li>
             </ul>
           </nav>
         </div>
 
-        <div className="mt-12 flex flex-col gap-2 border-t border-cream/10 pt-6 text-xs text-cream/50 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-12 flex flex-col gap-2 border-t border-cream/10 pt-6 text-xs text-cream/70 sm:flex-row sm:items-center sm:justify-between">
           <p>
             © {year} {business.name}. Alle rettigheder forbeholdes.
           </p>

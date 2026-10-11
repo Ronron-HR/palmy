@@ -43,7 +43,7 @@ function MenuPrint() {
         <h1 className="text-center font-display text-3xl font-bold uppercase tracking-widest text-green-deep">
           Palmy Spisested
         </h1>
-        <p className="mt-1 text-center text-sm uppercase tracking-[0.3em] text-gold">Menukort</p>
+        <p className="mt-1 text-center text-sm uppercase tracking-[0.3em] text-gold-deep">Menukort</p>
 
         <div className="mt-8 columns-2 gap-x-12 [&>*]:break-inside-avoid">
           {SECTIONS.map((section) => {
@@ -52,10 +52,10 @@ function MenuPrint() {
 
             return (
               <div key={section.id} className="mb-8">
-                <SectionHeader title={section.title} note={section.note} />
+                <SectionHeader title={section.title} note={section.note} level={2} />
                 <div className="divide-y divide-gold/20">
                   {sectionDishes.map((dish) => (
-                    <DishCard key={`${dish.section}-${dish.number ?? dish.name}`} dish={dish} />
+                    <DishCard key={dish.id} dish={dish} />
                   ))}
                 </div>
               </div>

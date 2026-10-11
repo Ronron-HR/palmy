@@ -1,100 +1,24 @@
-import { business, frame, historie, hours } from '../content'
-import { useInView } from '../hooks/useInView'
+import { historie } from '../content'
 
-const barClasses =
-  'relative z-10 flex h-9 items-center justify-center gap-2 bg-green-deep px-4 text-[10px] font-medium uppercase tracking-[0.15em] text-cream/70 lg:justify-between lg:px-8'
-
-function SideText({ side }) {
-  const label = side === 'left' ? frame.sideLabelLeft : business.name
-
-  return (
-    <div
-      className={`pointer-events-none absolute inset-y-0 z-0 hidden w-9 items-center justify-center lg:flex ${
-        side === 'left' ? 'left-0' : 'right-0'
-      }`}
-    >
-      <span
-        className="whitespace-nowrap text-[10px] font-medium uppercase tracking-[0.3em] text-gold/70"
-        style={{
-          writingMode: 'vertical-rl',
-          transform: side === 'left' ? 'rotate(180deg)' : undefined,
-        }}
-      >
-        {label}
-      </span>
-    </div>
-  )
-}
-
+// Familiens historie som ren, læsbar tekst. Ingen vandmærker, sidetekster
+// eller fade-in — teksten er synlig i den prerenderede HTML.
 function Historie() {
-  const [textRef, textInView] = useInView()
-
   return (
-    <section id="historie" className="relative bg-cream">
-      {/* Mobil: stablet komposition, telefon er mest fremtrædende */}
-      <div className="flex flex-col items-center gap-2 bg-green-deep px-6 py-7 text-center lg:hidden">
-        <a href={`tel:${business.phoneHref}`} className="text-xl font-semibold text-cream">
-          {business.phoneDisplay}
-        </a>
-        <span className="text-sm text-cream/80">{business.address}</span>
-        <span className="text-sm text-cream/60">
-          {hours.daysShort} · {hours.time}
-        </span>
-      </div>
+    <section id="historie" className="bg-cream">
+      <div className="mx-auto max-w-5xl px-4 py-16 [&>*]:max-w-3xl sm:px-6 sm:py-24">
+        <h2 className="font-display text-3xl font-semibold tracking-[-0.01em] text-green-deep sm:text-4xl">
+          {historie.heading}
+        </h2>
 
-      {/* Desktop: tynd enkeltlinje-bjælke */}
-      <div className="relative z-10 hidden h-9 items-center justify-between gap-2 border-b border-cream/10 bg-green-deep px-8 text-[10px] font-medium uppercase tracking-[0.15em] text-cream/70 lg:flex">
-        <span>{business.address}</span>
-        <span>
-          {hours.daysShort} · {hours.time}
-        </span>
-        <span>Tlf. {business.phoneDisplay}</span>
-      </div>
-
-      <SideText side="left" />
-      <SideText side="right" />
-
-      <div className="mx-auto max-w-3xl px-4 py-20 sm:px-6 sm:py-28">
-        <div
-          ref={textRef}
-          className={`relative transition-all duration-1000 ease-out ${
-            textInView ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'
-          }`}
-        >
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-0 -z-10 flex select-none items-center justify-center overflow-hidden"
-          >
-            <span className="whitespace-nowrap font-display text-[3.25rem] font-semibold leading-none text-gold/10 lg:text-[6rem]">
-              Velkommen
-            </span>
-          </div>
-
-          <h2 className="font-display text-3xl font-semibold text-green-deep sm:text-4xl">
-            {historie.heading}
-          </h2>
-
-          <div className="mt-8 flex flex-col gap-6">
-            {historie.paragraphs.map((paragraph) => (
-              <p
-                key={paragraph.slice(0, 20)}
-                className="text-lg leading-relaxed text-green-deep/85"
-              >
-                {paragraph}
-              </p>
-            ))}
-          </div>
-
-          <p className="mt-10 font-display text-xl italic text-gold">
-            {historie.closing}
-          </p>
+        <div className="mt-6 flex max-w-[62ch] flex-col gap-5">
+          {historie.paragraphs.map((paragraph) => (
+            <p key={paragraph.slice(0, 20)} className="text-lg leading-relaxed text-green-deep/85">
+              {paragraph}
+            </p>
+          ))}
         </div>
-      </div>
 
-      <div className={`${barClasses} border-t border-cream/10`}>
-        <span className="hidden lg:inline">{frame.website}</span>
-        <span>{frame.tagline}</span>
-        <span className="hidden lg:inline">{frame.social}</span>
+        <p className="mt-8 font-display text-xl italic text-gold-deep">{historie.closing}</p>
       </div>
     </section>
   )

@@ -38,7 +38,9 @@ export function navigate(path) {
   window.history.pushState({}, '', path)
   // Ny side skal starte fra toppen — ellers lander man midt på siden, når man
   // fx klikker "Menukort" i footeren.
-  window.scrollTo(0, 0)
+  // 'instant' overstyrer html { scroll-behavior: smooth }, så den nye side
+  // ikke ses rulle op.
+  window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
 }
 
 export function usePathname() {

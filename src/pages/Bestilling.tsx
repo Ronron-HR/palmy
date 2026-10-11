@@ -10,7 +10,11 @@ import Link from '../components/Link'
 // animationer, ingen effekter — hurtig og kedelig med vilje.
 
 // Afledt fra menuen (ikke hardcodet), så nye numre automatisk kommer med.
-const ALL_NUMBERS = Array.from(dishesByNumber.keys()).sort((a, b) => a - b)
+// Numrene er tekst; de sorteres kun her i tastatur-oversigten (naturlig
+// rækkefølge), selve teksten vises uændret.
+const ALL_NUMBERS = Array.from(dishesByNumber.keys()).sort((a, b) =>
+  a.localeCompare(b, 'da', { numeric: true }),
+)
 const KEYPAD_KEYS = ['1', '2', '3', '4', '5', '6', '7', '8', '9', 'C', '0', '⌫']
 
 function normalize(value: string): string {
@@ -33,11 +37,11 @@ function Bestilling() {
   const { dish, suggestions } = useMemo((): { dish: Dish | null; suggestions: Dish[] } => {
     if (trimmed === '') return { dish: null, suggestions: [] }
 
-    if (isNumeric) {
-      const exact = dishesByNumber.get(Number(trimmed)) ?? null
-      if (exact) return { dish: exact, suggestions: [] }
+    const exact = dishesByNumber.get(trimmed) ?? null
+    if (exact) return { dish: exact, suggestions: [] }
 
-      const partial = ALL_NUMBERS.filter((n) => String(n).startsWith(trimmed))
+    if (isNumeric) {
+      const partial = ALL_NUMBERS.filter((n) => n.startsWith(trimmed))
         .map((n) => dishesByNumber.get(n))
         .filter((d): d is Dish => Boolean(d))
       return { dish: null, suggestions: partial }
@@ -146,7 +150,7 @@ function Bestilling() {
 
               {dish.choices && (
                 <div className="mt-6 rounded-lg bg-gold/10 p-4">
-                  <p className="text-xs font-bold uppercase tracking-wide text-green-deep/50">
+                  <p className="text-xs font-bold uppercase tracking-wide text-green-deep/70">
                     Spørg kunden
                   </p>
                   <p className="mt-1 text-xl font-semibold text-green-deep sm:text-2xl">
@@ -160,7 +164,7 @@ function Bestilling() {
               )}
 
               <div className="mt-6 border-t border-gold/20 pt-4">
-                <p className="mb-2 text-xs font-bold uppercase tracking-wide text-green-deep/50">
+                <p className="mb-2 text-xs font-bold uppercase tracking-wide text-green-deep/70">
                   Pris
                 </p>
                 {dish.price != null && (
@@ -189,11 +193,9 @@ function Bestilling() {
             <div className="divide-y divide-green-deep/10 rounded-lg border border-green-deep/15 bg-white">
               {suggestions.map((suggestion) => (
                 <button
-                  key={`${suggestion.section}-${suggestion.number ?? suggestion.name}`}
+                  key={suggestion.id}
                   type="button"
-                  onClick={() =>
-                    jumpTo(suggestion.number != null ? String(suggestion.number) : suggestion.name)
-                  }
+                  onClick={() => jumpTo(suggestion.number ?? suggestion.name)}
                   className="flex w-full items-center gap-3 px-4 py-3 text-left"
                 >
                   <NumberBadge number={suggestion.number} />
@@ -204,11 +206,11 @@ function Bestilling() {
           )}
 
           {!dish && suggestions.length === 0 && trimmed !== '' && (
-            <p className="py-6 text-center text-green-deep/40">Intet match for "{trimmed}"</p>
+            <p className="py-6 text-center text-green-deep/70">Intet match for "{trimmed}"</p>
           )}
 
           {trimmed === '' && (
-            <p className="py-6 text-center text-green-deep/40">
+            <p className="py-6 text-center text-green-deep/70">
               Tast et menunummer eller søg på navn
             </p>
           )}
@@ -216,7 +218,7 @@ function Bestilling() {
 
         {/* Hele nummeroversigten som kompakt klikbart grid. */}
         <div className="mt-10 border-t border-green-deep/10 pt-6">
-          <p className="mb-3 text-xs font-bold uppercase tracking-wide text-green-deep/40">
+          <p className="mb-3 text-xs font-bold uppercase tracking-wide text-green-deep/70">
             Alle numre
           </p>
           <div className="grid grid-cols-5 gap-2 sm:grid-cols-10">
@@ -224,7 +226,7 @@ function Bestilling() {
               <button
                 key={number}
                 type="button"
-                onClick={() => jumpTo(String(number))}
+                onClick={() => jumpTo(number)}
                 className={
                   dish?.number === number
                     ? 'rounded-md bg-green-deep py-3 text-lg font-bold text-cream'
@@ -238,7 +240,7 @@ function Bestilling() {
         </div>
 
         <div className="mt-10 text-center">
-          <Link to="/" className="text-xs text-green-deep/30">
+          <Link to="/" className="text-xs text-green-deep/70">
             ← Forsiden
           </Link>
         </div>

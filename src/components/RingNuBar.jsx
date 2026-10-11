@@ -24,7 +24,8 @@ function RingNuBar() {
       const pastHero = scrollY > vh * 0.6
 
       // Skjul fra kontakt-sektionen og ned (footeren ligger under den).
-      const kontakt = document.getElementById('kontakt')
+      // På /menu (ingen kontakt-sektion) skjules baren ved sidens egen ring-knap.
+      const kontakt = document.getElementById('kontakt') ?? document.getElementById('bestil')
       const hideFrom = kontakt
         ? kontakt.getBoundingClientRect().top + scrollY
         : document.documentElement.scrollHeight
@@ -52,11 +53,12 @@ function RingNuBar() {
   return (
     <div
       aria-hidden={!visible}
+      inert={!visible}
       className={`fixed inset-x-0 bottom-0 z-50 border-t border-green-deep/10 bg-cream/95 p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur-sm transition-transform duration-300 md:hidden ${
         visible ? 'translate-y-0' : 'translate-y-full'
       }`}
     >
-      <RingKnap variant="green" track="bar" className="flex w-full">
+      <RingKnap variant="green" className="flex w-full">
         {status.cta} – {business.phoneDisplay}
       </RingKnap>
     </div>

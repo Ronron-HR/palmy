@@ -35,14 +35,18 @@ const QUALITY = 74
 //    (kvadratisk udsnit) inde i 4:5-rammen med en blødt udtonet, uskarp
 //    udgave af billedet selv som top/bund-fyld — bruges når et landscape-foto
 //    (IMG_0124) ellers ville blive beskåret for tæt. Ingen AI, kun eget billede.
+//  focusY: lodret fokuspunkt 0..1 — til portrætfotos hvor tallerkenen ikke
+//    sidder midt i billedet (6638025D: tallerkenen sidder lidt over midten).
+//  scale: udsnittets størrelse i forhold til det største mulige (1 = maks).
+//    IMG_0124: 0.9 holder den halve soya-skål helt ude af billedet.
 const IMAGES = [
   { file: '11A29F48-6ED2-47BE-B085-E8B58E8B9B55.jpg', out: 'nr3', cropBottom: 0, focusX: 0.5 },
-  { file: '6638025D-3529-4B3A-B1C3-E3DCD2E1E37E.jpg', out: 'nr6', cropBottom: 0, focusX: 0.5 },
-  { file: 'IMG_0124.JPG', out: 'nr4', cropBottom: 0, focusX: 0.36 },
+  { file: '6638025D-3529-4B3A-B1C3-E3DCD2E1E37E.jpg', out: 'nr6', cropBottom: 0, focusX: 0.5, focusY: 0.455 },
+  { file: 'IMG_0124.JPG', out: 'nr4', cropBottom: 0, focusX: 0.335, focusY: 0.52, scale: 0.9 },
 ]
 
-// Beregner et udsnit i forholdet (rw:rh) inden for (w × h) med horisontalt fokus.
-function focusCrop(w, h, rw, rh, focusX = 0.5) {
+// Beregner et udsnit i forholdet (rw:rh) inden for (w × h) med fokuspunkt.
+function focusCrop(w, h, rw, rh, focusX = 0.5, focusY = 0.5, scale = 1) {
   const targetRatio = rw / rh
   let cropW = w
   let cropH = Math.round(w / targetRatio)
@@ -50,8 +54,10 @@ function focusCrop(w, h, rw, rh, focusX = 0.5) {
     cropH = h
     cropW = Math.round(h * targetRatio)
   }
+  cropW = Math.round(cropW * scale)
+  cropH = Math.round(cropH * scale)
   const left = Math.min(Math.max(Math.round(focusX * w - cropW / 2), 0), w - cropW)
-  const top = Math.min(Math.max(Math.round(0.5 * h - cropH / 2), 0), h - cropH)
+  const top = Math.min(Math.max(Math.round(focusY * h - cropH / 2), 0), h - cropH)
   return { left, top, width: cropW, height: cropH }
 }
 
@@ -87,7 +93,15 @@ async function processOne(img) {
         .webp({ quality: QUALITY })
         .toFile(outPath)
     } else {
-      const region = focusCrop(meta.width, usableHeight, RATIO_W, RATIO_H, img.focusX)
+      const region = focusCrop(
+        meta.width,
+        usableHeight,
+        RATIO_W,
+        RATIO_H,
+        img.focusX,
+        img.focusY,
+        img.scale,
+      )
       await sharp(inputPath)
         .rotate()
         .extract(region)

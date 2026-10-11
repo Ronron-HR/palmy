@@ -11,8 +11,11 @@ export type Variant = {
   price: number // DKK
 }
 
-export type Dish = {
-  number: number | null // menunummeret; null for retter uden nummer
+// Rettenummeret er TEKST, præcis som det står på kortet (så fx "12a" eller
+// "7." kan bevares tegn for tegn). Det er adskilt fra `id`, som kun er en
+// intern React-/opslagsnøgle og aldrig vises.
+type DishSource = {
+  number: string | null // menunummeret som tekst; null for retter uden nummer
   name: string
   description?: string // kursiv undertekst
   price?: number // kun hvis retten har ÉN fast pris
@@ -21,6 +24,10 @@ export type Dish = {
   spicy?: boolean
   section: SectionId
   note?: string // fri note, fx "Kan serveres med ris eller risnudler."
+}
+
+export type Dish = DishSource & {
+  id: string // intern nøgle, fx "tilbehoer-ekstra-ris" — ALDRIG et rettenummer
 }
 
 export type SectionId =
@@ -52,10 +59,10 @@ export const SECTIONS: Section[] = [
   { id: 'tilbehoer', title: 'Ekstra Tilbehør' },
 ]
 
-export const dishes: Dish[] = [
+const source: DishSource[] = [
   // ── FORRETTER ─────────────────────────────────────────────
   {
-    number: 1,
+    number: '1',
     name: 'Hjemmelavede Luksus Forårsruller',
     description: 'Med rejer, kylling, hakket oksekød, skinke og grøntsager',
     variants: [
@@ -65,7 +72,7 @@ export const dishes: Dish[] = [
     section: 'forretter',
   },
   {
-    number: 2,
+    number: '2',
     name: 'Hjemmelavede Fem Små Forårsruller',
     description:
       'Med hakket svinekød, æg, løg, hvidløgspulver, asiatiske svampe og gulerødder. Serveres med sød chilisauce.',
@@ -75,25 +82,25 @@ export const dishes: Dish[] = [
 
   // ── HOVEDRETTER (sektionsnote: se SECTIONS) ─────────────────
   {
-    number: 3,
+    number: '3',
     name: 'Stegte nudler med kylling og grøntsager',
     price: 95,
     section: 'hovedretter',
   },
   {
-    number: 4,
+    number: '4',
     name: 'Stegte nudler med oksekød og grøntsager',
     price: 95,
     section: 'hovedretter',
   },
   {
-    number: 5,
+    number: '5',
     name: 'Stegte ris med skinke, rejer, gulerødder, ærter og æg',
     price: 95,
     section: 'hovedretter',
   },
   {
-    number: 6,
+    number: '6',
     name: 'Stegt and med ris eller nudler og kinesisk sød sauce',
     description: 'Med champignon, løg, porre og rød og grøn peberfrugt',
     price: 115,
@@ -101,13 +108,13 @@ export const dishes: Dish[] = [
     section: 'hovedretter',
   },
   {
-    number: 7,
+    number: '7',
     name: 'Indbagte store rejer med sur-sød sauce (Ris)',
     price: 95,
     section: 'hovedretter',
   },
   {
-    number: 8,
+    number: '8',
     name: 'Risnudler med rejer og grøntsager',
     description:
       'Tom Yum Goong – med løg, porre, bambusskud, majs, rød chili og svampe',
@@ -116,13 +123,13 @@ export const dishes: Dish[] = [
     section: 'hovedretter',
   },
   {
-    number: 9,
+    number: '9',
     name: 'Ris med stegt kylling, grøntsager, ingefær og chili',
     price: 95,
     section: 'hovedretter',
   },
   {
-    number: 10,
+    number: '10',
     name: 'Oksekød eller kylling med peberfrugt, løg og bambus i rød karry',
     price: 95,
     spicy: true,
@@ -130,7 +137,7 @@ export const dishes: Dish[] = [
     section: 'hovedretter',
   },
   {
-    number: 11,
+    number: '11',
     name: 'Rød karry med ris eller risnudler',
     description: 'Med bambus, chili, bønnespirer, champignon og kokosmælk',
     variants: [
@@ -143,7 +150,7 @@ export const dishes: Dish[] = [
     section: 'hovedretter',
   },
   {
-    number: 12,
+    number: '12',
     name: 'Vietnamesisk Bún Special',
     description:
       'Grillet svinekød, hjemmelavede forårsruller, friske grøntsager, peanuts og hjemmelavet fiskesauce med chili, hvidløg og gulerødder',
@@ -151,7 +158,7 @@ export const dishes: Dish[] = [
     section: 'hovedretter',
   },
   {
-    number: 13,
+    number: '13',
     name: 'Tom Kha Gai',
     description: 'Kokosmælksuppe med kylling, champignon, chili og bønnespirer',
     variants: [
@@ -165,25 +172,25 @@ export const dishes: Dish[] = [
   // Nr. 18 og 19 hører til Hovedretter, selvom de står talmæssigt efter
   // Børnemenu — det er korrekt og skal bevares, jf. det trykte kort.
   {
-    number: 18,
+    number: '18',
     name: 'Indbagt Kylling med sur-sød sauce (Ris)',
     price: 95,
     section: 'hovedretter',
   },
   {
-    number: 19,
+    number: '19',
     name: 'Kylling Satay med ris og peanut sauce',
     price: 95,
     section: 'hovedretter',
   },
   {
-    number: 20,
+    number: '20',
     name: 'Kyllingspyd med Pomfritter',
     price: 89,
     section: 'hovedretter',
   },
   {
-    number: 21,
+    number: '21',
     name: 'Grøn karry med risnudler eller ris',
     description:
       'Med kokosmælk, svampe, bambusskud, majs, rød og grøn peberfrugt, porre og løg',
@@ -197,13 +204,13 @@ export const dishes: Dish[] = [
 
   // ── EKSTRA RETTER ────────────────────────────────────────
   {
-    number: 14,
+    number: '14',
     name: '1/2 Grillkylling med pommes frites',
     price: 80,
     section: 'ekstra-retter',
   },
   {
-    number: 15,
+    number: '15',
     name: 'Pommes Frites (Stor portion)',
     price: 35,
     section: 'ekstra-retter',
@@ -214,7 +221,7 @@ export const dishes: Dish[] = [
     // Eneste ændring på kortet: navnet skifter fra "Crispy Chicken Burger"
     // til "Crispy Burger", og prisen bliver til to linjer (kylling/oksekød).
     // Nummeret er UÆNDRET — dette er en prisvariant af nr. 16, ikke en ny ret.
-    number: 16,
+    number: '16',
     name: 'Crispy Burger',
     description: 'Med salat, agurk og pommes frites',
     variants: [
@@ -224,7 +231,7 @@ export const dishes: Dish[] = [
     section: 'boernemenu',
   },
   {
-    number: 17,
+    number: '17',
     name: 'Chicken Nuggets (6 stk.)',
     description: 'Med pommes frites og ketchup',
     price: 69,
@@ -262,13 +269,35 @@ export const dishes: Dish[] = [
   { number: null, name: 'Reje chips', price: 15, section: 'tilbehoer' },
 ]
 
+// Intern nøgle afledt af sektion + navn (ikke af array-indeks og ikke af
+// nummeret), så den er stabil og aldrig kan forveksles med et rettenummer.
+const slug = (text: string) =>
+  text
+    .toLowerCase()
+    .replace(/æ/g, 'ae')
+    .replace(/ø/g, 'oe')
+    .replace(/å/g, 'aa')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '')
+
+export const dishes: Dish[] = source.map((dish) => ({
+  ...dish,
+  id: `${dish.section}-${slug(dish.name)}`,
+}))
+
 // ── Nummer-integritet ────────────────────────────────────────
 // Håndhæves i koden, ikke kun i en kommentar: fejler build/dev øjeblikkeligt
 // hvis to retter deler et nummer, eller hvis et nummer i 1–21 mangler.
 const REQUIRED_NUMBER_RANGE = { min: 1, max: 21 } as const
 
 function assertMenuNumberIntegrity(allDishes: Dish[]): void {
-  const ownerOf = new Map<number, string>()
+  const ids = new Set<string>()
+  for (const dish of allDishes) {
+    if (ids.has(dish.id)) throw new Error(`menu.ts: intern id "${dish.id}" er ikke unik.`)
+    ids.add(dish.id)
+  }
+
+  const ownerOf = new Map<string, string>()
 
   for (const dish of allDishes) {
     if (dish.number == null) continue
@@ -284,7 +313,7 @@ function assertMenuNumberIntegrity(allDishes: Dish[]): void {
 
   const missing: number[] = []
   for (let n = REQUIRED_NUMBER_RANGE.min; n <= REQUIRED_NUMBER_RANGE.max; n++) {
-    if (!ownerOf.has(n)) missing.push(n)
+    if (!ownerOf.has(String(n))) missing.push(n)
   }
   if (missing.length > 0) {
     throw new Error(
@@ -298,8 +327,9 @@ assertMenuNumberIntegrity(dishes)
 
 // ── Afledte opslag ───────────────────────────────────────────
 
-export const dishesByNumber: Map<number, Dish> = new Map(
-  dishes.filter((d): d is Dish & { number: number } => d.number != null).map((d) => [d.number, d]),
+// Opslag på rettenummer som TEKST, fx dishesByNumber.get('6').
+export const dishesByNumber: Map<string, Dish> = new Map(
+  dishes.filter((d): d is Dish & { number: string } => d.number != null).map((d) => [d.number, d]),
 )
 
 export function getDishesBySection(id: SectionId): Dish[] {

@@ -18,6 +18,13 @@ function Link({ to, children, className, onClick }) {
     event.preventDefault()
     navigate(to)
     onClick?.(event)
+    // Flyt fokus til den nye sides indhold, så tastatur/skærmlæser følger med.
+    requestAnimationFrame(() => {
+      const main = document.getElementById('indhold')
+      if (!main) return
+      if (!main.hasAttribute('tabindex')) main.setAttribute('tabindex', '-1')
+      main.focus({ preventScroll: true })
+    })
   }
 
   return (

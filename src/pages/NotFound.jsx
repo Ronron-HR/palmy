@@ -11,7 +11,7 @@ function NotFound() {
       <Navigation />
       <main id="indhold" className="bg-cream">
         <div className="mx-auto max-w-2xl px-4 py-24 text-center sm:px-6 sm:py-32">
-          <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gold">404</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gold-deep">404</p>
           <h1 className="mt-3 font-display text-3xl font-semibold text-green-deep sm:text-4xl">
             Siden findes ikke
           </h1>

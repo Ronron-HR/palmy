@@ -41,17 +41,19 @@ export const hours = {
   preorderStart, // '15:00'
   openTime, // '16:00'
   closeTime, // '20:30'
-  time: `${dk(openTime)}–${dk(closeTime)}`,
+  time: `${dk(openTime)}⁠–⁠${dk(closeTime)}`,
   schedule: [
-    { day: 'Fredag', time: `${openTime}–${closeTime}` },
-    { day: 'Lørdag', time: `${openTime}–${closeTime}` },
+    { day: 'Fredag', time: `${dk(openTime)}⁠–⁠${dk(closeTime)}` },
+    { day: 'Lørdag', time: `${dk(openTime)}⁠–⁠${dk(closeTime)}` },
   ],
   note: 'Vi har kun åbent fredag og lørdag – så kig forbi, mens vi har åbent.',
+  // Hvad note'en reelt fortæller: de øvrige dage er der lukket (jf. FAQ).
+  closedNote: 'Resten af ugen har vi lukket.',
   // Kort linje brugt flere steder (menu, kontakt, footer).
-  preorderNote: `Forudbestil fra kl. ${dk(preorderStart)} – afhent fra kl. ${dk(openTime)} og helt frem til lukketid kl. ${dk(closeTime)}.`,
+  preorderNote: `Forudbestil fra kl.\u00a0${dk(preorderStart)} – afhent fra kl.\u00a0${dk(openTime)} og helt frem til lukketid kl.\u00a0${dk(closeTime)}.`,
   // Todelt forklaring til Åbningstider-sektionen.
-  preorderLine: `Ring og forudbestil allerede fra kl. ${dk(preorderStart)}.`,
-  pickupLine: `Afhentning fra kl. ${dk(openTime)} og frem til vi lukker kl. ${dk(closeTime)}.`,
+  preorderLine: `Ring og forudbestil allerede fra kl.\u00a0${dk(preorderStart)}.`,
+  pickupLine: `Afhentning fra kl.\u00a0${dk(openTime)} og frem til vi lukker kl.\u00a0${dk(closeTime)}.`,
 }
 
 export const menuInfo = {
@@ -62,22 +64,19 @@ export const menuInfo = {
 export const frame = {
   website: 'palmyspisested.com',
   tagline: 'Vietnamesisk mad med kærlighed',
-  // PLADSHOLDER — indsæt rigtigt Instagram/Facebook-handle, eller udelad.
-  // Bruges bevidst IKKE som sameAs i schema, før det er en rigtig profil.
-  social: '@palmyspisested',
-  sideLabelLeft: 'Åbent fredag & lørdag',
+  // Ingen sociale profiler, før restauranten har en rigtig profil at linke til.
 }
 
 export const nav = [
-  { label: 'Forside', href: '#forside' },
   { label: 'Menu', href: '#menu' },
+  { label: 'Åbningstider', href: '#aabningstider' },
   { label: 'Historie', href: '#historie' },
   { label: 'Kontakt', href: '#kontakt' },
 ]
 
 export const hero = {
   heading: 'Vietnamesisk mad i Hjortshøj',
-  subheading: `Palmy Spisested er en lille familiedrevet restaurant med frisklavet vietnamesisk mad og takeaway. Ring og bestil – vi har åbent ${hours.daysLong} kl. ${hours.time}.`,
+  subheading: `Palmy Spisested er en lille familiedrevet restaurant med frisklavet vietnamesisk mad og takeaway. Ring og bestil – vi har åbent ${hours.daysLong} kl.\u00a0${hours.time}.`,
   alt: 'Bord med retter fra Palmy Spisested: sprødstegt and i sauce, stegte nudler med oksekød, forårsruller og ris',
 }
 
@@ -89,9 +88,9 @@ export const signatur = {
   heading: 'Smag et par af favoritterne',
   intro: 'Et lille udpluk fra kortet – frisklavet, som du får det hos os.',
   dishes: [
-    { number: 3, image: 'nr3', alt: 'Stegte nudler med kylling, broccoli og gulerod fra Palmy Spisested' },
-    { number: 6, image: 'nr6', alt: 'Sprødstegt and med ris og mørk kinesisk sød sauce fra Palmy Spisested' },
-    { number: 4, image: 'nr4', alt: 'Stegte nudler med oksekød og friske grøntsager fra Palmy Spisested' },
+    { number: '3', image: 'nr3', alt: 'Stegte nudler med kylling, broccoli og gulerod fra Palmy Spisested' },
+    { number: '6', image: 'nr6', alt: 'Sprødstegt and med ris og mørk kinesisk sød sauce fra Palmy Spisested' },
+    { number: '4', image: 'nr4', alt: 'Stegte nudler med oksekød og friske grøntsager fra Palmy Spisested' },
   ],
 }
 
@@ -124,11 +123,11 @@ export const faq = {
     },
     {
       question: 'Hvornår har I åbent?',
-      answer: `Vi har åbent ${hours.daysLong} kl. ${hours.time}. Resten af ugen holder vi lukket.`,
+      answer: `Vi har åbent ${hours.daysLong} kl.\u00a0${hours.time}. Resten af ugen holder vi lukket.`,
     },
     {
       question: 'Hvornår kan jeg bestille takeaway?',
-      answer: `Ring til os på ${business.phoneDisplay} – vi tager imod forudbestillinger fra kl. ${dk(preorderStart)} ${hours.daysLong}. Maden kan hentes fra kl. ${dk(openTime)} og frem til vi lukker kl. ${dk(closeTime)}.`,
+      answer: `Ring til os på ${business.phoneDisplay} – vi tager imod forudbestillinger fra kl.\u00a0${dk(preorderStart)} ${hours.daysLong}. Maden kan hentes fra kl.\u00a0${dk(openTime)} og frem til vi lukker kl.\u00a0${dk(closeTime)}.`,
     },
     {
       question: 'Kan jeg bestille online?',

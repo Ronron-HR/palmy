@@ -27,7 +27,7 @@ function AnswerLink({ link }) {
   if (link.external) {
     return (
       <a href={link.href} target="_blank" rel="noopener noreferrer" className={className}>
-        {link.label}
+        {link.label} <span className="sr-only">(åbner i nyt vindue)</span>
       </a>
     )
   }
@@ -40,18 +40,18 @@ function AnswerLink({ link }) {
 
 function Faq() {
   return (
-    <section id="faq" className="bg-cream py-20 sm:py-28">
-      <div className="mx-auto max-w-2xl px-4 sm:px-6">
-        <h2 className="text-center font-display text-3xl font-semibold text-green-deep sm:text-4xl">
+    <section id="faq" className="bg-cream py-16 sm:py-20">
+      <div className="mx-auto max-w-5xl px-4 sm:px-6 [&>*]:max-w-3xl">
+        <h2 className="font-display text-3xl font-semibold tracking-[-0.01em] text-green-deep sm:text-4xl">
           {faq.heading}
         </h2>
 
-        <div className="mt-10 divide-y divide-gold/25 border-y border-gold/25">
+        <div className="mt-6 divide-y divide-gold/25 border-y border-gold/25">
           {faq.items.map((item) => (
             <details key={item.question} className="group py-1">
               <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-4 text-left font-display text-lg font-semibold text-green-deep [&::-webkit-details-marker]:hidden">
                 <span>{item.question}</span>
-                <ChevronIcon className="h-5 w-5 flex-shrink-0 text-gold transition-transform group-open:rotate-180" />
+                <ChevronIcon className="h-5 w-5 flex-shrink-0 text-gold-deep transition-transform group-open:rotate-180" />
               </summary>
               <div className="pb-5 pr-9 text-base leading-relaxed text-green-deep/80">
                 <p>{item.answer}</p>

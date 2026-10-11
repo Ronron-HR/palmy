@@ -76,7 +76,7 @@ function menuItem(dish) {
   }
   const description = [dish.description, dish.note].filter(Boolean).join(' ')
   if (description) item.description = description
-  if (dish.number != null) item.identifier = String(dish.number)
+  if (dish.number != null) item.identifier = dish.number
   if (dish.price != null) item.offers = offer(dish.price)
   else if (dish.variants?.length) item.offers = dish.variants.map((v) => offer(v.price, v.label))
   return item
@@ -172,7 +172,7 @@ const ROUTES = {
   },
   '/privatliv': {
     title: `Privatlivspolitik${SITE_SUFFIX}`,
-    description: `Sådan håndterer ${business.name} i ${business.city} dine oplysninger. Hjemmesiden indsamler ikke personoplysninger og sætter ingen cookies af sig selv.`,
+    description: `Sådan håndterer ${business.name} i ${business.city} dine oplysninger. Om hosting, skrifttyper fra Google, Google Maps og cookies.`,
     robots: 'index, follow',
     jsonLd: () => [],
     sitemap: { priority: '0.2', changefreq: 'yearly' },

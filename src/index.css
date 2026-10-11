@@ -9,6 +9,10 @@
   --color-green-deep-light: #2c4f3d;
   --color-gold: #c9a24b;
   --color-gold-light: #e2c785;
+  /* Guld til TEKST på cream (≈5:1). Almindelig gold kun på grøn eller som streg. */
+  --color-gold-deep: #7d5f1c;
+  --color-green-hero: #23372a;
+  --color-open: #4caf72;
   --color-red-warm: #b3402f;
   --color-red-warm-light: #d1604a;
   --color-slate-dish: #2b2f36;
@@ -28,4 +32,70 @@ html {
 body {
   font-family: var(--font-body);
   background-color: var(--color-cream);
+  color: var(--color-slate-dish);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.font-display {
+  font-optical-sizing: auto;
+}
+
+/* Ens, synlig fokusring overalt, hvor intet andet er sat. I base-laget, så
+   komponenternes focus-visible:outline-*-utilities stadig vinder. */
+@layer base {
+  :focus-visible {
+    outline: 2px solid var(--color-green-deep);
+    outline-offset: 2px;
+  }
+  /* På grønne flader skal ringen være lys for at kunne ses. */
+  .bg-green-deep :focus-visible,
+  .bg-green-hero :focus-visible,
+  footer :focus-visible,
+  .bg-green-hero:focus-visible {
+    outline-color: var(--color-gold-light);
+  }
+  /* <main> får kun fokus programmatisk (efter sideskift) — ingen ring. */
+  #indhold:focus {
+    outline: none;
+  }
+}
+
+/* Den faste ring-bar i bunden (mobil) må ikke dække et fokuseret element. */
+@media (max-width: 767px) {
+  html {
+    scroll-padding-bottom: 5.5rem;
+  }
+}
+
+/* Vandret kategorilinje: kan scrolles, men uden synlig scrollbar. */
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Diskret trykfeedback: knappen giver efter på pointer-down. */
+.press {
+  transition-property: background-color, color, border-color, transform;
+  transition-duration: 150ms;
+  transition-timing-function: ease-out;
+}
+.press:active {
+  transform: scale(0.97);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+  .press:active,
+  .active\:scale-\[0\.97\]:active {
+    transform: none;
+  }
 }

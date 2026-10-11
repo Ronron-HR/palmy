@@ -11,7 +11,7 @@ const pill = {
 }
 
 const dotByState = {
-  OPEN: 'bg-green-500 motion-safe:animate-pulse',
+  OPEN: 'bg-open',
   PREORDER: 'bg-gold',
 }
 

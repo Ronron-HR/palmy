@@ -8,6 +8,7 @@ import Privatliv from './pages/Privatliv'
 import NotFound from './pages/NotFound'
 import Navigation from './components/Navigation'
 import Footer from './components/Footer'
+import RingNuBar from './components/RingNuBar'
 
 // Lille intern router uden ekstern afhængighed — projektet har få faste ruter,
 // så en fuld routerpakke er ikke nødvendig. Ruterne prerenderes til statisk
@@ -30,6 +31,7 @@ function App() {
         <Navigation />
         <MenuPage />
         <Footer />
+        <RingNuBar />
       </>
     )
   }
