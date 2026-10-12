@@ -1,6 +1,5 @@
 import Navigation from '../components/Navigation'
 import Hero from '../components/Hero'
-import SignaturRetter from '../components/SignaturRetter'
 import Historie from '../components/Historie'
 import Menu from '../components/Menu'
 import Aabningstider from '../components/Aabningstider'
@@ -15,7 +14,6 @@ function Home() {
       <Navigation />
       <main id="indhold">
         <Hero />
-        <SignaturRetter />
         <Historie />
         <Menu />
         <Aabningstider />

@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react'
 import { hero, business } from '../content'
 import RingKnap from './RingKnap'
 import AabenStatus from './AabenStatus'
@@ -5,29 +6,91 @@ import { useOpenStatus } from '../hooks/useOpenStatus'
 
 function Hero() {
   const status = useOpenStatus()
+  const videoRef = useRef(null)
+
+  // Videoen må ikke gøre siden tung:
+  //  - den hentes først, når siden er færdigindlæst (preload="none" i markup),
+  //    så poster, tekst og knapper aldrig venter på den
+  //  - den afspilles kun, mens hero er synlig (sparer CPU når man læser menuen)
+  //  - ved reduced motion, "spar data" eller meget langsom forbindelse
+  //    startes den aldrig — poster-billedet bliver stående
+  useEffect(() => {
+    const video = videoRef.current
+    if (!video) return
+    video.muted = true // lydløs som property, ikke kun som attribut
+
+    const connection = navigator.connection
+    const skip =
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
+      connection?.saveData === true ||
+      /(^|-)2g$/.test(connection?.effectiveType ?? '')
+    if (skip) return
+
+    let visible = true
+    let started = false
+    const play = () => {
+      if (!started || !visible) return
+      video.play().catch(() => {
+        // Autoplay afvist (fx strømsparetilstand) — posteren står tilbage.
+      })
+    }
+
+    const observer = new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting
+      if (visible) play()
+      else video.pause()
+    })
+    observer.observe(video)
+
+    const start = () => {
+      started = true
+      play()
+    }
+    let idleId = 0
+    const schedule = () => {
+      idleId = window.requestIdleCallback
+        ? window.requestIdleCallback(start, { timeout: 2000 })
+        : window.setTimeout(start, 300)
+    }
+    if (document.readyState === 'complete') schedule()
+    else window.addEventListener('load', schedule, { once: true })
+
+    return () => {
+      observer.disconnect()
+      window.removeEventListener('load', schedule)
+      if (window.cancelIdleCallback) window.cancelIdleCallback(idleId)
+      window.clearTimeout(idleId)
+    }
+  }, [])
 
   return (
-    <section id="forside" className="relative">
-      {/* LCP-billede: WebP med responsive varianter + JPG-fallback. Ingen
-          lazy-load, høj prioritet, og forudindlæst i index.html. */}
-      <picture>
-        <source
-          type="image/webp"
-          srcSet="/images/palmy-hero-800.webp 800w, /images/palmy-hero-1200.webp 1200w, /images/palmy-hero-1600.webp 1600w"
-          sizes="100vw"
-        />
-        <img
-          src="/images/palmy-hero-1200.jpg"
-          width={2016}
-          height={864}
-          fetchPriority="high"
-          decoding="async"
-          alt={hero.alt}
-          className="h-[calc(100dvh-3.5rem)] min-h-[420px] w-full object-cover object-[65%_50%] sm:h-[80vh] sm:object-center"
-        />
-      </picture>
-      {/* Funktionel skygge bag teksten: nedefra på mobil, fra venstre på desktop. */}
-      <div className="absolute inset-0 bg-gradient-to-t from-green-deep/90 via-green-deep/30 to-green-deep/10 sm:bg-gradient-to-r sm:from-green-deep/90 sm:via-green-deep/65 sm:via-40% sm:to-transparent sm:to-75%" />
+    // Fast højde (samme som det tidligere hero-billede), så videoen aldrig giver
+    // layout-spring. Baggrunden er poster-billedet (.hero-fallback i index.css),
+    // som ses før videoen er klar, hvis den ikke kan afspilles, og ved reduced motion.
+    <section
+      id="forside"
+      className="hero-fallback relative h-[calc(100dvh-3.5rem)] min-h-[420px] overflow-hidden sm:h-[80vh]"
+    >
+      {/* Dekorativ baggrundsvideo uden lyd. Mobil-kilderne (lodret 720×1280)
+          vælges under 768 px, ellers desktop (1920×1080). */}
+      <video
+        ref={videoRef}
+        className="hero-video absolute inset-0 h-full w-full object-cover"
+        muted
+        loop
+        playsInline
+        preload="none"
+        poster="/videos/palmy-hero-poster.jpg"
+        aria-hidden="true"
+        tabIndex={-1}
+      >
+        <source media="(max-width: 768px)" src="/videos/palmy-hero-mobile.webm" type="video/webm" />
+        <source media="(max-width: 768px)" src="/videos/palmy-hero-mobile.mp4" type="video/mp4" />
+        <source src="/videos/palmy-hero-desktop.webm" type="video/webm" />
+        <source src="/videos/palmy-hero-desktop.mp4" type="video/mp4" />
+      </video>
+      {/* Mørk overlay mellem video og tekst. */}
+      <div aria-hidden="true" className="hero-shade absolute inset-0" />
 
       <div className="absolute inset-0 flex items-end sm:items-center">
         <div className="mx-auto w-full max-w-5xl px-4 pb-10 sm:px-6 sm:pb-0">

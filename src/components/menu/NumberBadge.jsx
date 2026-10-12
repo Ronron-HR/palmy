@@ -1,6 +1,6 @@
 // Mørkegrøn cirkel med cream tal og en tynd guldkant — menunummeret, som på
 // det trykte kort. Én stil overalt: guldkanten gør cirklen synlig også på de
-// grønne flader (signaturretterne), så der ikke behøves en lys variant.
+// grønne flader, så der ikke behøves en lys variant.
 // Retter uden nummer (drikkevarer, tilbehør) har number === null og
 // renderer ingen badge. Nummeret er tekst og vises præcis som i data.
 function NumberBadge({ number, size = 'normal' }) {

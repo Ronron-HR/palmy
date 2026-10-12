@@ -67,6 +67,41 @@ body {
   }
 }
 
+/* Hero-video: poster som baggrund (fallback før/uden video), mobil-poster
+   under 768 px, mørk overlay mellem video og tekst, og ingen video ved
+   reduced motion. */
+.hero-fallback {
+  background: #0d0905 url('/videos/palmy-hero-poster.jpg') center / cover no-repeat;
+}
+@media (max-width: 768px) {
+  .hero-fallback {
+    background-image: url('/videos/palmy-hero-poster-mobile.jpg');
+  }
+}
+/* Pakkens anbefalede overlay, forstærket bag teksten: på mobil nedefra
+   (teksten står i bunden), på desktop fra venstre (teksten står til venstre). */
+.hero-shade {
+  background: linear-gradient(
+    180deg,
+    rgba(8, 5, 2, 0.35) 0%,
+    rgba(8, 5, 2, 0.2) 30%,
+    rgba(8, 5, 2, 0.72) 60%,
+    rgba(8, 5, 2, 0.85) 100%
+  );
+}
+@media (min-width: 640px) {
+  .hero-shade {
+    background:
+      linear-gradient(90deg, rgba(8, 5, 2, 0.72) 0%, rgba(8, 5, 2, 0.5) 40%, rgba(8, 5, 2, 0) 70%),
+      linear-gradient(180deg, rgba(8, 5, 2, 0.35) 0%, rgba(8, 5, 2, 0.15) 40%, rgba(8, 5, 2, 0.55) 100%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-video {
+    display: none;
+  }
+}
+
 /* Vandret kategorilinje: kan scrolles, men uden synlig scrollbar. */
 .no-scrollbar {
   scrollbar-width: none;

@@ -27,3 +27,8 @@ public/images/MAD BILLEDER/
 *.njsproj
 *.sln
 *.sw?
+
+# Leverancepakke til hero-videoen — filerne er kopieret (og optimeret) til
+# public/videos/. Zip'en må aldrig ligge i public/, da den så bliver offentlig.
+palmy-hero-pakke/
+public/images/palmy-hero-pakke.zip
