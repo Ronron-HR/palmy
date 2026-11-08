@@ -32,3 +32,6 @@ public/images/MAD BILLEDER/
 # public/videos/. Zip'en må aldrig ligge i public/, da den så bliver offentlig.
 palmy-hero-pakke/
 public/images/palmy-hero-pakke.zip
+
+# Skærmbilleder fra mobil-tjekket (Playwright) — lokale, skal ikke i git.
+mobile-check/

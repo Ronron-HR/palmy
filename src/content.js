@@ -1,5 +1,6 @@
 // ÉNESTE KILDE TIL FAKTA — telefon, adresse, tider, priser, tekster.
 // Ret KUN her. Komponenter må aldrig hardcode disse værdier.
+// Billeder og videoer bor i ./media.js.
 
 const street = 'Hjortshøj Stationsvej 6'
 const postalCode = '8530'
@@ -51,9 +52,20 @@ export const hours = {
   closedNote: 'Resten af ugen har vi lukket.',
   // Kort linje brugt flere steder (menu, kontakt, footer).
   preorderNote: `Forudbestil fra kl.\u00a0${dk(preorderStart)} – afhent fra kl.\u00a0${dk(openTime)} og helt frem til lukketid kl.\u00a0${dk(closeTime)}.`,
-  // Todelt forklaring til Åbningstider-sektionen.
+  // Todelt forklaring til Find os-sektionen.
   preorderLine: `Ring og forudbestil allerede fra kl.\u00a0${dk(preorderStart)}.`,
   pickupLine: `Afhentning fra kl.\u00a0${dk(openTime)} og frem til vi lukker kl.\u00a0${dk(closeTime)}.`,
+}
+
+// "Bestil tidligt" — restaurantens egen opfordring: jo tidligere man ringer, jo
+// bedre. Tider afledes af hours; teksten er ejerens budskab.
+export const bestilTidligt = {
+  heading: 'Jo tidligere du bestiller, jo bedre',
+  steps: [
+    { time: dk(preorderStart), text: 'Telefonen åbner for forudbestilling' },
+    { time: dk(openTime), text: 'Afhentning starter' },
+    { time: dk(closeTime), text: 'Vi lukker' },
+  ],
 }
 
 export const menuInfo = {
@@ -61,53 +73,98 @@ export const menuInfo = {
     'Numrene følger vores menukort – du kan bestille efter nummer, når du ringer.',
 }
 
-export const frame = {
-  website: 'palmyspisested.com',
-  tagline: 'Vietnamesisk mad med kærlighed',
-  // Ingen sociale profiler, før restauranten har en rigtig profil at linke til.
+// Sociale profiler (oplyst af ejeren, nov. 2026).
+export const social = {
+  facebook: 'https://www.facebook.com/profile.php?id=61593688294152',
+  instagram: 'https://www.instagram.com/palmyspisested/',
 }
 
-export const nav = [
-  { label: 'Menu', href: '#menu' },
-  { label: 'Åbningstider', href: '#aabningstider' },
-  { label: 'Historie', href: '#historie' },
-  { label: 'Kontakt', href: '#kontakt' },
-]
-
-export const hero = {
-  heading: 'Vietnamesisk mad i Hjortshøj',
-  subheading: `Palmy Spisested er en lille familiedrevet restaurant med frisklavet vietnamesisk mad og takeaway. Ring og bestil – vi har åbent ${hours.daysLong} kl.\u00a0${hours.time}.`,
-  alt: 'Bord med retter fra Palmy Spisested: sprødstegt and i sauce, stegte nudler med oksekød, forårsruller og ris',
-}
-
-// Kuraterede favoritter til foto-carousellen under heroen. `number` peger på
-// en ret i data/menu.ts — navn og pris hentes DERFRA (aldrig hardcode her), så
-// sektionen aldrig kan skride fra menukortet. `image` er filnavn-stammen i
-// /images/signatur/ (script: scripts/process-signatur-images.mjs).
-export const signatur = {
-  heading: 'Smag et par af favoritterne',
-  intro: 'Et lille udpluk fra kortet – frisklavet, som du får det hos os.',
-  dishes: [
-    { number: '3', image: 'nr3', alt: 'Stegte nudler med kylling, broccoli og gulerod fra Palmy Spisested' },
-    { number: '6', image: 'nr6', alt: 'Sprødstegt and med ris og mørk kinesisk sød sauce fra Palmy Spisested' },
-    { number: '4', image: 'nr4', alt: 'Stegte nudler med oksekød og friske grøntsager fra Palmy Spisested' },
+// Google-anmeldelser. Teksterne er kopieret ordret fra Palmys Google-profil
+// 8. nov. 2026 (4 anmeldelser, 5,0 i gennemsnit, alle 5 stjerner). Opdater her,
+// når der kommer nye. Anmeldelser uden tekst viser kun deres delkarakterer.
+export const google = {
+  rating: '5,0',
+  count: 4,
+  // Palmys anmeldelsesside på Google Maps - her kan gæster ogsaa skrive en ny.
+  url: 'https://www.google.com/maps/place/Palmy+Spisested/@56.2449015,10.2683485,501m/data=!3m1!1e3!4m8!3m7!1s0x464c3d5feadc1379:0xb7763ebbb79775e6!8m2!3d56.2449015!4d10.2683485!9m1!1b1!16s%2Fg%2F11zf898ly_',
+  heading: 'Det siger gæsterne',
+  reviews: [
+    {
+      name: 'Villy Pirok',
+      text: 'Fremragende mad denne lørdag, hvor vi ikke gad lave mad. Tænkte på det sædvanlige grillmad, men kom i tanke om det nye sted i Hjortshøj - Palmy, det måtte vi prøve og sikke en overraskelse - fremragende, veltillavet og velsmagende. Bedste anbefalinger herfra :-)',
+      reply: 'Tusind tak, Håber du kommer igen!',
+    },
+    {
+      name: 'Phong Nguyen',
+      text: 'God kvalitet til prisen. Kan anbefales. nr. 12',
+    },
+    { name: 'Gustav Lynbech', food: 5, service: 5 },
+    { name: 'Torben Fredberg', food: 5, service: 5 },
   ],
 }
 
-export const historie = {
-  heading: 'Historien om Palmy Spisested',
-  paragraphs: [
+export const frame = {
+  website: 'palmyspisested.com',
+  tagline: 'Vietnamesisk mad med kærlighed',
+}
+
+// Hovednavigation. `href` på formen '/#id' er et anker på forsiden; resten er
+// egne sider.
+export const nav = [
+  { label: 'Menu', href: '/menu' },
+  { label: 'Historien', href: '/historien' },
+  { label: 'Billeder', href: '/billeder' },
+  { label: 'Anmeldelser', href: '/anmeldelser' },
+  { label: 'Find os', href: '/#kontakt' },
+]
+
+export const hero = {
+  // H1 i to linjer: "Vietnamesisk mad" + kursiv "i Hjortshøj".
+  lead: 'Vietnamesisk mad',
+  tail: `i ${city}`,
+  subheading: `Familiedrevet køkken med frisklavet mad efter egne opskrifter. Ring og bestil til afhentning – vi har åbent ${hours.daysLong}.`,
+}
+
+// De tre tider, der står i fokus i heroen (afledt af hours).
+export const heroTider = [
+  { label: 'Bestil fra', time: dk(preorderStart) },
+  { label: 'Afhentning', time: dk(openTime) },
+  { label: 'Lukker', time: dk(closeTime) },
+]
+
+// Familiens tekst, ordret. Brug `historie.chapters` til visning.
+const historieTekst = [
     'Palmy Spisested er en familiedrevet restaurant, startet af Thi og Nam. Med familiens opskrifter som fundament åbnede de deres vietnamesiske restaurant i Danmark – og den blev hurtigt et sted med mange glade, loyale gæster.',
     'Da livet ændrede sig, satte de restauranten på pause for at fokusere på uddannelse, arbejde og familie. Men drømmen om en dag at åbne igen forsvandt aldrig.',
     'I dag har de valgt at genåbne i Hjortshøj. Restauranten har åbent hver fredag og lørdag fra kl. 16.00 til 20.30, hvor de personligt tilbereder maden med samme kærlighed og omhu som altid.',
     'Når du besøger os, håber vi du får mere end et godt måltid – en oplevelse, hvor smagen og stemningen bringer dig tættere på vietnamesisk mad lavet med hjertet.',
+]
+
+// Historien er en rækkefølge, så den vises som tre kapitler: opskrifterne, pausen
+// og genåbningen. Kapitel 2 er delt ved sætningsskiftet, så den sidste sætning
+// kan stå som citat. Kapiteloverskrifterne er blot navne på afsnittene.
+export const historie = {
+  heading: 'Historien om Palmy Spisested',
+  chapters: [
+    { title: 'Familiens opskrifter', text: historieTekst[0] },
+    {
+      title: 'En pause',
+      text: 'Da livet ændrede sig, satte de restauranten på pause for at fokusere på uddannelse, arbejde og familie.',
+      quote: 'Men drømmen om en dag at åbne igen forsvandt aldrig.',
+    },
+    { title: 'Genåbnet i Hjortshøj', text: historieTekst[2] },
   ],
+  outro: historieTekst[3],
   closing: 'Kom forbi og smag selv – fredag eller lørdag.',
+}
+
+export const billeder = {
+  heading: 'Billeder',
+  intro: 'Fra køkkenet og spisesalen – optaget hos os i Hjortshøj.',
 }
 
 export const kontakt = {
   heading: 'Find os i Hjortshøj',
-  closing: 'Vi glæder os til at se dig – fredag eller lørdag.',
 }
 
 // Ofte stillede spørgsmål. Svarene bygger KUN på oplysninger, der allerede
@@ -139,11 +196,11 @@ export const faq = {
     },
     {
       question: 'Hvor kan jeg se menuen?',
-      answer: 'Hele menukortet med priser står her på forsiden, og du kan også åbne det som en selvstændig side.',
+      answer: 'Hele menukortet med priser står på menusiden. Du kan også åbne det som en printvenlig udgave.',
       link: { label: 'Åbn menukortet', href: '/menu' },
     },
   ],
 }
 
-// Menudata (retter, priser, numre) bor i ../data/menu.ts — det er den eneste
+// Menudata (retter, priser, numre) bor i ./data/menu.ts — det er den eneste
 // kilde til menuen, delt af kundemenuen, bestillingsvisningen og printkortet.

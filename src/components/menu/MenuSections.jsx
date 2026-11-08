@@ -12,6 +12,13 @@ const visibleSections = SECTIONS.filter((s) => getDishesBySection(s.id).length >
 function MenuSections({ columns = false, idPrefix = 'menu', headingLevel = 3 }) {
   const [active, setActive] = useState(visibleSections[0]?.id)
 
+  // Direkte link til en kategori (fx /menu#kort-boernemenu fra forsiden): siden
+  // er netop skiftet via Link (uden browserens hash-scroll), så hop selv derhen.
+  useEffect(() => {
+    const id = window.location.hash.slice(1)
+    if (id) document.getElementById(id)?.scrollIntoView({ behavior: 'instant' })
+  }, [])
+
   // Markér den sektion, der aktuelt fylder toppen af skærmen.
   useEffect(() => {
     const nodes = visibleSections
@@ -68,12 +75,12 @@ function MenuSections({ columns = false, idPrefix = 'menu', headingLevel = 3 }) 
     <>
       <nav
         aria-label="Menukategorier"
-        className="sticky top-[57px] z-30 -mx-4 border-b border-green-deep/10 bg-cream/95 backdrop-blur-sm sm:top-[65px] sm:mx-0"
+        className="sticky top-[57px] z-30 -mx-4 border-b border-line bg-bg/95 backdrop-blur-sm sm:top-[65px] sm:mx-0"
       >
         {/* Mobil: blød udtoning i højre kant viser, at listen kan scrolles. */}
         <ul
           ref={listRef}
-          className="no-scrollbar relative flex gap-1 overflow-x-auto px-4 py-2 [mask-image:linear-gradient(to_right,#000_85%,transparent)] sm:px-0 sm:[mask-image:none]"
+          className="no-scrollbar relative flex gap-2 overflow-x-auto px-4 py-2 [mask-image:linear-gradient(to_right,#000_85%,transparent)] sm:px-0 sm:[mask-image:none]"
         >
           {visibleSections.map((section) => {
             const isActive = active === section.id
@@ -83,10 +90,8 @@ function MenuSections({ columns = false, idPrefix = 'menu', headingLevel = 3 }) 
                   href={`#${idPrefix}-${section.id}`}
                   aria-current={isActive ? 'true' : undefined}
                   onClick={() => setActive(section.id)}
-                  className={`inline-flex min-h-10 items-center rounded-md px-3 text-sm font-medium transition-[background-color,color,transform] duration-150 active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-deep ${
-                    isActive
-                      ? 'bg-green-deep text-cream'
-                      : 'text-green-deep/80 hover:bg-green-deep/[0.06] hover:text-green-deep'
+                  className={`inline-flex min-h-11 items-center rounded-full px-4 text-sm font-semibold transition-[background-color,color,transform] duration-150 active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 ${
+                    isActive ? 'bg-fg text-bg' : 'text-muted hover:text-fg'
                   }`}
                 >
                   {section.title}
@@ -105,7 +110,7 @@ function MenuSections({ columns = false, idPrefix = 'menu', headingLevel = 3 }) 
             key={section.id}
             id={`${idPrefix}-${section.id}`}
             aria-labelledby={`${idPrefix}-${section.id}-titel`}
-            className="mb-10 scroll-mt-16 sm:scroll-mt-20"
+            className="mb-14 scroll-mt-16 sm:scroll-mt-20"
           >
             <SectionHeader
               id={`${idPrefix}-${section.id}-titel`}
@@ -113,7 +118,7 @@ function MenuSections({ columns = false, idPrefix = 'menu', headingLevel = 3 }) 
               note={section.note}
               level={headingLevel}
             />
-            <ul className="divide-y divide-green-deep/10">
+            <ul className="divide-y divide-line">
               {getDishesBySection(section.id).map((dish) => (
                 <li key={dish.id}>
                   <DishCard dish={dish} />

@@ -62,13 +62,13 @@ Ingen kategorinote.
 | Nr. | Navn | Beskrivelse | Pris |
 |---|---|---|---|
 | 16 | Crispy Burger | Med salat, agurk og pommes frites | Med kylling 79 kr · Med oksekød 79 kr |
-| 17 | Chicken Nuggets (6 stk.) | Med pommes frites og ketchup | 69 kr |
+| 17 | Chicken Nuggets (7 stk.) | Med pommes frites og ketchup | 69 kr |
 
 ### Drikkevarer (uden numre)
 | Navn | Pris |
 |---|---|
-| Vand | 15 kr |
-| Sodavand | 15 kr |
+| Vand | 20 kr |
+| Sodavand | 20 kr |
 
 ### Ekstra Tilbehør (uden numre)
 | Navn | Pris |

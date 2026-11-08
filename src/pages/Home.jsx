@@ -1,28 +1,27 @@
-import Navigation from '../components/Navigation'
+import Layout from '../components/Layout'
 import Hero from '../components/Hero'
-import Historie from '../components/Historie'
-import Menu from '../components/Menu'
-import Aabningstider from '../components/Aabningstider'
+import BestilNu from '../components/BestilNu'
+import MenuIndgang from '../components/MenuIndgang'
+import HistorieTeaser from '../components/HistorieTeaser'
+import KoekkenStribe from '../components/KoekkenStribe'
+import AnmeldelserBlok from '../components/AnmeldelserBlok'
+import FindOs from '../components/FindOs'
 import Faq from '../components/Faq'
-import Kontakt from '../components/Kontakt'
-import Footer from '../components/Footer'
-import RingNuBar from '../components/RingNuBar'
 
+// Forsiden er en indgang, ikke hele sitet: hero, vejen ind til menuen, et
+// glimt af historien og køkkenet, og hvor og hvornår man finder os.
 function Home() {
   return (
-    <>
-      <Navigation />
-      <main id="indhold">
-        <Hero />
-        <Historie />
-        <Menu />
-        <Aabningstider />
-        <Faq />
-        <Kontakt />
-      </main>
-      <Footer />
-      <RingNuBar />
-    </>
+    <Layout>
+      <Hero />
+      <BestilNu />
+      <MenuIndgang />
+      <HistorieTeaser />
+      <KoekkenStribe />
+      <AnmeldelserBlok variant="teaser" />
+      <FindOs />
+      <Faq />
+    </Layout>
   )
 }
 

@@ -9,7 +9,7 @@ function PriceList({ dish, size = 'normal' }) {
 
   if (dish.price != null) {
     return (
-      <span className={`whitespace-nowrap tabular-nums text-red-warm ${priceClass}`}>
+      <span className={`whitespace-nowrap tabular-nums text-price ${priceClass}`}>
         {dish.price} kr
       </span>
     )
@@ -20,8 +20,8 @@ function PriceList({ dish, size = 'normal' }) {
       <div className="grid grid-cols-[1fr_auto] items-baseline gap-x-3 gap-y-1 sm:grid-cols-[auto_auto]">
         {dish.variants.map((variant) => (
           <Fragment key={variant.label}>
-            <span className="text-left text-sm text-green-deep/80">{variant.label}</span>
-            <span className={`whitespace-nowrap text-right tabular-nums text-red-warm ${priceClass}`}>
+            <span className="text-left text-sm text-muted">{variant.label}</span>
+            <span className={`whitespace-nowrap text-right tabular-nums text-price ${priceClass}`}>
               {variant.price} kr
             </span>
           </Fragment>

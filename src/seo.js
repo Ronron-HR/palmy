@@ -7,7 +7,7 @@
 // Alle fakta (navn, adresse, tider, priser) hentes fra content.js og
 // data/menu.ts — intet hardcodes her.
 
-import { business, faq, hours, signatur } from './content'
+import { business, faq, hours, social } from './content'
 import { SECTIONS, dishes, getDishesBySection } from './data/menu'
 
 // Kanonisk domæne. www-varianten er den offentlige adresse; apex 301'er hertil
@@ -16,7 +16,7 @@ export const SITE_URL = 'https://www.palmyspisested.com'
 export const abs = (path = '/') => `${SITE_URL}${path}`
 
 const OG_IMAGE = {
-  url: abs('/images/palmy-hero-og.jpg'),
+  url: abs('/images/palmy-og.jpg'),
   width: 1200,
   height: 630,
   alt: `Retter fra ${business.name} – vietnamesisk mad i ${business.city}`,
@@ -117,11 +117,14 @@ export function restaurantSchema({ fullMenu = false } = {}) {
     currenciesAccepted: 'DKK',
     image: [
       OG_IMAGE.url,
-      ...signatur.dishes.map((d) => abs(`/images/signatur/${d.image}-1200.webp`)),
+      abs('/images/restaurant/palmy-facade-skilt-1280x720.webp'),
+      abs('/images/food/palmy-karry-i-gryden-1080x1350.webp'),
+      abs('/images/restaurant/palmy-spisesal-1200x1500.webp'),
     ],
     address: postalAddress(),
     geo: { '@type': 'GeoCoordinates', ...GEO },
     hasMap: business.googleMapsUrl,
+    sameAs: [social.facebook, social.instagram],
     openingHoursSpecification: openingHoursSpecification(),
     hasMenu: fullMenu ? menuSchema() : abs('/menu'),
   }
@@ -170,9 +173,30 @@ const ROUTES = {
     jsonLd: () => [restaurantSchema({ fullMenu: true })],
     sitemap: { priority: '0.9', changefreq: 'monthly' },
   },
+  '/historien': {
+    title: `Historien${SITE_SUFFIX} – familiedrevet vietnamesisk restaurant`,
+    description: `Historien om ${business.name} i ${business.city} – startet af Thi og Nam med familiens opskrifter, sat på pause og nu genåbnet hver fredag og lørdag.`,
+    robots: 'index, follow',
+    jsonLd: () => [],
+    sitemap: { priority: '0.7', changefreq: 'yearly' },
+  },
+  '/billeder': {
+    title: `Billeder${SITE_SUFFIX} – fra køkkenet og spisesalen`,
+    description: `Billeder og korte videoer fra køkkenet og spisesalen hos ${business.name} i ${business.city}.`,
+    robots: 'index, follow',
+    jsonLd: () => [],
+    sitemap: { priority: '0.6', changefreq: 'monthly' },
+  },
+  '/anmeldelser': {
+    title: `Anmeldelser${SITE_SUFFIX} – det siger gæsterne`,
+    description: `Læs gæsternes Google-anmeldelser af ${business.name} i ${business.city} – 5,0 i gennemsnit – og skriv din egen.`,
+    robots: 'index, follow',
+    jsonLd: () => [],
+    sitemap: { priority: '0.6', changefreq: 'monthly' },
+  },
   '/privatliv': {
     title: `Privatlivspolitik${SITE_SUFFIX}`,
-    description: `Sådan håndterer ${business.name} i ${business.city} dine oplysninger. Om hosting, skrifttyper fra Google, Google Maps og cookies.`,
+    description: `Sådan håndterer ${business.name} i ${business.city} dine oplysninger. Om hosting, skrifttyper, Google Maps og cookies.`,
     robots: 'index, follow',
     jsonLd: () => [],
     sitemap: { priority: '0.2', changefreq: 'yearly' },
@@ -221,6 +245,9 @@ export function getRouteSeo(pathname) {
 export const PRERENDER_ROUTES = [
   { path: '/', file: 'index.html' },
   { path: '/menu', file: 'menu.html' },
+  { path: '/historien', file: 'historien.html' },
+  { path: '/billeder', file: 'billeder.html' },
+  { path: '/anmeldelser', file: 'anmeldelser.html' },
   { path: '/privatliv', file: 'privatliv.html' },
   { path: '/menu/print', file: 'menu/print.html' },
   { path: '/bestilling', file: 'bestilling.html' },
@@ -269,6 +296,10 @@ export function renderHead(pathname) {
     `<meta name="twitter:description" content="${escapeAttr(seo.description)}" />`,
     `<meta name="twitter:image" content="${escapeAttr(OG_IMAGE.url)}" />`,
     `<meta name="twitter:image:alt" content="${escapeAttr(OG_IMAGE.alt)}" />`,
+    // Forsidens hero-poster er LCP-elementet — hent den med det samme.
+    ...(seo.pathname === '/'
+      ? [`<link rel="preload" as="image" href="/videos/hero/palmy-hero-poster-mobil-720x1280.jpg" fetchpriority="high" />`]
+      : []),
     ...seo.jsonLd().map(jsonLdScript),
   ]
   return tags.join('\n    ')

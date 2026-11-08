@@ -232,7 +232,7 @@ const source: DishSource[] = [
   },
   {
     number: '17',
-    name: 'Chicken Nuggets (6 stk.)',
+    name: 'Chicken Nuggets (7 stk.)',
     description: 'Med pommes frites og ketchup',
     price: 69,
     section: 'boernemenu',
@@ -242,13 +242,13 @@ const source: DishSource[] = [
   {
     number: null,
     name: 'Vand',
-    price: 15,
+    price: 20,
     section: 'drikkevarer',
   },
   {
     number: null,
     name: 'Sodavand',
-    price: 15,
+    price: 20,
     section: 'drikkevarer',
   },
 

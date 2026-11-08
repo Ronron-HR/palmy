@@ -80,7 +80,7 @@ function Bestilling() {
   }
 
   return (
-    <div className="min-h-screen bg-cream">
+    <div className="paper min-h-screen bg-cream text-fg">
       <div className="mx-auto max-w-3xl px-4 py-8 sm:px-6">
         <h1 className="font-display text-2xl font-bold text-green-deep">Bestilling</h1>
         <p className="text-sm text-green-deep/70">Palmy Spisested — internt opslag</p>
@@ -150,7 +150,7 @@ function Bestilling() {
 
               {dish.choices && (
                 <div className="mt-6 rounded-lg bg-gold/10 p-4">
-                  <p className="text-xs font-bold uppercase tracking-wide text-green-deep/70">
+                  <p className="text-sm font-bold uppercase tracking-wide text-green-deep/70">
                     Spørg kunden
                   </p>
                   <p className="mt-1 text-xl font-semibold text-green-deep sm:text-2xl">
@@ -164,7 +164,7 @@ function Bestilling() {
               )}
 
               <div className="mt-6 border-t border-gold/20 pt-4">
-                <p className="mb-2 text-xs font-bold uppercase tracking-wide text-green-deep/70">
+                <p className="mb-2 text-sm font-bold uppercase tracking-wide text-green-deep/70">
                   Pris
                 </p>
                 {dish.price != null && (
@@ -218,7 +218,7 @@ function Bestilling() {
 
         {/* Hele nummeroversigten som kompakt klikbart grid. */}
         <div className="mt-10 border-t border-green-deep/10 pt-6">
-          <p className="mb-3 text-xs font-bold uppercase tracking-wide text-green-deep/70">
+          <p className="mb-3 text-sm font-bold uppercase tracking-wide text-green-deep/70">
             Alle numre
           </p>
           <div className="grid grid-cols-5 gap-2 sm:grid-cols-10">
@@ -240,7 +240,7 @@ function Bestilling() {
         </div>
 
         <div className="mt-10 text-center">
-          <Link to="/" className="text-xs text-green-deep/70">
+          <Link to="/" className="text-sm text-green-deep/70">
             ← Forsiden
           </Link>
         </div>

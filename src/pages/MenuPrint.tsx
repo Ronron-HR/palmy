@@ -8,7 +8,7 @@ import Link from '../components/Link'
 // via `print:hidden` når siden rent faktisk printes/gemmes som PDF.
 function MenuPrint() {
   return (
-    <div className="overflow-x-auto bg-white py-8">
+    <div className="paper overflow-x-auto bg-white py-8">
       <style>{`
         @page {
           size: A4 landscape;
@@ -23,14 +23,14 @@ function MenuPrint() {
       <div className="mb-6 flex justify-center gap-4 print:hidden">
         <Link
           to="/menu"
-          className="rounded-full border border-green-deep/20 px-4 py-2 text-sm font-medium text-green-deep hover:bg-green-deep/5"
+          className="rounded-full border border-green-deep/20 inline-flex min-h-11 items-center px-4 text-sm font-medium text-green-deep hover:bg-green-deep/5"
         >
           ← Tilbage til menukort
         </Link>
         <button
           type="button"
           onClick={() => window.print()}
-          className="rounded-full bg-green-deep px-4 py-2 text-sm font-semibold text-cream"
+          className="rounded-full inline-flex min-h-11 items-center bg-green-deep px-4 text-sm font-semibold text-cream"
         >
           Udskriv / gem som PDF
         </button>
@@ -53,7 +53,7 @@ function MenuPrint() {
             return (
               <div key={section.id} className="mb-8">
                 <SectionHeader title={section.title} note={section.note} level={2} />
-                <div className="divide-y divide-gold/20">
+                <div className="divide-y divide-line">
                   {sectionDishes.map((dish) => (
                     <DishCard key={dish.id} dish={dish} />
                   ))}

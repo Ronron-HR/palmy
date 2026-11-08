@@ -1,42 +1,38 @@
-import Navigation from '../components/Navigation'
-import Footer from '../components/Footer'
+import Layout from '../components/Layout'
 import Link from '../components/Link'
+import RingKnap from '../components/RingKnap'
 import { business } from '../content'
 
 // Rigtig 404 (dist/404.html serveres af Cloudflare Pages med status 404), så
-// ukendte adresser ikke længere svarer 200 med forsidens indhold.
+// ukendte adresser ikke svarer 200 med forsidens indhold.
 function NotFound() {
   return (
-    <>
-      <Navigation />
-      <main id="indhold" className="bg-cream">
-        <div className="mx-auto max-w-2xl px-4 py-24 text-center sm:px-6 sm:py-32">
-          <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gold-deep">404</p>
-          <h1 className="mt-3 font-display text-3xl font-semibold text-green-deep sm:text-4xl">
-            Siden findes ikke
-          </h1>
-          <p className="mt-4 text-lg text-green-deep/80">
-            Adressen er måske stavet forkert, eller siden er flyttet. Menu, åbningstider og
-            kontakt til {business.name} finder du på forsiden.
-          </p>
-          <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <Link
-              to="/"
-              className="inline-flex items-center justify-center rounded-full bg-green-deep px-6 py-3 text-base font-semibold text-cream transition-colors hover:bg-green-deep-light"
-            >
-              Til forsiden
-            </Link>
-            <Link
-              to="/menu"
-              className="inline-flex items-center justify-center rounded-full border border-green-deep/30 px-6 py-3 text-base font-semibold text-green-deep transition-colors hover:bg-green-deep/5"
-            >
-              Se menukortet
-            </Link>
-          </div>
+    <Layout>
+      <div className="theme-ivory bg-bg text-fg">
+      <div className="mx-auto max-w-2xl px-4 py-24 sm:px-6 sm:py-32">
+        <h1 className="font-display text-6xl leading-none text-fg sm:text-7xl">Siden findes ikke</h1>
+        <p className="mt-5 text-lg text-muted">
+          Adressen er måske stavet forkert, eller siden er flyttet. Menu, åbningstider og
+          kontakt til {business.name} finder du her.
+        </p>
+        <div className="mt-8 grid gap-3 sm:flex sm:flex-wrap">
+          <Link
+            to="/menu"
+            className="press inline-flex min-h-12 items-center justify-center rounded-full bg-fg px-6 py-3 text-base font-semibold text-bg hover:bg-fg/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-fg"
+          >
+            Se menukortet
+          </Link>
+          <Link
+            to="/"
+            className="press inline-flex min-h-12 items-center justify-center rounded-full border border-fg/40 px-6 py-3 text-base font-semibold text-fg hover:bg-fg/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-fg"
+          >
+            Til forsiden
+          </Link>
+          <RingKnap variant="cta">Ring {business.phoneDisplay}</RingKnap>
         </div>
-      </main>
-      <Footer />
-    </>
+      </div>
+      </div>
+    </Layout>
   )
 }
 

@@ -1,21 +1,104 @@
 @import "tailwindcss";
 
-@theme {
-  --font-display: 'Fraunces', serif;
-  --font-body: 'Inter', sans-serif;
+/* Designsystem: dyb smaragd, messing og rispapirs-elfenben med trækul/teak.
 
+   Farverne bruges via SEMANTISKE tokens (bg, surface, fg, muted, line, accent,
+   brass, price, cta, cta-fg, chili). Hvert TEMA nedenfor giver dem nye værdier,
+   så samme komponent virker på smaragd, elfenben og teak — sæt blot
+   `theme-ivory bg-bg text-fg` (osv.) på sektionen. .paper er til print/internt. */
+@theme {
+  --font-display: 'Gloock', Georgia, serif;
+  --font-body: 'Hanken Grotesk Variable', system-ui, sans-serif;
+
+  --color-emerald-night: #07342a; /* kun til poster-baggrund */
+  --color-open: #7be0a4;
+
+  /* Lyst tema til print og internt opslag */
   --color-cream: #faf6ee;
   --color-green-deep: #1f3a2e;
   --color-green-deep-light: #2c4f3d;
   --color-gold: #c9a24b;
-  --color-gold-light: #e2c785;
-  /* Guld til TEKST på cream (≈5:1). Almindelig gold kun på grøn eller som streg. */
   --color-gold-deep: #7d5f1c;
-  --color-green-hero: #23372a;
-  --color-open: #4caf72;
   --color-red-warm: #b3402f;
-  --color-red-warm-light: #d1604a;
   --color-slate-dish: #2b2f36;
+}
+
+@theme inline {
+  --color-bg: var(--c-bg);
+  --color-surface: var(--c-surface);
+  --color-fg: var(--c-fg);
+  --color-muted: var(--c-muted);
+  --color-line: var(--c-line);
+  --color-accent: var(--c-accent);
+  --color-brass: var(--c-brass);
+  --color-price: var(--c-price);
+  --color-cta: var(--c-cta);
+  --color-cta-fg: var(--c-cta-fg);
+  --color-chili: var(--c-chili);
+}
+
+/* Standard: dyb smaragd. */
+:root {
+  --c-bg: #0c4a38;
+  --c-surface: #115a45;
+  --c-fg: #f6efdc; /* rispapir */
+  --c-muted: #cfe0d3;
+  --c-line: rgb(246 239 220 / 0.22);
+  --c-accent: #d8b45f;
+  --c-brass: #dcb867;
+  --c-price: #f6efdc;
+  --c-cta: #d8b45f; /* messing */
+  --c-cta-fg: #06261d;
+  --c-chili: #f2b79d;
+  --c-leaf: #f6efdc;
+  --leaf-alpha: 0.06;
+}
+
+/* Rispapir: lys flade til menuen og læsning. */
+.theme-ivory {
+  --c-bg: #f5eedb;
+  --c-surface: #ece2c6;
+  --c-fg: #15382c;
+  --c-muted: #52665a;
+  --c-line: rgb(21 56 44 / 0.2);
+  --c-accent: #7c5d20;
+  --c-brass: #7c5d20; /* messing, mørkt nok til tekst på elfenben */
+  --c-price: #15382c;
+  --c-cta: #0c4a38;
+  --c-cta-fg: #f6efdc;
+  --c-chili: #a8341d;
+  --c-leaf: #0c4a38;
+  --leaf-alpha: 0.06;
+}
+
+/* Trækul/teak: tidtavlen, køkkenet og footeren. */
+.theme-teak {
+  --c-bg: #1b1815;
+  --c-surface: #26211c;
+  --c-fg: #f3ead6;
+  --c-muted: #c9bfa9;
+  --c-line: rgb(243 234 214 / 0.2);
+  --c-accent: #d8b45f;
+  --c-brass: #d8b45f;
+  --c-price: #f3ead6;
+  --c-cta: #d8b45f;
+  --c-cta-fg: #1b1408;
+  --c-chili: #f2b79d;
+}
+
+/* Print og internt opslag: papir. */
+.paper {
+  --c-bg: #faf6ee;
+  --c-surface: #ffffff;
+  --c-fg: #2b2f36;
+  --c-muted: #5b616b;
+  --c-line: rgb(31 58 46 / 0.15);
+  --c-accent: #1f3a2e;
+  --c-brass: #1f3a2e;
+  --c-price: #b3402f;
+  --c-cta: #1f3a2e;
+  --c-cta-fg: #faf6ee;
+  --c-chili: #b3402f;
 }
 
 html {
@@ -23,36 +106,22 @@ html {
   scroll-padding-top: 4.5rem;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-}
-
 body {
   font-family: var(--font-body);
-  background-color: var(--color-cream);
-  color: var(--color-slate-dish);
+  background-color: var(--color-bg);
+  color: var(--color-fg);
   -webkit-tap-highlight-color: transparent;
+  -webkit-font-smoothing: antialiased;
 }
 
 .font-display {
   font-optical-sizing: auto;
 }
 
-/* Ens, synlig fokusring overalt, hvor intet andet er sat. I base-laget, så
-   komponenternes focus-visible:outline-*-utilities stadig vinder. */
 @layer base {
   :focus-visible {
-    outline: 2px solid var(--color-green-deep);
-    outline-offset: 2px;
-  }
-  /* På grønne flader skal ringen være lys for at kunne ses. */
-  .bg-green-deep :focus-visible,
-  .bg-green-hero :focus-visible,
-  footer :focus-visible,
-  .bg-green-hero:focus-visible {
-    outline-color: var(--color-gold-light);
+    outline: 2px solid var(--c-accent);
+    outline-offset: 3px;
   }
   /* <main> får kun fokus programmatisk (efter sideskift) — ingen ring. */
   #indhold:focus {
@@ -60,49 +129,110 @@ body {
   }
 }
 
-/* Den faste ring-bar i bunden (mobil) må ikke dække et fokuseret element. */
+/* Den faste bund-bar (mobil) må ikke dække et fokuseret element. */
 @media (max-width: 767px) {
   html {
     scroll-padding-bottom: 5.5rem;
   }
 }
 
-/* Hero-video: poster som baggrund (fallback før/uden video), mobil-poster
-   under 768 px, mørk overlay mellem video og tekst, og ingen video ved
-   reduced motion. */
-.hero-fallback {
-  background: #0d0905 url('/videos/palmy-hero-poster.jpg') center / cover no-repeat;
+/* Tropisk bagtæppe: palmeblade som tone-i-tone-mønster bag indholdet. Maske-
+   billedet er sort/gennemsigtigt; farven kommer fra temaet (--c-leaf). Dekorativt. */
+.leaf-bg {
+  position: relative;
+  isolation: isolate;
 }
-@media (max-width: 768px) {
-  .hero-fallback {
-    background-image: url('/videos/palmy-hero-poster-mobile.jpg');
-  }
-}
-/* Pakkens anbefalede overlay, forstærket bag teksten: på mobil nedefra
-   (teksten står i bunden), på desktop fra venstre (teksten står til venstre). */
-.hero-shade {
-  background: linear-gradient(
-    180deg,
-    rgba(8, 5, 2, 0.35) 0%,
-    rgba(8, 5, 2, 0.2) 30%,
-    rgba(8, 5, 2, 0.72) 60%,
-    rgba(8, 5, 2, 0.85) 100%
-  );
-}
-@media (min-width: 640px) {
-  .hero-shade {
-    background:
-      linear-gradient(90deg, rgba(8, 5, 2, 0.72) 0%, rgba(8, 5, 2, 0.5) 40%, rgba(8, 5, 2, 0) 70%),
-      linear-gradient(180deg, rgba(8, 5, 2, 0.35) 0%, rgba(8, 5, 2, 0.15) 40%, rgba(8, 5, 2, 0.55) 100%);
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .hero-video {
-    display: none;
-  }
+.leaf-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-color: var(--c-leaf);
+  opacity: var(--leaf-alpha);
+  -webkit-mask: url('/images/tropisk-moenster.svg') 0 0 / 560px 560px repeat;
+  mask: url('/images/tropisk-moenster.svg') 0 0 / 560px 560px repeat;
+  pointer-events: none;
 }
 
-/* Vandret kategorilinje: kan scrolles, men uden synlig scrollbar. */
+/* Trækorn: fine lodrette fibre som tekstur på teak-flader. Dekorativt. */
+.grain {
+  position: relative;
+  isolation: isolate;
+}
+.grain::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: url('/images/traekorn.svg') 0 0 / 600px 600px repeat;
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+/* Hero: posteren ligger bag videoen (ses før den er klar, ved reduced motion
+   og "spar data") — samme billede som <video poster>. */
+.hero-poster {
+  background: var(--color-emerald-night) url('/videos/hero/palmy-hero-poster-mobil-720x1280.jpg')
+    center / cover no-repeat;
+}
+/* Læsbarhed bag teksten på mobil, hvor teksten ligger OVER videoen. */
+.hero-shade {
+  background:
+    linear-gradient(180deg, rgb(6 38 29 / 0.4) 0%, rgb(6 38 29 / 0) 22%),
+    linear-gradient(
+      0deg,
+      rgb(6 38 29 / 0.97) 0%,
+      rgb(6 38 29 / 0.9) 42%,
+      rgb(6 38 29 / 0.55) 66%,
+      rgb(6 38 29 / 0) 88%
+    );
+}
+
+/* Heroens ene indtoning: hver overskriftslinje stiger op bag en maske. */
+@keyframes rise {
+  from {
+    transform: translateY(105%);
+  }
+  to {
+    transform: none;
+  }
+}
+.rise {
+  display: block;
+  animation: rise 0.55s cubic-bezier(0.2, 0.7, 0.1, 1) both;
+  animation-delay: var(--d, 0ms);
+}
+
+/* Stjerner, der tændes én ad gangen, og tekst, der toner ind. Kun transform og
+   opacity (hurtigt), og de startes forfra via `key` (se hooks/useReplay.js). */
+@keyframes pop {
+  from {
+    opacity: 0;
+    transform: scale(0.3) rotate(-25deg);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.pop {
+  animation: pop 0.32s cubic-bezier(0.2, 0.9, 0.3, 1.35) both;
+  animation-delay: var(--d, 0ms);
+}
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.fade {
+  animation: fade 0.4s ease-out both;
+  animation-delay: var(--d, 0ms);
+}
+
+/* Vandret kategorilinje / galleri: kan scrolles, men uden synlig scrollbar. */
 .no-scrollbar {
   scrollbar-width: none;
 }
@@ -112,7 +242,7 @@ body {
 
 /* Diskret trykfeedback: knappen giver efter på pointer-down. */
 .press {
-  transition-property: background-color, color, border-color, transform;
+  transition-property: background-color, color, border-color, transform, filter;
   transition-duration: 150ms;
   transition-timing-function: ease-out;
 }
@@ -129,8 +259,7 @@ body {
     animation-iteration-count: 1 !important;
     scroll-behavior: auto !important;
   }
-  .press:active,
-  .active\:scale-\[0\.97\]:active {
+  .press:active {
     transform: none;
   }
 }

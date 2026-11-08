@@ -1,15 +1,20 @@
 import { useEffect, useState } from 'react'
 import { business } from '../content'
-import RingKnap from './RingKnap'
+import { usePathname } from '../hooks/usePathname'
 import { useOpenStatus } from '../hooks/useOpenStatus'
+import RingKnap from './RingKnap'
+import Link from './Link'
 
-// Kun mobil: fast bar i bunden. Synlig når hero er scrollet forbi, og skjult
-// igen fra kontakt-sektionen og ned (så baren aldrig flimrer over eller dækker
-// kontaktknappen/footeren). Ren scroll-baseret beregning — ingen
-// IntersectionObserver-flimmer nær bunden.
+// Kun mobil: fast bar i bunden med de to ting en sulten gæst skal bruge —
+// menukortet og et opkald. Synlig når hero er scrollet forbi, og skjult igen
+// fra kontakt-sektionen og ned (så baren aldrig dækker kontaktknappen/footeren).
+// Ren scroll-baseret beregning — ingen IntersectionObserver-flimmer nær bunden.
+// På /menu er man allerede på menukortet, så der står kun Ring.
 function RingNuBar() {
   const [visible, setVisible] = useState(false)
   const status = useOpenStatus()
+  const pathname = usePathname()
+  const onMenu = pathname.replace(/\/+$/, '') === '/menu'
 
   useEffect(() => {
     let frame = 0
@@ -20,11 +25,13 @@ function RingNuBar() {
       const scrollY = window.scrollY
       const viewportBottom = scrollY + vh
 
-      // Vis først når man er scrollet et godt stykke forbi heroen.
-      const pastHero = scrollY > vh * 0.6
+      // Forsiden har en fuldskærms-hero: vis først når man er scrollet forbi.
+      // Undersider har ingen hero og viser baren med det samme.
+      const hasHero = Boolean(document.getElementById('forside'))
+      const pastHero = hasHero ? scrollY > vh * 0.6 : scrollY > 80
 
       // Skjul fra kontakt-sektionen og ned (footeren ligger under den).
-      // På /menu (ingen kontakt-sektion) skjules baren ved sidens egen ring-knap.
+      // På sider uden kontakt-sektion skjules baren ved sidens egen ring-knap.
       const kontakt = document.getElementById('kontakt') ?? document.getElementById('bestil')
       const hideFrom = kontakt
         ? kontakt.getBoundingClientRect().top + scrollY
@@ -48,18 +55,26 @@ function RingNuBar() {
       window.removeEventListener('scroll', onScroll)
       window.removeEventListener('resize', onScroll)
     }
-  }, [])
+  }, [pathname])
 
   return (
     <div
       aria-hidden={!visible}
       inert={!visible}
-      className={`fixed inset-x-0 bottom-0 z-50 border-t border-green-deep/10 bg-cream/95 p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur-sm transition-transform duration-300 md:hidden ${
+      className={`fixed inset-x-0 bottom-0 z-50 flex gap-2 border-t border-line bg-bg/95 p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur-sm transition-transform duration-300 md:hidden ${
         visible ? 'translate-y-0' : 'translate-y-full'
       }`}
     >
-      <RingKnap variant="green" className="flex w-full">
-        {status.cta} – {business.phoneDisplay}
+      {!onMenu && (
+        <Link
+          to="/menu"
+          className="press inline-flex min-h-12 flex-1 items-center justify-center rounded-full border border-fg/40 px-4 text-base font-semibold text-fg hover:bg-fg/10"
+        >
+          Se menu
+        </Link>
+      )}
+      <RingKnap variant="cta" className={onMenu ? 'flex w-full' : 'flex-[1.6]'}>
+        {onMenu ? `${status.cta} – ${business.phoneDisplay}` : `Ring ${business.phoneDisplay}`}
       </RingKnap>
     </div>
   )

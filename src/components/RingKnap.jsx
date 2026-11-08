@@ -1,14 +1,16 @@
 import { business } from '../content'
 
+// cta = den ene primære handling på sitet ("Ring og bestil").
+// outline = sekundær (også et opkald, men uden fyld).
 const variants = {
-  gold: 'bg-gold text-green-deep hover:bg-gold-light focus-visible:outline-cream',
-  green: 'bg-green-deep text-cream hover:bg-green-deep-light focus-visible:outline-green-deep',
+  cta: 'bg-cta text-cta-fg hover:brightness-110 focus-visible:outline-fg',
+  outline: 'border border-fg/40 text-fg hover:bg-fg/10 focus-visible:outline-fg',
 }
 
 // Ringer direkte op ved tryk (tel:-link). Browseren/OS'et beder selv om
 // bekræftelse før opkaldet – det kan intet website slå fra, så vi holder
 // flowet til det ene nødvendige tryk i stedet for at lægge en popup foran.
-function RingKnap({ variant = 'green', className = '', children }) {
+function RingKnap({ variant = 'cta', className = '', children }) {
   return (
     <a
       href={`tel:${business.phoneHref}`}
