@@ -5,7 +5,7 @@ import { Fragment } from 'react'
 // retten og med de faste priser i kolonnen ude til højre. Tabeltal, så cifrene
 // står under hinanden.
 function PriceList({ dish, size = 'normal' }) {
-  const priceClass = size === 'large' ? 'text-2xl font-bold sm:text-3xl' : 'font-semibold'
+  const priceClass = size === 'large' ? 'text-2xl font-bold sm:text-3xl' : 'font-bold'
 
   if (dish.price != null) {
     return (

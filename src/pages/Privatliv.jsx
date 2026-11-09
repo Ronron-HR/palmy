@@ -18,29 +18,29 @@ import Link from '../components/Link'
 function Privatliv() {
   return (
     <Layout>
-      <div className="theme-ivory bg-bg text-fg">
+      <div className="theme-paper bg-bg text-fg">
         <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24">
-          <h1 className="font-display text-5xl leading-none text-fg sm:text-6xl">
+          <h1 className="font-display text-h1 text-fg">
             Privatlivspolitik
           </h1>
           <p className="mt-3 text-sm text-muted">Senest opdateret: oktober 2026</p>
 
           <div className="mt-10 space-y-10 text-muted">
             <section>
-              <h2 className="font-display text-2xl text-fg">Dataansvarlig</h2>
+              <h2 className="font-display text-3xl text-fg">Dataansvarlig</h2>
               <p className="mt-2 leading-relaxed">
                 {business.name},{' '}
                 <a
                   href={business.googleMapsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-medium text-fg underline decoration-brass underline-offset-4"
+                  className="font-medium text-fg underline decoration-signal underline-offset-4"
                 >
                   {business.address} <span className="sr-only">(åbner i nyt vindue)</span>
                 </a>
                 . Har du spørgsmål til denne politik, er du
                 velkommen til at ringe på{' '}
-                <a href={`tel:${business.phoneHref}`} className="font-medium text-fg underline decoration-brass underline-offset-4">
+                <a href={`tel:${business.phoneHref}`} className="font-medium text-fg underline decoration-signal underline-offset-4">
                   {business.phoneDisplay}
                 </a>
                 .
@@ -48,7 +48,7 @@ function Privatliv() {
             </section>
 
             <section>
-              <h2 className="font-display text-2xl text-fg">
+              <h2 className="font-display text-3xl text-fg">
                 Hvilke oplysninger vi indsamler
               </h2>
               <p className="mt-2 leading-relaxed">
@@ -67,7 +67,7 @@ function Privatliv() {
             </section>
 
             <section>
-              <h2 className="font-display text-2xl text-fg">Skrifttyper</h2>
+              <h2 className="font-display text-3xl text-fg">Skrifttyper</h2>
               <p className="mt-2 leading-relaxed">
                 Sidens skrifttyper ligger på selve hjemmesiden og hentes ikke fra andre
                 tjenester. Der sendes derfor ingen oplysninger om dig til tredjepart, når
@@ -76,7 +76,7 @@ function Privatliv() {
             </section>
 
             <section>
-              <h2 className="font-display text-2xl text-fg">Cookies</h2>
+              <h2 className="font-display text-3xl text-fg">Cookies</h2>
               <p className="mt-2 leading-relaxed">
                 Hjemmesiden sætter ikke selv cookies. I afsnittet “Find os i Hjortshøj” på forsiden
                 kan du vælge at indlæse et Google Maps-kort ved at klikke på “Vis kort”. Først når
@@ -86,7 +86,7 @@ function Privatliv() {
                   href="https://policies.google.com/privacy"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-medium text-fg underline decoration-brass underline-offset-4"
+                  className="font-medium text-fg underline decoration-signal underline-offset-4"
                 >
                   Googles privatlivspolitik <span className="sr-only">(åbner i nyt vindue)</span>
                 </a>
@@ -99,7 +99,7 @@ function Privatliv() {
             </section>
 
             <section>
-              <h2 className="font-display text-2xl text-fg">Bestilling</h2>
+              <h2 className="font-display text-3xl text-fg">Bestilling</h2>
               <p className="mt-2 leading-relaxed">
                 Bestilling og forudbestilling sker over telefon. Vi gemmer ikke dine oplysninger
                 digitalt gennem hjemmesiden – din bestilling håndteres direkte af os i
@@ -108,7 +108,7 @@ function Privatliv() {
             </section>
 
             <section>
-              <h2 className="font-display text-2xl text-fg">Dine rettigheder</h2>
+              <h2 className="font-display text-3xl text-fg">Dine rettigheder</h2>
               <p className="mt-2 leading-relaxed">
                 Efter databeskyttelsesforordningen (GDPR) har du ret til indsigt i, berigtigelse af
                 og sletning af eventuelle oplysninger, vi måtte have om dig. Hjemmesiden har ingen
@@ -121,7 +121,7 @@ function Privatliv() {
           <div className="mt-12 border-t border-line pt-6">
             <Link
               to="/"
-              className="text-sm font-medium text-muted underline decoration-brass underline-offset-4 hover:text-fg"
+              className="text-sm font-medium text-muted underline decoration-signal underline-offset-4 hover:text-fg"
             >
               ← Tilbage til forsiden
             </Link>

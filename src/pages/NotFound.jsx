@@ -8,27 +8,21 @@ import { business } from '../content'
 function NotFound() {
   return (
     <Layout>
-      <div className="theme-ivory bg-bg text-fg">
-      <div className="mx-auto max-w-2xl px-4 py-24 sm:px-6 sm:py-32">
-        <h1 className="font-display text-6xl leading-none text-fg sm:text-7xl">Siden findes ikke</h1>
+      <div className="theme-paper bg-bg text-fg">
+      <div className="mx-auto max-w-3xl px-4 py-20 sm:px-6 sm:py-32">
+        <h1 className="font-display text-h1 text-fg">Siden findes ikke</h1>
         <p className="mt-5 text-lg text-muted">
           Adressen er måske stavet forkert, eller siden er flyttet. Menu, åbningstider og
           kontakt til {business.name} finder du her.
         </p>
-        <div className="mt-8 grid gap-3 sm:flex sm:flex-wrap">
-          <Link
-            to="/menu"
-            className="press inline-flex min-h-12 items-center justify-center rounded-full bg-fg px-6 py-3 text-base font-semibold text-bg hover:bg-fg/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-fg"
-          >
+        <div className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-2">
+          <RingKnap className="w-full sm:w-auto">Ring {business.phoneDisplay}</RingKnap>
+          <Link to="/menu" className="tlink">
             Se menukortet
           </Link>
-          <Link
-            to="/"
-            className="press inline-flex min-h-12 items-center justify-center rounded-full border border-fg/40 px-6 py-3 text-base font-semibold text-fg hover:bg-fg/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-fg"
-          >
+          <Link to="/" className="tlink">
             Til forsiden
           </Link>
-          <RingKnap variant="cta">Ring {business.phoneDisplay}</RingKnap>
         </div>
       </div>
       </div>

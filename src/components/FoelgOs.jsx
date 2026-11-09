@@ -32,8 +32,9 @@ const channels = [
 ]
 
 // "Følg Palmy": et bånd over footeren på alle sider med to store, nemme links til
-// Instagram og Facebook. Ikonerne popper ind, hver gang båndet kommer ind i
-// billedet (kun transform/opacity — let og hurtigt).
+// Instagram og Facebook — sat som to rækker i menutavlens sprog (navn til venstre,
+// profilnavn til højre, hårfine streger). Ikonerne popper ind, hver gang båndet
+// kommer ind i billedet (kun transform/opacity — let og hurtigt).
 function FoelgOs() {
   const [ref, plays] = useReplay()
 
@@ -41,34 +42,29 @@ function FoelgOs() {
     <section
       ref={ref}
       aria-labelledby="foelg-titel"
-      className="theme-teak grain bg-bg text-fg"
+      className="theme-ink border-t border-line bg-bg text-fg"
     >
-      <div className="mx-auto flex max-w-6xl flex-col gap-8 px-4 py-14 sm:px-6 sm:py-16 lg:flex-row lg:items-center lg:justify-between">
-        <h2 id="foelg-titel" className="font-display text-4xl leading-none text-fg sm:text-5xl">
+      <div className="section-y mx-auto grid max-w-6xl gap-10 px-4 sm:px-6 lg:grid-cols-12 lg:gap-16">
+        <h2 id="foelg-titel" className="font-display text-h2 text-fg lg:col-span-5">
           Følg Palmy
         </h2>
 
-        <ul className="grid gap-3 sm:grid-cols-2 lg:w-[34rem]" key={plays}>
+        <ul className="divide-y divide-line border-y border-line lg:col-span-7" key={plays}>
           {channels.map(({ name, handle, href, Icon }, i) => (
             <li key={name}>
               <a
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex min-h-16 items-center gap-4 border border-brass/60 px-5 py-3 transition-colors hover:bg-brass hover:text-cta-fg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brass"
+                className="group flex min-h-20 items-center justify-between gap-4 px-0 py-5 transition-colors hover:bg-fg hover:text-bg focus-visible:outline-2 focus-visible:outline-offset-2 sm:px-4"
               >
-                <span
-                  className="pop text-brass transition-colors group-hover:text-cta-fg"
-                  style={{ '--d': `${i * 140}ms` }}
-                >
-                  <Icon />
-                </span>
-                <span className="flex flex-col leading-tight">
-                  <span className="text-lg font-semibold">{name}</span>
-                  <span className="text-sm text-muted transition-colors group-hover:text-cta-fg">
-                    {handle}
+                <span className="flex items-center gap-4">
+                  <span className="pop text-signal transition-colors group-hover:text-bg" style={{ '--d': `${i * 140}ms` }}>
+                    <Icon />
                   </span>
+                  <span className="font-display text-h3 leading-none">{name}</span>
                 </span>
+                <span className="text-sm text-muted transition-colors group-hover:text-bg">{handle}</span>
                 <span className="sr-only">(åbner i nyt vindue)</span>
               </a>
             </li>

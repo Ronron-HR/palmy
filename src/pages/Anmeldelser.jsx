@@ -6,9 +6,9 @@ import AnmeldelserBlok, { Rating } from '../components/AnmeldelserBlok'
 function Anmeldelser() {
   return (
     <Layout>
-      <header className="leaf-bg bg-bg">
-        <div className="mx-auto grid max-w-6xl items-end gap-8 px-4 pb-14 pt-16 sm:px-6 sm:pb-20 sm:pt-24 lg:grid-cols-12">
-          <h1 className="font-display text-5xl leading-none text-fg sm:text-7xl lg:col-span-7">
+      <header className="theme-ink bg-bg text-fg">
+        <div className="mx-auto grid max-w-6xl items-end gap-8 px-4 pb-12 pt-14 sm:px-6 sm:pb-16 sm:pt-20 lg:grid-cols-12">
+          <h1 className="font-display text-h1 text-fg lg:col-span-7">
             Anmeldelser
           </h1>
           <Rating className="lg:col-span-5" />

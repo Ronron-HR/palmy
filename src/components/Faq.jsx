@@ -22,7 +22,7 @@ function ChevronIcon({ className }) {
 }
 
 // Telefonnummer og adresse i svarteksten bliver til tel:- og Maps-links.
-const inlineLink = 'font-semibold text-fg underline decoration-brass underline-offset-4 hover:text-brass'
+const inlineLink = 'font-semibold text-fg underline decoration-signal underline-offset-4 hover:text-signal'
 const escapeRegex = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 const linkPattern = new RegExp(`(${escapeRegex(business.phoneDisplay)}|${escapeRegex(business.address)})`)
 
@@ -54,7 +54,7 @@ function LinkedText({ text }) {
 
 function AnswerLink({ link }) {
   const className =
-    'mt-3 inline-flex min-h-11 items-center text-sm font-semibold text-fg underline decoration-brass underline-offset-[6px] hover:text-brass'
+    'mt-3 inline-flex min-h-11 items-center text-sm font-semibold text-fg underline decoration-signal underline-offset-[6px] hover:text-signal'
   if (link.external) {
     return (
       <a href={link.href} target="_blank" rel="noopener noreferrer" className={className}>
@@ -71,19 +71,19 @@ function AnswerLink({ link }) {
 
 function Faq() {
   return (
-    <section id="faq" aria-labelledby="faq-titel" className="theme-ivory bg-bg text-fg">
-      <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
-        <div className="max-w-3xl">
-          <h2 id="faq-titel" className="font-display text-4xl leading-none text-fg sm:text-5xl">
-            {faq.heading}
-          </h2>
+    <section id="faq" aria-labelledby="faq-titel" className="theme-paper bg-bg text-fg">
+      <div className="section-y mx-auto grid max-w-6xl gap-10 px-4 sm:px-6 lg:grid-cols-12 lg:gap-16">
+        <h2 id="faq-titel" className="font-display text-h2 text-fg lg:col-span-4">
+          {faq.heading}
+        </h2>
 
-          <div className="mt-8 divide-y divide-line border-y border-line">
+        <div className="lg:col-span-8">
+          <div className="divide-y divide-line border-y-2 border-fg">
             {faq.items.map((item) => (
               <details key={item.question} className="group">
-                <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between gap-4 py-4 text-left font-display text-2xl leading-tight text-fg [&::-webkit-details-marker]:hidden">
+                <summary className="flex min-h-16 cursor-pointer list-none items-center justify-between gap-4 py-4 text-left text-lg font-bold leading-snug text-fg [&::-webkit-details-marker]:hidden">
                   <span>{item.question}</span>
-                  <ChevronIcon className="h-5 w-5 flex-shrink-0 text-brass transition-transform group-open:rotate-180" />
+                  <ChevronIcon className="h-5 w-5 flex-shrink-0 text-signal transition-transform group-open:rotate-180" />
                 </summary>
                 <div className="pb-6 pr-9 text-base leading-relaxed text-muted">
                   <p>

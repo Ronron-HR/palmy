@@ -6,17 +6,14 @@ import { useReplay } from '../hooks/useReplay'
 // Lange anmeldelser sættes i brødtekstskriften (læsbart); korte i display-skriften.
 const quoteClass = (text) =>
   text.length > 140
-    ? 'font-body text-xl font-medium leading-relaxed text-fg sm:text-2xl'
-    : 'font-display text-3xl leading-snug text-fg sm:text-4xl'
-
-const buttonBase =
-  'press inline-flex min-h-12 items-center justify-center rounded-full px-6 py-3 text-base font-semibold focus-visible:outline-2 focus-visible:outline-offset-2'
+    ? 'text-lg font-medium leading-relaxed text-fg sm:text-xl'
+    : 'text-balance text-2xl font-bold leading-tight text-fg sm:text-3xl'
 
 // Gennemsnittet som et stort tal — samme sprog som menunumrene og tidtavlen.
 export function Rating({ className = '' }) {
   return (
     <div className={className}>
-      <p className="overflow-hidden py-1 font-display text-[6.5rem] leading-[0.9] tabular-nums text-brass sm:text-[9rem]">
+      <p className="overflow-hidden py-1 font-display text-[clamp(7rem,4rem+14vw,13rem)] leading-[0.88] tabular-nums text-signal">
         <span className="rise">{google.rating}</span>
       </p>
       <div className="mt-4 flex items-center gap-3">
@@ -39,12 +36,12 @@ function Review({ review, delay = 0 }) {
       >
         {review.text}
       </blockquote>
-      <figcaption className="fade mt-4 text-base font-semibold" style={{ '--d': `${delay + 220}ms` }}>
+      <figcaption className="label fade mt-4" style={{ '--d': `${delay + 220}ms` }}>
         {review.name}
       </figcaption>
       {review.reply && (
         <p
-          className="fade mt-5 border-l-2 border-brass pl-4 text-base leading-relaxed text-muted"
+          className="fade mt-5 border-l-2 border-signal pl-4 text-base leading-relaxed text-muted"
           style={{ '--d': `${delay + 300}ms` }}
         >
           <span className="font-semibold text-fg">Svar fra Palmy:</span> {review.reply}
@@ -72,13 +69,13 @@ function AnmeldelserBlok({ variant = 'teaser' }) {
       ref={ref}
       id="anmeldelser"
       aria-labelledby="anmeldelser-titel"
-      className="theme-ivory leaf-bg bg-bg text-fg"
+      className="theme-sand bg-bg text-fg"
     >
-      <div key={plays} className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
+      <div key={plays} className="section-y mx-auto max-w-6xl px-4 sm:px-6">
         {teaser ? (
           <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
             <div className="lg:col-span-5">
-              <h2 id="anmeldelser-titel" className="font-display text-4xl leading-none text-fg sm:text-5xl">
+              <h2 id="anmeldelser-titel" className="font-display text-h2 text-fg">
                 {google.heading}
               </h2>
               <Rating className="mt-8" />
@@ -116,33 +113,21 @@ function AnmeldelserBlok({ variant = 'teaser' }) {
           </>
         )}
 
-        <div className="mt-12 grid gap-3 sm:flex sm:flex-wrap">
+        <div className="mt-10 flex flex-wrap gap-x-8 gap-y-1">
           {teaser ? (
-            <Link
-              to="/anmeldelser"
-              className={`${buttonBase} bg-cta text-cta-fg hover:brightness-125 focus-visible:outline-fg`}
-            >
+            <Link to="/anmeldelser" className="tlink">
               Læs alle anmeldelser
             </Link>
           ) : (
-            <a
-              href={google.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`${buttonBase} bg-cta text-cta-fg hover:brightness-125 focus-visible:outline-fg`}
-            >
+            <a href={google.url} target="_blank" rel="noopener noreferrer" className="tlink">
               Skriv en anmeldelse på Google <span className="sr-only">(åbner i nyt vindue)</span>
             </a>
           )}
-          <a
-            href={google.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`${buttonBase} border border-fg/50 text-fg hover:bg-fg/10 focus-visible:outline-fg`}
-          >
-            {teaser ? 'Skriv en anmeldelse' : 'Se dem på Google'}{' '}
-            <span className="sr-only">(åbner i nyt vindue)</span>
-          </a>
+          {teaser && (
+            <a href={google.url} target="_blank" rel="noopener noreferrer" className="tlink">
+              Skriv en anmeldelse <span className="sr-only">(åbner i nyt vindue)</span>
+            </a>
+          )}
         </div>
       </div>
     </section>

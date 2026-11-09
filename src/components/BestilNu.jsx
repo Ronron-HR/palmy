@@ -1,8 +1,8 @@
 import { bestilTidligt } from '../content'
-import AabenStatus from './AabenStatus'
 
 // "Bestil nu": restaurantens budskab — jo tidligere man ringer, jo bedre — som en
-// tidtavle med store messing-tal for dagens tre tidspunkter. Bevidst uden
+// tidtavle: tre enorme tal på den ene chili-flade på siden. Det ENESTE sted, hvor
+// alle tre tider står sammen (heroen viser kun åbningstiden). Bevidst uden
 // animation og uden egen Ring-knap: den faste bar i bunden (mobil) og headeren
 // (desktop) har den altid ved hånden.
 function BestilNu() {
@@ -10,27 +10,25 @@ function BestilNu() {
     <section
       id="bestil-nu"
       aria-labelledby="bestil-nu-titel"
-      className="theme-teak grain bg-bg text-fg"
+      className="theme-red bg-bg text-fg"
     >
-      <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
-        <AabenStatus className="mb-6" />
-        <h2
-          id="bestil-nu-titel"
-          className="max-w-2xl font-display text-4xl leading-[1.05] text-fg sm:text-6xl"
-        >
+      <div className="section-y mx-auto max-w-6xl px-4 sm:px-6">
+        <h2 id="bestil-nu-titel" className="max-w-3xl font-display text-h2 text-fg">
           {bestilTidligt.heading}
         </h2>
 
-        <ol className="mt-10 grid max-w-3xl grid-cols-3 border-y border-brass/50">
+        <ol className="mt-10 grid grid-cols-3 border-y border-line sm:mt-14">
           {bestilTidligt.steps.map((step, index) => (
             <li
               key={step.time}
-              className={`py-6 ${index > 0 ? 'border-l border-brass/50 pl-4 sm:pl-8' : 'pr-4 sm:pr-8'}`}
+              className={`py-6 sm:py-10 ${index > 0 ? 'border-l border-line pl-3 sm:pl-10' : 'pr-3 sm:pr-10'}`}
             >
-              <span className="block font-display text-[2.1rem] leading-none tabular-nums text-brass sm:text-7xl">
+              <span className="block font-display text-board tabular-nums text-fg">
                 {step.time}
               </span>
-              <span className="mt-3 block text-sm leading-snug text-muted">{step.text}</span>
+              <span className="mt-3 block max-w-[15ch] text-sm leading-snug text-muted sm:mt-5 sm:text-base">
+                {step.text}
+              </span>
             </li>
           ))}
         </ol>

@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import { hero, heroTider, business, google } from '../content'
+import { hero, hours, business, google } from '../content'
 import { heroVideo } from '../media'
 import RingKnap from './RingKnap'
 import AabenStatus from './AabenStatus'
@@ -27,10 +27,10 @@ function ChevronDown() {
 }
 
 // Mobil: fuldskærms-video (lodret wok over gasflamme) med teksten nederst, hvor
-// tommelfingeren er. Desktop (lg+): delt layout — tekst til venstre, samme
-// lodrette video i en høj ramme til højre med en tynd messinglinje. (Desktop-
-// udgaven af optagelsen er et groft beskær og ser sløret ud i fuld bredde.)
-// Under knapperne: Googles gennemsnit, som scroller ned til anmeldelserne.
+// tommelfingeren er. Desktop (lg+): to spor — tekst til venstre på sidens grid, den
+// samme lodrette video som et højt, kantløst panel helt ud til højre kant.
+// Åbningstiden (dage + tid) står her ÉN gang; hele tidtavlen (forudbestilling 15.00,
+// afhentning 16.00, lukker 20.30) bor i BestilNu lige under. Ring er den eneste pille.
 function Hero() {
   const status = useOpenStatus()
   const videoRef = useRef(null)
@@ -95,84 +95,81 @@ function Hero() {
   return (
     // Mindst en skærm høj (headeren er 3,5 rem), men vokser, hvis indholdet kræver det
     // (små telefoner) — teksten må aldrig skubbes op under headeren.
+    // Mobil: videoen fylder hele heroen bag teksten. Desktop (lg+): to spor — tekst til
+    // venstre på sidens grid, den lodrette video som et højt, kantløst panel helt ud
+    // til højre kant. Ingen ramme og ingen streg: videoen står i sit eget format.
     <section
       ref={sectionRef}
       id="forside"
-      className="leaf-bg relative flex min-h-[calc(100svh-3.5rem)] overflow-hidden bg-emerald-night lg:min-h-[calc(100svh-4.0625rem)] lg:items-center lg:bg-bg"
+      className="theme-ink relative flex min-h-[calc(100svh-3.5rem)] overflow-hidden bg-bg text-fg lg:grid lg:min-h-[calc(100svh-4.0625rem)] lg:grid-cols-[minmax(0,1fr)_clamp(22rem,32vw,36rem)]"
     >
-      <div className="mx-auto flex w-full max-w-6xl lg:grid lg:grid-cols-12 lg:items-center lg:gap-12 lg:px-6 lg:py-14">
-        {/* Videoen. Mobil: fylder hele heroen bag teksten. Desktop: høj ramme. */}
-        <div className="hero-poster absolute inset-0 lg:relative lg:inset-auto lg:col-span-5 lg:col-start-8 lg:row-start-1 lg:aspect-[4/5] lg:max-h-[74svh] lg:w-full lg:max-w-md lg:justify-self-end lg:outline lg:outline-1 lg:outline-offset-[14px] lg:outline-brass/70">
-          <video
-            ref={videoRef}
-            className="h-full w-full object-cover"
-            muted
-            loop
-            playsInline
-            preload="none"
-            poster={heroVideo.poster}
-            aria-hidden="true"
-            tabIndex={-1}
-          >
-            <source src={heroVideo.webm} type="video/webm" />
-            <source src={heroVideo.mp4} type="video/mp4" />
-          </video>
-          {/* Mørk overlay mellem video og tekst — kun når teksten ligger over. */}
-          <div aria-hidden="true" className="hero-shade absolute inset-0 lg:hidden" />
-        </div>
+      <div className="hero-poster absolute inset-0 lg:static lg:order-2">
+        <video
+          ref={videoRef}
+          className="h-full w-full object-cover"
+          muted
+          loop
+          playsInline
+          preload="none"
+          poster={heroVideo.poster}
+          aria-hidden="true"
+          tabIndex={-1}
+        >
+          <source src={heroVideo.webm} type="video/webm" />
+          <source src={heroVideo.mp4} type="video/mp4" />
+        </video>
+        {/* Ensartet blæk-tone mellem video og tekst — kun når teksten ligger over. */}
+        <div aria-hidden="true" className="hero-shade absolute inset-0 lg:hidden" />
+      </div>
 
-        <div className="relative z-10 flex flex-1 flex-col justify-end px-4 pb-8 pt-10 sm:px-6 lg:col-span-7 lg:col-start-1 lg:row-start-1 lg:justify-center lg:px-0 lg:pb-0 lg:pt-0">
-          <AabenStatus className="mb-5 self-start" />
-          <h1 className="font-display text-[clamp(2rem,9.6vw,2.45rem)] leading-[1.02] text-fg [text-shadow:0_2px_18px_rgb(0_0_0/0.35)] sm:text-6xl lg:text-7xl lg:[text-shadow:none]">
-            <span className="block overflow-hidden pb-1">
+      <div className="relative z-10 flex flex-1 flex-col justify-end px-4 pb-8 pt-10 sm:px-6 lg:order-1 lg:justify-center lg:py-16 lg:pl-[max(1.5rem,calc((100vw-72rem)/2+1.5rem))] lg:pr-12">
+        <div className="lg:max-w-[46rem]">
+          <AabenStatus className="mb-5" />
+          <h1 className="font-display text-h1 text-fg">
+            <span className="block overflow-hidden pb-[0.06em]">
               <span key={plays} className="rise" style={{ '--d': '30ms' }}>
                 {hero.lead}
               </span>
             </span>
-            <span className="block overflow-hidden pb-1">
+            <span className="block overflow-hidden pb-[0.06em] text-signal">
               <span key={plays} className="rise" style={{ '--d': '110ms' }}>
                 {hero.tail}
               </span>
             </span>
           </h1>
-          <p className="mt-5 max-w-md text-lg leading-relaxed text-fg [text-shadow:0_1px_12px_rgb(0_0_0/0.4)] lg:[text-shadow:none]">
+          <p className="mt-6 max-w-md text-[1.0625rem] leading-relaxed text-fg lg:text-muted">
             {hero.subheading}
           </p>
 
-          {/* De tre tider i fokus: hvornår man kan bestille, hente, og hvornår vi lukker. */}
-          <ul className="mt-6 grid max-w-md grid-cols-3 border-y border-brass/70">
-            {heroTider.map((tid, index) => (
-              <li
-                key={tid.label}
-                className={`py-3 ${index > 0 ? 'border-l border-brass/70 pl-3 sm:pl-5' : 'pr-3 sm:pr-5'}`}
-              >
-                <span className="block text-sm font-semibold text-fg/85">{tid.label}</span>
-                <span className="mt-1 block font-display text-[1.75rem] leading-none tabular-nums text-brass sm:text-4xl">
-                  {tid.time}
-                </span>
-              </li>
-            ))}
-          </ul>
+          {/* Åbningstiderne, tydeligt og ÉN gang: dage og tid. Hele tidtavlen
+              (forudbestilling 15.00 osv.) står i sektionen lige under heroen. */}
+          <div className="mt-7 grid grid-cols-[auto_1fr] items-end gap-x-6 border-y border-line py-4">
+            <p className="label text-fg">
+              Åbent
+              <span className="mt-1 block text-base font-semibold normal-case tracking-normal">
+                {hours.days}
+              </span>
+            </p>
+            <p className="text-right font-display text-[clamp(2.1rem,1.2rem+3.6vw,3.6rem)] leading-none tabular-nums text-fg">
+              {hours.time}
+            </p>
+          </div>
 
-          {/* Mobil: to lige brede knapper stablet; fra sm side om side. */}
-          <div className="mt-6 grid gap-3 sm:flex sm:flex-wrap">
-            <RingKnap variant="cta">
+          <div className="mt-6 flex flex-wrap items-center gap-x-7 gap-y-1">
+            <RingKnap className="w-full sm:w-auto">
               {status.cta} – {business.phoneDisplay}
             </RingKnap>
-            <Link
-              to="/menu"
-              className="press inline-flex min-h-12 items-center justify-center rounded-full border border-fg/40 px-6 py-3 text-base font-semibold text-fg hover:bg-fg/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-fg"
-            >
+            <Link to="/menu" className="tlink">
               Se menukortet
             </Link>
           </div>
 
-          {/* Scroll-vink til anmeldelserne (Googles gennemsnit) og Facebook/Instagram
-              lige ved hånden — begge uden at forlade første skærm. */}
+          {/* Rating (scroller til anmeldelserne) og Facebook/Instagram lige ved
+              hånden — begge uden at forlade første skærm. */}
           <div className="mt-5 flex items-center justify-between gap-3">
             <a
               href="#anmeldelser"
-              className="inline-flex min-h-11 items-center gap-2.5 text-sm font-semibold text-fg hover:text-brass"
+              className="inline-flex min-h-11 items-center gap-2.5 text-sm font-semibold text-fg hover:text-signal"
             >
               <Stars className="h-3 w-3" />
               <span>
@@ -183,7 +180,6 @@ function Hero() {
             </a>
             <SocialIconLinks className="text-fg" />
           </div>
-
         </div>
       </div>
     </section>

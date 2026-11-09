@@ -36,9 +36,9 @@ function FindOs() {
   const mapsEmbedSrc = `https://maps.google.com/maps?q=${encodeURIComponent(business.address)}&output=embed`
 
   return (
-    <section id="kontakt" aria-labelledby="kontakt-titel" className="leaf-bg bg-bg">
-      <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
-        <h2 id="kontakt-titel" className="font-display text-5xl leading-none text-fg sm:text-6xl">
+    <section id="kontakt" aria-labelledby="kontakt-titel" className="theme-ink bg-bg text-fg">
+      <div className="section-y mx-auto max-w-6xl px-4 sm:px-6">
+        <h2 id="kontakt-titel" className="font-display text-h2 text-fg">
           {kontakt.heading}
         </h2>
 
@@ -46,17 +46,19 @@ function FindOs() {
           {/* Tider og adresse */}
           <div className="lg:col-span-5">
             <div id="aabningstider">
-              <div className="flex flex-wrap items-center gap-x-4 gap-y-3">
-                <p className="text-lg text-fg">Kun {hours.daysLong}.</p>
+              <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
+                <p className="text-lg font-semibold text-fg">Kun {hours.daysLong}.</p>
                 <AabenStatus />
               </div>
               <p className="mt-1 text-muted">{hours.closedNote}</p>
 
-              <dl className="mt-6 divide-y divide-line border-y border-line">
+              <dl className="mt-6 divide-y divide-line border-y-2 border-fg">
                 {hours.schedule.map((entry) => (
                   <div key={entry.day} className="flex items-baseline justify-between gap-4 py-4">
-                    <dt className="font-display text-3xl leading-none text-fg">{entry.day}</dt>
-                    <dd className="text-lg tabular-nums text-fg">{entry.time}</dd>
+                    <dt className="font-display text-h3 leading-none text-fg">{entry.day}</dt>
+                    <dd className="font-display text-h3 leading-none tabular-nums text-signal">
+                      {entry.time}
+                    </dd>
                   </div>
                 ))}
               </dl>
@@ -70,9 +72,9 @@ function FindOs() {
                 href={business.googleMapsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block py-1 transition-colors hover:text-brass"
+                className="block py-1 transition-colors hover:text-signal"
               >
-                <span className="block font-display text-2xl text-fg">{business.name}</span>
+                <span className="block text-xl font-bold text-fg">{business.name}</span>
                 <span className="block text-muted">{business.street}</span>
                 <span className="block text-muted">
                   {business.postalCode} {business.city}
@@ -81,10 +83,7 @@ function FindOs() {
               </a>
             </address>
 
-            <RingKnap variant="cta" className="mt-6 w-full sm:w-auto">
-              Ring {business.phoneDisplay}
-            </RingKnap>
-
+            <RingKnap className="mt-6 w-full sm:w-auto">Ring {business.phoneDisplay}</RingKnap>
           </div>
 
           {/* Facade og kort */}
@@ -92,10 +91,10 @@ function FindOs() {
             <Picture
               id="facade"
               sizes="(min-width: 1024px) 640px, 100vw"
-              className="aspect-[16/9] w-full rounded-sm object-cover"
+              className="aspect-[16/10] w-full object-cover"
             />
 
-            <div className="mt-4 overflow-hidden rounded-sm border border-line">
+            <div className="mt-3 border border-line">
               {mapLoaded ? (
                 <iframe
                   ref={mapRef}
@@ -111,10 +110,12 @@ function FindOs() {
                 <button
                   type="button"
                   onClick={() => setMapLoaded(true)}
-                  className="flex h-36 w-full flex-col items-center justify-center gap-2 bg-surface transition-colors hover:bg-fg/5 active:bg-fg/10 sm:h-44"
+                  className="flex min-h-24 w-full flex-col items-center justify-center gap-1 px-4 py-5 text-center transition-colors hover:bg-fg hover:text-bg"
                 >
-                  <MapPinIcon className="h-7 w-7 text-brass" />
-                  <span className="font-semibold text-fg">Vis kort</span>
+                  <span className="label inline-flex items-center gap-2 font-bold">
+                    <MapPinIcon className="h-5 w-5 text-signal" />
+                    Vis kort
+                  </span>
                   <span className="text-sm text-muted">Indlæser Google Maps først når du klikker</span>
                 </button>
               )}
@@ -124,7 +125,7 @@ function FindOs() {
               href={business.googleMapsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-4 inline-flex min-h-11 items-center text-sm font-medium text-fg underline decoration-brass underline-offset-[6px] hover:text-brass"
+              className="tlink mt-2"
             >
               Se på Google Maps <span className="sr-only">(åbner i nyt vindue)</span>
             </a>

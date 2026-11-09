@@ -24,7 +24,7 @@ Ruter, titler og schema bor i `src/seo.js`; routeren i `src/App.jsx`.
 | Telefon, adresse, åbningstider, tekster, FAQ | `src/content.js` (eneste kilde) |
 | Retter, priser, numre | `src/data/menu.ts` — numrene følger det trykte kort og må ikke omnummereres |
 | Billeder og videoer (også galleriet) | `src/media.js` + filer i `public/images` og `public/videos` |
-| Farver og typografi | `src/index.css` (`@theme`; mørkt tema som standard, `.paper` til print/internt) |
+| Farver og typografi | `src/index.css` (`@theme` + temaerne `paper`/`sand`/`ink`/`red`); beskrevet i `docs/design-system.md` |
 
 ## Billeder og video
 
@@ -32,4 +32,4 @@ Kun Palmys eget materiale (ingen AI, ingen stockfotos). Billeder lægges som AVI
 
 ## Skrifttyper
 
-Instrument Serif og Hanken Grotesk er selv-hostede via `@fontsource` (ingen Google Fonts).
+Anton (display) og Be Vietnam Pro (tekst) er selv-hostede via `@fontsource` (ingen Google Fonts).

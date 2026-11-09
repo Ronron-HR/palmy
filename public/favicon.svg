@@ -1,7 +1,8 @@
-<!-- Favicon afledt af ordmærket "Palmy Spisested": et serif-P i husets
-     mørkegrønne farve på cream med mørkegrøn kant. P'et er tegnet som path,
-     så ikonet ser ens ud uanset installerede skrifttyper. -->
+<!-- Favicon afledt af skiltet: et fed, kondenseret P i papir på blæk med en chili-
+     streg i bunden. P'et er tegnet som path, så ikonet ser ens ud uanset
+     installerede skrifttyper. -->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect x="2" y="2" width="60" height="60" rx="10" fill="#faf6ee" stroke="#1f3a2e" stroke-width="4"/>
-  <path fill="#1f3a2e" fill-rule="evenodd" d="M16 14h22a10 10 0 0 1 0 20h-10v12h4v4H16v-4h4V18h-4z M28 18v12h9a6 6 0 0 0 0-12z"/>
+  <rect width="64" height="64" fill="#14110f"/>
+  <path fill="#f2ebdd" fill-rule="evenodd" d="M19 12h16a13 13 0 0 1 0 27h-7v13h-9z M28 20v11h6a5.5 5.5 0 0 0 0-11z"/>
+  <rect x="19" y="52" width="26" height="4" fill="#e8553a"/>
 </svg>

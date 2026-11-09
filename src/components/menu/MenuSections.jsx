@@ -75,12 +75,12 @@ function MenuSections({ columns = false, idPrefix = 'menu', headingLevel = 3 }) 
     <>
       <nav
         aria-label="Menukategorier"
-        className="sticky top-[57px] z-30 -mx-4 border-b border-line bg-bg/95 backdrop-blur-sm sm:top-[65px] sm:mx-0"
+        className="sticky top-[57px] z-30 -mx-4 border-b border-line bg-bg sm:top-[65px] sm:mx-0"
       >
         {/* Mobil: blød udtoning i højre kant viser, at listen kan scrolles. */}
         <ul
           ref={listRef}
-          className="no-scrollbar relative flex gap-2 overflow-x-auto px-4 py-2 [mask-image:linear-gradient(to_right,#000_85%,transparent)] sm:px-0 sm:[mask-image:none]"
+          className="no-scrollbar relative flex gap-1 overflow-x-auto px-4 [mask-image:linear-gradient(to_right,#000_85%,transparent)] sm:px-0 sm:[mask-image:none]"
         >
           {visibleSections.map((section) => {
             const isActive = active === section.id
@@ -90,8 +90,8 @@ function MenuSections({ columns = false, idPrefix = 'menu', headingLevel = 3 }) 
                   href={`#${idPrefix}-${section.id}`}
                   aria-current={isActive ? 'true' : undefined}
                   onClick={() => setActive(section.id)}
-                  className={`inline-flex min-h-11 items-center rounded-full px-4 text-sm font-semibold transition-[background-color,color,transform] duration-150 active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 ${
-                    isActive ? 'bg-fg text-bg' : 'text-muted hover:text-fg'
+                  className={`label inline-flex min-h-12 items-center border-b-[3px] px-2.5 tracking-[0.06em] transition-colors focus-visible:outline-2 focus-visible:outline-offset-[-2px] ${
+                    isActive ? 'border-signal text-fg' : 'border-transparent text-muted hover:text-fg'
                   }`}
                 >
                   {section.title}

@@ -61,19 +61,19 @@ function RingNuBar() {
     <div
       aria-hidden={!visible}
       inert={!visible}
-      className={`fixed inset-x-0 bottom-0 z-50 flex gap-2 border-t border-line bg-bg/95 p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur-sm transition-transform duration-300 md:hidden ${
+      className={`theme-ink fixed inset-x-0 bottom-0 z-50 flex items-center gap-2 border-t border-line bg-bg p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] text-fg transition-transform duration-300 md:hidden ${
         visible ? 'translate-y-0' : 'translate-y-full'
       }`}
     >
       {!onMenu && (
         <Link
           to="/menu"
-          className="press inline-flex min-h-12 flex-1 items-center justify-center rounded-full border border-fg/40 px-4 text-base font-semibold text-fg hover:bg-fg/10"
+          className="tlink flex-1 justify-center text-base"
         >
           Se menu
         </Link>
       )}
-      <RingKnap variant="cta" className={onMenu ? 'flex w-full' : 'flex-[1.6]'}>
+      <RingKnap className={onMenu ? 'flex w-full' : 'flex-[1.6]'}>
         {onMenu ? `${status.cta} – ${business.phoneDisplay}` : `Ring ${business.phoneDisplay}`}
       </RingKnap>
     </div>

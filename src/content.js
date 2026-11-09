@@ -125,12 +125,20 @@ export const hero = {
   subheading: `Familiedrevet køkken med frisklavet mad efter egne opskrifter. Ring og bestil til afhentning – vi har åbent ${hours.daysLong}.`,
 }
 
-// De tre tider, der står i fokus i heroen (afledt af hours).
-export const heroTider = [
-  { label: 'Bestil fra', time: dk(preorderStart) },
-  { label: 'Afhentning', time: dk(openTime) },
-  { label: 'Lukker', time: dk(closeTime) },
-]
+// Retter på forsiden ("Menukort"-sektionen): udvalgte numre fra det trykte kort.
+// Navn, tekst og priser hentes ALTID fra data/menu.ts — aldrig herfra.
+//
+// ⚠️ AFVENTER VERIFICERING mod det trykte menukort (ejerens beslutning 8. nov.
+// 2026). Så længe `verificeret` er false, vises rækken KUN i udviklingsmiljøet
+// (med en tydelig markering) — aldrig i produktionsbuildet. Når retterne er
+// sammenholdt med kortet ret for ret: ret `verificeret` til true (og skift evt.
+// numre), og de vises for alle. Sektionen ser komplet ud uden dem (kategorierne).
+export const forsideRetter = {
+  verificeret: false,
+  // Én ret pr. køkkenmåde: rulle, wok, stegt, karry, nudelskål, suppe.
+  // Alternativer: 4 (stegte nudler med oksekød), 18 (indbagt kylling), 21 (grøn karry).
+  numre: ['1', '3', '6', '11', '12', '13'],
+}
 
 // Familiens tekst, ordret. Brug `historie.chapters` til visning.
 const historieTekst = [

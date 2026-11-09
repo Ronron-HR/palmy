@@ -23,14 +23,14 @@ function MenuPrint() {
       <div className="mb-6 flex justify-center gap-4 print:hidden">
         <Link
           to="/menu"
-          className="rounded-full border border-green-deep/20 inline-flex min-h-11 items-center px-4 text-sm font-medium text-green-deep hover:bg-green-deep/5"
+          className="border border-green-deep/20 inline-flex min-h-11 items-center px-4 text-sm font-medium text-green-deep hover:bg-green-deep/5"
         >
           ← Tilbage til menukort
         </Link>
         <button
           type="button"
           onClick={() => window.print()}
-          className="rounded-full inline-flex min-h-11 items-center bg-green-deep px-4 text-sm font-semibold text-cream"
+          className="inline-flex min-h-11 items-center bg-green-deep px-4 text-sm font-semibold text-cream"
         >
           Udskriv / gem som PDF
         </button>

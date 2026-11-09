@@ -63,7 +63,7 @@ function Card({ item }) {
 }
 
 const cardClass =
-  'h-[60svh] max-h-[640px] min-h-[320px] max-w-[80vw] shrink-0 overflow-hidden rounded-sm bg-surface'
+  'h-[60svh] max-h-[640px] min-h-[320px] max-w-[80vw] shrink-0 overflow-hidden bg-surface'
 
 // Rullende galleri. Billederne glider langsomt af sted af sig selv i en uendelig
 // løkke (listen er fordoblet; kopien er skjult for skærmlæsere). Det holder pause,
@@ -172,7 +172,7 @@ function Galleri() {
   }
 
   const buttonClass =
-    'press flex h-12 w-12 items-center justify-center rounded-full border border-fg/40 text-fg hover:bg-fg/10'
+    'press flex h-12 w-12 items-center justify-center border border-line text-fg hover:bg-fg hover:text-bg'
 
   return (
     <div>

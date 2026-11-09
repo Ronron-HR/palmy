@@ -29,7 +29,7 @@ function InstagramIcon() {
 // så de også kan læses af skærmlæsere og er nemme at ramme med en tommel.
 function SocialLinks({ className = '' }) {
   const link =
-    'press inline-flex min-h-11 items-center gap-2.5 rounded-full border border-current/40 px-4 text-sm font-semibold hover:bg-fg/10'
+    'press label inline-flex min-h-11 items-center gap-2.5 border border-line px-4 hover:bg-fg hover:text-bg'
   return (
     <ul className={`flex flex-wrap gap-3 ${className}`}>
       <li>
@@ -48,10 +48,10 @@ function SocialLinks({ className = '' }) {
   )
 }
 
-// Kun ikoner (runde, 44 px) til trange steder: header og hero.
+// Kun ikoner (firkantede, 44 px) til trange steder: header og hero.
 export function SocialIconLinks({ className = '' }) {
   const link =
-    'press inline-flex h-11 w-11 items-center justify-center rounded-full border border-current/40 hover:bg-fg/10'
+    'press inline-flex h-11 w-11 items-center justify-center border border-line hover:bg-fg hover:text-bg'
   return (
     <ul className={`flex gap-2 ${className}`}>
       <li>

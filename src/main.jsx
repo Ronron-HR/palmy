@@ -1,7 +1,10 @@
 import { StrictMode } from 'react'
 import { createRoot, hydrateRoot } from 'react-dom/client'
-import '@fontsource/gloock/latin-400.css'
-import '@fontsource-variable/hanken-grotesk/index.css'
+import '@fontsource/anton/latin-400.css'
+import '@fontsource/be-vietnam-pro/latin-400.css'
+import '@fontsource/be-vietnam-pro/latin-500.css'
+import '@fontsource/be-vietnam-pro/latin-600.css'
+import '@fontsource/be-vietnam-pro/latin-700.css'
 import './index.css'
 import App from './App.jsx'
 
