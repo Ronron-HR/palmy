@@ -47,15 +47,14 @@ export const hours = {
   note: 'Vi har kun åbent fredag og lørdag – så kig forbi, mens vi har åbent.',
   // Hvad note'en reelt fortæller: de øvrige dage er der lukket (jf. FAQ).
   closedNote: 'Resten af ugen har vi lukket.',
-  // Kort linje brugt flere steder (menu, kontakt, footer).
-  preorderNote: `Forudbestil fra kl.\u00a0${dk(preorderStart)} – afhent fra kl.\u00a0${dk(openTime)} og helt frem til lukketid kl.\u00a0${dk(closeTime)}.`,
   // TEKST.md: "Åbningstider skrives altid sådan: Fredag og lørdag 16.00–20.30".
   line: `Fredag og lørdag ${dk(openTime)}–${dk(closeTime)}`,
   // Skiltets og bjælkernes undertekst (TEKST.md).
   preorderShort: `Forudbestil fra kl. ${dk(preorderStart)} fredag og lørdag`,
-  // Todelt forklaring til Find os-sektionen.
-  preorderLine: `Ring og forudbestil allerede fra kl.\u00a0${dk(preorderStart)}.`,
-  pickupLine: `Afhentning fra kl.\u00a0${dk(openTime)} og frem til vi lukker kl.\u00a0${dk(closeTime)}.`,
+  // Find os' to guldblokke. Almindelige mellemrum, så linjerne brydes som i
+  // prototypen.
+  preorderLine: `Ring og forudbestil allerede fra kl. ${dk(preorderStart)}.`,
+  pickupLine: `Afhentning fra kl. ${dk(openTime)} og frem til vi lukker kl. ${dk(closeTime)}.`,
 }
 
 // "Bestil tidligt" — restaurantens egen opfordring: jo tidligere man ringer, jo
@@ -224,29 +223,24 @@ export const billeder = {
   intro: 'Fra køkkenet og spisesalen – optaget hos os i Hjortshøj.',
 }
 
-export const kontakt = {
-  heading: 'Find os i Hjortshøj',
+// Find os (TEKST.md + prototypen "Palmy Sider").
+export const findOs = {
+  heading: 'Find os',
+  region: 'Nord for Aarhus.',
+  blocks: [
+    { label: 'Åbent', text: `${hours.line}. Resten af ugen holder vi lukket.` },
+    { label: 'Telefon', phone: true },
+    { label: 'Bestil:', text: hours.preorderLine, gold: true },
+    { label: 'Afhentning:', text: hours.pickupLine, gold: true },
+  ],
+  qaHeading: 'Spørgsmål og svar',
 }
 
-// Ofte stillede spørgsmål. Svarene bygger KUN på oplysninger, der allerede
-// står andre steder på siden (tider, adresse, telefon, menu). Bruges både i
-// FAQ-sektionen på forsiden og i FAQPage-schema (src/seo.js).
+// Spørgsmål og svar på Find os — som almindelig tekst, ingen accordion. Kun de
+// to spørgsmål, TEKST.md beholder. Bruges også i FAQPage-schema (src/seo.js),
+// så schemaet altid matcher det, der står på siden.
 export const faq = {
-  heading: 'Ofte stillede spørgsmål',
   items: [
-    {
-      question: 'Hvor ligger Palmy Spisested?',
-      answer: `Vi ligger på ${business.address} – nord for Aarhus. Du kan finde vej via Google Maps.`,
-      link: { label: 'Se på Google Maps', href: business.googleMapsUrl, external: true },
-    },
-    {
-      question: 'Hvornår har I åbent?',
-      answer: `Vi har åbent ${hours.daysLong} kl.\u00a0${hours.time}. Resten af ugen holder vi lukket.`,
-    },
-    {
-      question: 'Hvornår kan jeg bestille takeaway?',
-      answer: `Ring til os på ${business.phoneDisplay} – vi tager imod forudbestillinger fra kl.\u00a0${dk(preorderStart)} ${hours.daysLong}. Maden kan hentes fra kl.\u00a0${dk(openTime)} og frem til vi lukker kl.\u00a0${dk(closeTime)}.`,
-    },
     {
       question: 'Kan jeg bestille online?',
       answer: 'Nej – al bestilling foregår over telefonen. Det går hurtigst, hvis du bestiller efter nummeret på menukortet.',
@@ -254,11 +248,6 @@ export const faq = {
     {
       question: 'Hvilken slags mad laver I?',
       answer: 'Vietnamesisk mad efter familiens egne opskrifter – blandt andet hjemmelavede forårsruller, stegte nudler, Bún og rød karry. Der er også en lille børnemenu.',
-    },
-    {
-      question: 'Hvor kan jeg se menuen?',
-      answer: 'Hele menukortet med priser står på menusiden. Du kan også åbne det som en printvenlig udgave.',
-      link: { label: 'Åbn menukortet', href: '/menu' },
     },
   ],
 }

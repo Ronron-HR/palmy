@@ -24,7 +24,7 @@ export const images = {
       [800, 1000],
       [1200, 1500],
     ],
-    alt: 'Wok med karry og grøntsager over blå gasflamme i Palmys køkken',
+    alt: 'Rejer og grøntsager i wokken over blå gasflamme',
   },
   flamme: {
     dir: 'food',
@@ -43,7 +43,7 @@ export const images = {
       [800, 1000],
       [1200, 1500],
     ],
-    alt: 'Lys spisesal hos Palmy Spisested med borde og stole',
+    alt: 'Spisesalen hos Palmy Spisested med borde og stole',
   },
   facade: {
     dir: 'restaurant',
@@ -52,7 +52,7 @@ export const images = {
       [800, 450],
       [1280, 720],
     ],
-    alt: 'Facaden på Palmy Spisested i Hjortshøj med skiltet over vinduerne',
+    alt: 'Facaden på Palmy Spisested med skiltet over vinduerne',
   },
 }
 

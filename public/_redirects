@@ -4,3 +4,7 @@
 # igennem på custom domains). Ingen SPA-fallback: alle ruter prerenderes til
 # rigtige HTML-filer ved build (scripts/prerender.mjs), og ukendte adresser
 # får dist/404.html med status 404 i stedet for forsiden med status 200.
+
+# Gamle links til kontakt-ankeret → den nye side (handoff v3). /#kontakt virker
+# stadig: footeren har id="kontakt".
+/kontakt /find-os 301
