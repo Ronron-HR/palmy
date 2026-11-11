@@ -131,11 +131,19 @@
   --tracking-phone: -0.01em;    /* 52 px-nummeret på mobil */
   --tracking-badge: 0.04em;     /* STÆRK */
 
+  /* Logoerne er de stramme SVG'er uden tom margen (palmy-logo-tight.zip,
+     11.11.2026). Bredderne er målt, så PALMY's versalhøjde er identisk med
+     prototypen (112 → 92,5 · 200 → 165 · 128 → 105,5 · 160 → 132). Den tomme
+     margen, de gamle filer havde, er lagt over i afstandene nedenfor (målt i
+     Chromium ved 4x), så alt omkring logoet står hvor i skærmbillederne. */
+
   /* Fulde skilt (Forside) */
-  --logo-full-m: 112px;         /* logobredde, mobil */
-  --logo-full-d: 200px;         /* logobredde, desktop */
-  --sign-top-m: 14px;           /* luft over logoet, mobil */
-  --sign-tagline-d: 6px;        /* tagline under logo, desktop */
+  --logo-full-m: 92.5px;        /* logobredde, mobil */
+  --logo-full-d: 165px;         /* logobredde, desktop */
+  --sign-top-m: 18.5px;         /* luft over logoet, mobil (14 + 4,5) */
+  --sign-top-d: 40px;           /* luft over logoet, desktop (32 + 8) */
+  --sign-tagline-m: 8.25px;     /* tagline under logo, mobil (4 + 5,25 − 1) */
+  --sign-tagline-d: 13.75px;    /* tagline under logo, desktop (6 + 7,75) */
   --sign-lead-d: 6px;           /* sætningen under h1, desktop */
   --sign-bar-pad-t-d: 18px;     /* telefonbjælkens top-padding, desktop */
   --sign-bar-pad-b-m: 10px;     /* telefonbjælkens bund-padding, mobil */
@@ -144,8 +152,12 @@
   --sign-blocks-gap-d: 14px;    /* afstand mellem infoblokke, desktop */
 
   /* Kompakt skilt (alle andre sider) */
-  --wordmark: 128px;            /* ordmærkets bredde */
-  --wordmark-menu-d: 160px;     /* ordmærket på Menu, desktop */
+  --wordmark: 105.5px;          /* ordmærkets bredde */
+  --wordmark-menu-d: 132px;     /* ordmærket på Menu, desktop */
+  --wordmark-top: 25.25px;      /* luft over ordmærket (20 + 5,25) */
+  --wordmark-gap: 25px;         /* ordmærke → bjælke (20 + 5) */
+  --wordmark-top-menu-d: 30.5px;/* Menu desktop (24 + 6,5) */
+  --wordmark-gap-menu-d: 26.25px;/* Menu desktop (20 + 7,25 − 1) */
   --menu-btn-top-full: 8px;     /* "Menu"-knappens top, Forside */
   --menu-btn-top-compact: 6px;  /* "Menu"-knappens top, øvrige sider */
   --menu-btn-top-menu: 4px;     /* "Menu"-knappens top, Menu */

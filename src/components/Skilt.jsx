@@ -9,8 +9,8 @@ import Link from './Link'
 // Telefonbjælken videresender sin ref, så ring-baren kan se, hvornår det store
 // nummer er ude af skærmen (MOTION.md).
 
-const LOGO = { src: '/logo/palmy-logo-moerk-transparent.svg', width: 1000, height: 609 }
-const WORDMARK = { src: '/logo/palmy-ordmaerke-moerk-transparent.svg', width: 1000, height: 326 }
+const LOGO = { src: '/logo/palmy-logo-moerk-transparent.svg', width: 1651, height: 1059 } // viewBox 825,5 × 529,5
+const WORDMARK = { src: '/logo/palmy-ordmaerke-moerk-transparent.svg', width: 1651, height: 493 } // viewBox 825,5 × 246,5
 
 export const Wordmark = ({ className = '' }) => (
   <img
@@ -25,7 +25,7 @@ export const Wordmark = ({ className = '' }) => (
 const FullSign = forwardRef(function FullSign(_, phoneRef) {
   return (
     <>
-      <header className="flex flex-col items-center pt-(--sign-top-m) text-center md:pt-8">
+      <header className="flex flex-col items-center pt-(--sign-top-m) text-center md:pt-(--sign-top-d)">
         <img
           src={LOGO.src}
           width={LOGO.width}
@@ -34,7 +34,7 @@ const FullSign = forwardRef(function FullSign(_, phoneRef) {
           fetchPriority="high"
           className="block h-auto w-(--logo-full-m) md:w-(--logo-full-d)"
         />
-        <p className="mt-1 font-serif text-base italic md:mt-(--sign-tagline-d)">{frame.tagline}</p>
+        <p className="mt-(--sign-tagline-m) font-serif text-base italic md:mt-(--sign-tagline-d)">{frame.tagline}</p>
       </header>
 
       <div className="pt-4 md:pt-10">
@@ -78,7 +78,7 @@ const FullSign = forwardRef(function FullSign(_, phoneRef) {
 const CompactSign = forwardRef(function CompactSign({ menuPage }, phoneRef) {
   return (
     <>
-      <header className={`flex justify-center pt-5 ${menuPage ? 'md:pt-6' : ''}`}>
+      <header className={`flex justify-center pt-(--wordmark-top) ${menuPage ? 'md:pt-(--wordmark-top-menu-d)' : ''}`}>
         <Link to="/" className="no-underline">
           <Wordmark className={`w-(--wordmark) ${menuPage ? 'md:w-(--wordmark-menu-d)' : ''}`} />
         </Link>
@@ -87,7 +87,7 @@ const CompactSign = forwardRef(function CompactSign({ menuPage }, phoneRef) {
       <a
         ref={phoneRef}
         href={`tel:${business.phoneHref}`}
-        className="bar press mt-5 flex items-baseline justify-between gap-3 bg-black px-4 py-3 text-cream no-underline"
+        className={`bar press mt-(--wordmark-gap) ${menuPage ? 'md:mt-(--wordmark-gap-menu-d)' : ''} flex items-baseline justify-between gap-3 bg-black px-4 py-3 text-cream no-underline`}
       >
         <span className="text-lg font-bold whitespace-nowrap tabular-nums">{business.phoneDisplay}</span>
         <span className="text-right text-xs leading-snug">{hours.preorderShort}</span>

@@ -35,3 +35,6 @@ public/images/palmy-hero-pakke.zip
 
 # Skærmbilleder fra mobil-tjekket (Playwright) — lokale, skal ikke i git.
 mobile-check/
+
+# Designleverance (handoff v3) — ligger lokalt, skal ikke i git.
+design_handoff_palmy/
