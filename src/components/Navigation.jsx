@@ -44,7 +44,8 @@ export function MobileMenu({ placement = 'compact' }) {
 
   const close = useCallback((returnFocus = true) => {
     setOpenOn(null)
-    if (returnFocus) buttonRef.current?.focus()
+    // Næste frame: først når dialogen er lukket (og fokus-vagten fjernet).
+    if (returnFocus) requestAnimationFrame(() => buttonRef.current?.focus())
   }, [])
 
   useEffect(() => {
@@ -68,8 +69,18 @@ export function MobileMenu({ placement = 'compact' }) {
         first.focus()
       }
     }
+    // Safari springer links over med Tab (kun ⌥Tab når dem), så den simple
+    // først/sidst-fælde ovenfor er ikke nok: lander fokus uden for dialogen,
+    // mens den er åben, sendes det tilbage til "Luk".
+    const onFocusIn = (event) => {
+      if (dialogRef.current && !dialogRef.current.contains(event.target)) closeRef.current?.focus()
+    }
     document.addEventListener('keydown', onKeyDown)
-    return () => document.removeEventListener('keydown', onKeyDown)
+    document.addEventListener('focusin', onFocusIn)
+    return () => {
+      document.removeEventListener('keydown', onKeyDown)
+      document.removeEventListener('focusin', onFocusIn)
+    }
   }, [open, close])
 
   const top = {
