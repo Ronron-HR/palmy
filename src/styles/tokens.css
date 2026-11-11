@@ -177,6 +177,7 @@
   --address-underline: 2px;     /* adressen på Find os */
   --address-underline-offset: 6px;
   --page-blocks-gap: 20px;      /* Find os: infoblokke og spørgsmål */
+  --img-historien: 560px;       /* spisesalen på Historien, desktop (BILLEDKORT.md) */
 
   /* Menurække og kategorier (KOMPONENTER.md §3) */
   --row-pad: 14px;              /* lodret padding i en menurække */

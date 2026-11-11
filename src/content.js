@@ -216,6 +216,7 @@ export const historie = {
   ],
   outro: historieTekst[3],
   closing: 'Kom forbi og smag selv – fredag eller lørdag.',
+  menuLink: 'Se menukortet',
 }
 
 export const billeder = {
