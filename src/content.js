@@ -239,6 +239,8 @@ export const privatliv = {
       paragraphs: [
         { text: 'Hjemmesiden sætter ikke selv cookies. Når du trykker på vores adresse, åbnes Google Maps i et nyt vindue, og her gælder Googles privatlivspolitik.' },
         { text: 'Restaurantens interne opslagsside til personalet gemmer en kopi af menukortet i browserens lokale lager. Den indeholder ingen oplysninger om besøgende.' },
+        // Tilføjet af Ronny 11.11.2026 (menuens intro, MenuSections.jsx).
+        { text: 'Menukortets lille intro-animation gemmer en markering i din browsers sessionStorage, så den kun vises én gang pr. besøg. Den indeholder ingen oplysninger om dig.' },
       ],
     },
     {

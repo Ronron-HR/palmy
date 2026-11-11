@@ -8,7 +8,8 @@ function SectionHeader({ id, title, note, level = 2 }) {
         <Heading id={id} className="flex-none font-serif text-lg leading-tight font-bold text-green">
           {title}
         </Heading>
-        <span aria-hidden="true" className="h-px flex-1 bg-line" />
+        {/* Streg som border (ikke baggrund), så den også kommer med på print. */}
+        <span aria-hidden="true" className="flex-1 border-t border-line" />
       </div>
       {note && <p className="mt-1 italic">{note}</p>}
     </>

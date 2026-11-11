@@ -284,6 +284,11 @@ html[data-menu-intro] .cat {
   li {
     break-inside: avoid;
   }
+  /* Én spalte på A4: i to spalter brød nr. 21's beskrivelse over 8 linjer
+     (Ronny: over 4 linjer → én spalte). */
+  .cat ul {
+    columns: auto !important;
+  }
   .cat h2,
   .cat > div:first-child {
     break-after: avoid;

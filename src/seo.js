@@ -19,7 +19,9 @@ const OG_IMAGE = {
   url: abs('/images/palmy-og.jpg'),
   width: 1200,
   height: 630,
-  alt: `Retter fra ${business.name} – vietnamesisk mad i ${business.city}`,
+  // Logoet på grøn (scripts/make-og.mjs), ingen anden tekst.
+  alt: `${business.name} – logo med to palmer på mørkegrøn`,
+  type: 'image/jpeg',
 }
 
 // Koordinater for Hjortshøj Stationsvej 6 (fra det eksisterende schema).
@@ -299,6 +301,7 @@ export function renderHead(pathname) {
     `<meta property="og:description" content="${escapeAttr(seo.description)}" />`,
     ...(seo.canonical ? [`<meta property="og:url" content="${escapeAttr(seo.canonical)}" />`] : []),
     `<meta property="og:image" content="${escapeAttr(OG_IMAGE.url)}" />`,
+    `<meta property="og:image:type" content="${OG_IMAGE.type}" />`,
     `<meta property="og:image:width" content="${OG_IMAGE.width}" />`,
     `<meta property="og:image:height" content="${OG_IMAGE.height}" />`,
     `<meta property="og:image:alt" content="${escapeAttr(OG_IMAGE.alt)}" />`,
