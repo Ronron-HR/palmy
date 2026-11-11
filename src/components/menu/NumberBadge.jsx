@@ -1,15 +1,15 @@
-// Menunummeret, som på det trykte kort — det gæsterne siger i telefonen. Sat i
-// skiltets skrift som et stort, tabulært tal i signal-rød (som numrene på en
-// menutavle), så det er det første øjet finder i hver række. Retter uden nummer
-// (drikkevarer, tilbehør) har number === null og renderer intet. Nummeret er tekst
-// og vises præcis som i data — aldrig et indeks eller en counter.
+// Nummercirklen fra menukortet (KOMPONENTER.md §3): 32×32, sort, creme tal
+// 17/700 tabular-nums. Retter uden nummer (drikkevarer, tilbehør) får en tom
+// celle i samme bredde, så navnene flugter. Nummeret er dish.number (tekst fra
+// kortet) — aldrig et indeks.
+// size="large" bruges kun af den interne /bestilling.
 function NumberBadge({ number, size = 'normal' }) {
-  if (number == null) return null
-
-  const sizeClasses = size === 'large' ? 'text-6xl sm:text-7xl' : 'text-num'
-
+  if (number == null) return <span aria-hidden="true" className="block size-(--circle)" />
+  const dims = size === 'large' ? 'size-16 text-lg' : 'size-(--circle) text-base'
   return (
-    <span className={`block font-display tabular-nums text-signal ${sizeClasses}`}>
+    <span
+      className={`flex shrink-0 items-center justify-center rounded-circle bg-black font-bold text-cream tabular-nums ${dims}`}
+    >
       {number}
     </span>
   )

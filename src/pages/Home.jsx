@@ -1,25 +1,11 @@
 import Layout from '../components/Layout'
-import Hero from '../components/Hero'
-import BestilNu from '../components/BestilNu'
-import MenuIndgang from '../components/MenuIndgang'
-import HistorieTeaser from '../components/HistorieTeaser'
-import AnmeldelserBlok from '../components/AnmeldelserBlok'
-import FindOs from '../components/FindOs'
-import Faq from '../components/Faq'
+import MenuSections from '../components/menu/MenuSections'
 
-// Forsiden er en indgang, ikke hele sitet: hero, tidtavle, menuen, et glimt af
-// historien, gæsternes ord, og hvor og hvornår man finder os. Køkkenbillederne bor
-// på /billeder.
+// Forside — hovedperson: menuen (DESIGN.md "Sektionsplan").
 function Home() {
   return (
     <Layout sign="full" column="wide">
-      <Hero />
-      <BestilNu />
-      <MenuIndgang />
-      <HistorieTeaser />
-      <AnmeldelserBlok variant="teaser" />
-      <FindOs />
-      <Faq />
+      <MenuSections variant="forside" />
     </Layout>
   )
 }

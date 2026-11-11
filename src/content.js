@@ -22,9 +22,9 @@ export const business = {
 }
 
 // ── Tider ét sted ────────────────────────────────────────────
-// De tre tidspunkter findes KUN her (HH:MM). Alle visningstekster og den live
-// åben/lukket-status (src/lib/openStatus.js) afledes af dem, så tiderne aldrig
-// kommer i utakt.
+// De tre tidspunkter findes KUN her (HH:MM). Alle visningstekster og
+// openingHoursSpecification (seo.js) afledes af dem, så tiderne aldrig kommer i
+// utakt. Sitet viser ingen åben/lukket-status (handoff v3).
 const preorderStart = '15:00' // telefonen åbner for forudbestilling
 const openTime = '16:00' // første afhentning
 const closeTime = '20:30' // sidste afhentning / lukketid
@@ -36,9 +36,6 @@ export const hours = {
   daysLong: 'fredag og lørdag',
   // openDays: 0=søndag … 5=fredag, 6=lørdag.
   openDays: [5, 6],
-  // Manuelle lukkedage (ISO 'yyyy-mm-dd') der OVERTRUMFER openDays — slår både
-  // OPEN og PREORDER fra (helligdage, ferie). Fx: ['2025-12-24', '2025-12-25'].
-  closedDates: [],
   preorderStart, // '15:00'
   openTime, // '16:00'
   closeTime, // '20:30'
@@ -134,6 +131,16 @@ export const ui = {
   ringBar: `Ring og bestil · ${business.phoneDisplay}`,
   instagram: 'Instagram',
   facebook: 'Facebook',
+}
+
+// Menukortet (TEKST.md "Menu"). Retter og priser står KUN i data/menu.ts.
+export const menuText = {
+  // Siden har intet synligt h1 (kompakt skilt → kategorier); dette læses op
+  // og bruges af søgemaskiner.
+  pageHeading: 'Menukort',
+  navLabel: 'Menukategorier',
+  printButton: 'Udskriv menukortet',
+  spicy: 'STÆRK',
 }
 
 // Skiltet "Bestil på forhånd" øverst på forsiden (TEKST.md "Forside").

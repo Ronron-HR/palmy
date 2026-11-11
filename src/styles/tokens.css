@@ -27,6 +27,7 @@
   --animate-*: initial;
   --blur-*: initial;
   --container-*: initial;
+  --aspect-*: initial;
 
   /* ── 1. Handoff-tokens (ordret) ─────────────────────────────── */
 
@@ -163,6 +164,23 @@
   --menu-btn-top-menu: 4px;     /* "Menu"-knappens top, Menu */
   --underline-offset-btn: 4px;  /* understregning på Menu/Luk */
 
+  /* Billedformater (DESIGN.md "Billeder"): aspect-dish / aspect-wide */
+  --aspect-dish: 4 / 5;
+  --aspect-wide: 16 / 9;
+
+  /* Menurække og kategorier (KOMPONENTER.md §3) */
+  --row-pad: 14px;              /* lodret padding i en menurække */
+  --row-text-gap: 3px;          /* navn → beskrivelse → note */
+  --badge-pad-y: 1px;           /* STÆRK */
+  --badge-pad-x: 6px;
+  --cat-pad-t-d: 36px;          /* luft over kategorititel, desktop */
+  --btn-print-h: 48px;          /* "Udskriv menukortet" */
+
+  /* Kategori-navigation (KOMPONENTER.md §4) */
+  --cat-btn-pad: 10px;          /* vandret padding pr. knap */
+  --cat-gap-d: 4px;             /* afstand mellem knapper, desktop */
+  --cat-underline: 3px;         /* den aktive streg */
+
   /* Mobilmenu */
   --overlay-bar-pad: 14px;      /* telefonbjælkens lodrette padding */
 
@@ -177,6 +195,7 @@
 
   /* Bevægelse (værdier fra MOTION.md) */
   --press-scale: 0.97;          /* :active på telefonbjælke, ring-bar, "Udskriv" */
+  --dur-reveal-fade: 300ms;     /* foto-reveal ved reduced motion (MOTION.md-tabellen) */
   --overlay-shift: -8px;        /* mobilmenuen kommer 8 px oppefra */
   --menu-shift: 8px;            /* menuens kategorier ved første load */
   /* Nav-links' voksende understregning. MOTION.md's eksempel siger -2px, men

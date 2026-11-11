@@ -10,6 +10,15 @@
 
     <!-- Skrifttyper er selv-hostede (importeres i src/main.jsx) — ingen Google Fonts. -->
 
+    <!-- Menuens forskudte indtoning kun første gang i sessionen (MOTION.md).
+         Sættes før første paint, så den prerenderede menu ikke blinker. -->
+    <script>
+      try {
+        if (!sessionStorage.getItem('palmy-menu-intro'))
+          document.documentElement.setAttribute('data-menu-intro', '')
+      } catch (e) {}
+    </script>
+
     <!-- SEO-BLOK: erstattes pr. rute af scripts/prerender.mjs ved build
          (kilde: src/seo.js). Værdierne herunder er forsidens og bruges kun i
          dev-serveren. Ret i src/seo.js — ikke her. -->

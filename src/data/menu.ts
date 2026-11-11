@@ -344,6 +344,15 @@ export function getDishesBySection(id: SectionId): Dish[] {
   return dishes.filter((d) => d.section === id)
 }
 
+/** Pris skrives altid sådan: "95 kr." (TEKST.md). */
+export const formatKr = (price: number): string => `${price} kr.`
+
+/** Prislinjer som på kortet: "95 kr." eller "And 115 kr." — én pr. variant. */
+export function getPriceLines(dish: Dish): string[] {
+  if (dish.price != null) return [formatKr(dish.price)]
+  return (dish.variants ?? []).map((v) => `${v.label} ${formatKr(v.price)}`)
+}
+
 /** Kompakt prisvisning til lister hvor der ikke er plads til alle varianter. */
 export function getDisplayPrice(dish: Dish): string {
   if (dish.price != null) return `${dish.price} kr`

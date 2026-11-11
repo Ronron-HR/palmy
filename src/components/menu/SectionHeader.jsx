@@ -1,14 +1,17 @@
-// Sektionsoverskrift: kategoriens navn i skiltets skrift over en kraftig blæk-streg,
-// som overskriften på en menutavle. Ingen pynt — menuen skal læses, ikke dekoreres.
-function SectionHeader({ id, title, note, level = 3 }) {
+// Kategorititel som på kortet (KOMPONENTER.md §3): serif 700 28/1.1 grøn +
+// en 1 px streg, der løber til højre. Undertitel i kursiv 17, 4 under.
+function SectionHeader({ id, title, note, level = 2 }) {
   const Heading = level === 2 ? 'h2' : 'h3'
   return (
-    <div className="mb-1 border-b-2 border-fg pb-3">
-      <Heading id={id} className="font-display text-h3 text-fg">
-        {title}
-      </Heading>
-      {note && <p className="mt-2 text-sm text-muted">{note}</p>}
-    </div>
+    <>
+      <div className="flex items-center gap-3">
+        <Heading id={id} className="flex-none font-serif text-lg leading-tight font-bold text-green">
+          {title}
+        </Heading>
+        <span aria-hidden="true" className="h-px flex-1 bg-line" />
+      </div>
+      {note && <p className="mt-1 italic">{note}</p>}
+    </>
   )
 }
 

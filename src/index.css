@@ -130,6 +130,50 @@
   transform: scale(var(--press-scale));
 }
 
+/* Kategori-nav: skjult scrollbar på mobil; den aktive streg glider. */
+.cat-nav {
+  scrollbar-width: none;
+}
+.cat-nav::-webkit-scrollbar {
+  height: 0;
+}
+.cat-underline {
+  transition: transform var(--dur-nav) var(--ease-in-out);
+}
+/* Desktop-prototypen: hver kategori er 48 px + en 3 px bundstreg (51 i alt),
+   og stregen står over navigationens 1 px kant (mobil: hen over kanten). */
+@media (width >= 48rem) {
+  .cat-link {
+    min-height: calc(var(--nav-height) + var(--cat-underline));
+    padding-bottom: var(--cat-underline);
+  }
+}
+
+/* Menu ved første load: kun første besøg i sessionen. index.html sætter
+   data-menu-intro før første paint; MenuSections fjerner den bagefter.
+   Maks. 6 elementer forskydes (index 0–5). */
+html[data-menu-intro] .cat {
+  animation: menu-in var(--dur-menu-in) var(--ease-out) both;
+  animation-delay: calc(min(var(--i), 5) * var(--stagger));
+}
+@keyframes menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(var(--menu-shift));
+  }
+}
+
+/* Foto-reveal (karry, galleri): afsløres nedefra, én gang. */
+[data-reveal] img {
+  transition: clip-path var(--dur-reveal) var(--ease-in-out);
+}
+[data-reveal="armed"] img {
+  clip-path: inset(0 0 100% 0);
+}
+[data-reveal="in"] img {
+  clip-path: inset(0 0 0 0);
+}
+
 /* Sideskift */
 .page {
   animation: page-in var(--dur-page) ease both;
@@ -163,5 +207,87 @@
   }
   .link-nav::after {
     transition: none;
+  }
+  .cat-underline {
+    transition: none;
+  }
+  html[data-menu-intro] .cat {
+    animation-name: menu-in-fade;
+  }
+  [data-reveal] img {
+    transition: opacity var(--dur-reveal-fade) var(--ease-out);
+  }
+  [data-reveal="armed"] img {
+    clip-path: none;
+    opacity: 0;
+  }
+  [data-reveal="in"] img {
+    clip-path: none;
+    opacity: 1;
+  }
+}
+@keyframes menu-in-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+/* ── Print (/menu på A4, README "Print") ─────────────────────
+   Skjul navigation, ring-bar, fotos og knapper; behold telefonbjælken som
+   tekst; sort på hvid; rækker brydes ikke; en kategorititel står aldrig
+   alene nederst på en side. */
+@media print {
+  @page {
+    size: A4;
+    margin: 14mm;
+  }
+  html,
+  body {
+    background: none;
+  }
+  .page {
+    animation: none;
+  }
+  nav,
+  .ring-bar,
+  .overlay,
+  button,
+  .menu-photo,
+  .no-print,
+  a[href="#indhold"] {
+    display: none !important;
+  }
+  .bar {
+    background: none !important;
+    color: var(--color-black) !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+  .rounded-circle {
+    background: none !important;
+    color: var(--color-black) !important;
+    border: var(--line) solid var(--color-black);
+  }
+  .badge-spicy {
+    background: none !important;
+    color: var(--color-black) !important;
+    border: var(--line) solid var(--color-black);
+  }
+  .text-green {
+    color: var(--color-black) !important;
+  }
+  a {
+    text-decoration: none;
+  }
+  .menu-row,
+  li {
+    break-inside: avoid;
+  }
+  .cat h2,
+  .cat > div:first-child {
+    break-after: avoid;
+  }
+  html[data-menu-intro] .cat {
+    animation: none;
   }
 }

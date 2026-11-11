@@ -1,36 +1,17 @@
-import { Fragment } from 'react'
+import { getPriceLines } from '../../data/menu'
 
-// Viser en rets pris: enten ét fast beløb, eller varianter i et 2-kolonne grid
-// (variantnavn venstre, pris højre) så variantpriserne flugter — både internt i
-// retten og med de faste priser i kolonnen ude til højre. Tabeltal, så cifrene
-// står under hinanden.
-function PriceList({ dish, size = 'normal' }) {
-  const priceClass = size === 'large' ? 'text-2xl font-bold sm:text-3xl' : 'font-bold'
-
-  if (dish.price != null) {
-    return (
-      <span className={`whitespace-nowrap tabular-nums text-price ${priceClass}`}>
-        {dish.price} kr
-      </span>
-    )
-  }
-
-  if (dish.variants && dish.variants.length > 0) {
-    return (
-      <div className="grid grid-cols-[1fr_auto] items-baseline gap-x-3 gap-y-1 sm:grid-cols-[auto_auto]">
-        {dish.variants.map((variant) => (
-          <Fragment key={variant.label}>
-            <span className="text-left text-sm text-muted">{variant.label}</span>
-            <span className={`whitespace-nowrap text-right tabular-nums text-price ${priceClass}`}>
-              {variant.price} kr
-            </span>
-          </Fragment>
-        ))}
-      </div>
-    )
-  }
-
-  return null
+// Prisen yderst til højre: 17/700 tabular-nums, nowrap. Varianter stablet, én
+// pr. linje ("And 115 kr."), præcis som på kortet (KOMPONENTER.md §3).
+function PriceList({ dish, className = '' }) {
+  return (
+    <p
+      className={`flex flex-col items-end leading-snug font-bold whitespace-nowrap tabular-nums ${className}`}
+    >
+      {getPriceLines(dish).map((line) => (
+        <span key={line}>{line}</span>
+      ))}
+    </p>
+  )
 }
 
 export default PriceList
