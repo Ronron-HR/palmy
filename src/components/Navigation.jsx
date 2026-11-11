@@ -1,170 +1,156 @@
-import { useEffect, useRef, useState } from 'react'
-import { business, hours, nav } from '../content'
+import { useCallback, useEffect, useRef, useState } from 'react'
+import { business, hours, nav, ui } from '../content'
 import { usePathname } from '../hooks/usePathname'
 import Link from './Link'
-import SocialLinks, { SocialIconLinks } from './SocialLinks'
+import { Wordmark } from './Skilt'
 
-// Header (blæk, som skiltet): ordmærke til venstre, Ring altid ved hånden til højre.
-// Mobil: "Ring" + en knap, der åbner et fuldskærms-overlay med siderne.
-// Desktop: siderne som versal-tekstlinks + Ring.
-function Navigation() {
-  const [isOpen, setIsOpen] = useState(false)
-  const toggleRef = useRef(null)
-  const firstLinkRef = useRef(null)
+const isCurrent = (pathname, href) => pathname === href
+
+// Desktop (≥ 768 px): sidelinks centreret over skiltet, 17/600, gap 32
+// (KOMPONENTER.md §1). Aktuel side står understreget; de andre får en
+// understregning, der vokser fra venstre ved hover (MOTION.md).
+export function DesktopNav() {
   const pathname = usePathname()
-  const onHome = pathname === '/'
-
-  const isActive = (href) => !href.includes('#') && pathname.replace(/\/+$/, '') === href
-  // Anker på forsiden: fra en underside peger det på forsiden først.
-  const anchorHref = (href) => (onHome ? href.slice(1) : href)
-
-  const close = () => setIsOpen(false)
-
-  // Overlayet: Escape lukker (fokus tilbage til knappen), siden under må ikke
-  // scrolle, og fokus flyttes ind i overlayet.
-  useEffect(() => {
-    if (!isOpen) return
-    const onKeyDown = (event) => {
-      if (event.key === 'Escape') {
-        setIsOpen(false)
-        toggleRef.current?.focus()
-      }
-    }
-    document.addEventListener('keydown', onKeyDown)
-    const previousOverflow = document.body.style.overflow
-    document.body.style.overflow = 'hidden'
-    firstLinkRef.current?.focus()
-    return () => {
-      document.removeEventListener('keydown', onKeyDown)
-      document.body.style.overflow = previousOverflow
-    }
-  }, [isOpen])
-
-  const linkClass = (active) =>
-    `label inline-flex min-h-11 items-center underline-offset-[10px] transition-colors hover:text-signal hover:underline hover:decoration-2 hover:decoration-signal ${
-      active ? 'text-fg underline decoration-2 decoration-signal' : 'text-muted'
-    }`
-
   return (
-    <>
-      <header className="theme-ink sticky top-0 z-50 border-b border-line bg-bg text-fg">
-        {/* Spring-til-indhold: kun synlig ved tastaturfokus. */}
-        <a
-          href="#indhold"
-          className="label sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-3 focus:z-[60] focus:bg-fg focus:px-4 focus:py-2 focus:text-bg"
-        >
-          Spring til indhold
-        </a>
-
-        {/* Fast højde (56/64px + 1px kant) — menuens kategorilinje sticker lige under. */}
-        <div className="mx-auto flex h-14 max-w-6xl items-center justify-between gap-4 px-4 sm:h-16 sm:px-6">
+    <nav aria-label={ui.navLabel} className="hidden justify-center gap-8 pt-5 font-semibold md:flex">
+      {nav
+        .filter((item) => item.desktop !== false)
+        .map((item) => (
           <Link
-            to="/"
-            className="whitespace-nowrap font-display text-[1.55rem] leading-none tracking-[0.03em] text-fg sm:text-[1.8rem]"
+            key={item.href}
+            to={item.href}
+            className="link-nav"
+            aria-current={isCurrent(pathname, item.href) ? 'page' : undefined}
           >
-            {business.name}
+            {item.label}
           </Link>
-
-          <nav aria-label="Hovedmenu" className="hidden items-center gap-7 lg:flex">
-            {nav.map((item) =>
-              item.href.includes('#') ? (
-                <a key={item.href} href={anchorHref(item.href)} className={linkClass(false)}>
-                  {item.label}
-                </a>
-              ) : (
-                <Link key={item.href} to={item.href} className={linkClass(isActive(item.href))}>
-                  {item.label}
-                </Link>
-              ),
-            )}
-          </nav>
-
-          <div className="flex items-center gap-2">
-            <SocialIconLinks className="mr-2 hidden text-fg lg:flex" />
-            <a
-              href={`tel:${business.phoneHref}`}
-              className="press label inline-flex min-h-11 items-center bg-cta px-4 font-bold tabular-nums text-cta-fg hover:brightness-110"
-            >
-              <span className="md:hidden">Ring</span>
-              <span className="hidden md:inline">Ring {business.phoneDisplay}</span>
-            </a>
-
-            <button
-              ref={toggleRef}
-              type="button"
-              aria-label={isOpen ? 'Luk navigation' : 'Åbn navigation'}
-              aria-expanded={isOpen}
-              aria-controls="mobil-menu"
-              onClick={() => setIsOpen((open) => !open)}
-              className="relative flex h-11 w-11 items-center justify-center lg:hidden"
-            >
-              {/* To streger → X, så tilstanden kan ses. */}
-              <span
-                aria-hidden="true"
-                className={`absolute block h-0.5 w-6 bg-fg transition-transform duration-200 ${isOpen ? 'rotate-45' : '-translate-y-1'}`}
-              />
-              <span
-                aria-hidden="true"
-                className={`absolute block h-0.5 w-6 bg-fg transition-transform duration-200 ${isOpen ? '-rotate-45' : 'translate-y-1'}`}
-              />
-            </button>
-          </div>
-        </div>
-      </header>
-
-      {/* Altid i DOM'en (så aria-controls peger på noget og hydrering passer),
-          skjult når lukket. Ligger under headeren, så knappen stadig kan lukke. */}
-      <nav
-        id="mobil-menu"
-        aria-label="Hovedmenu (mobil)"
-        hidden={!isOpen}
-        className="theme-ink fixed inset-0 z-40 flex flex-col justify-between overflow-y-auto bg-bg px-4 pb-8 pt-[4.5rem] text-fg lg:hidden"
-      >
-        <ul className="divide-y divide-line border-y border-line">
-          {nav.map((item, index) => {
-            const content = (
-              <span className="font-display text-[clamp(2.6rem,13vw,3.75rem)] leading-none">
-                {item.label}
-              </span>
-            )
-            const className = 'flex items-baseline py-4 active:text-signal'
-            return (
-              <li key={item.href}>
-                {item.href.includes('#') ? (
-                  <a
-                    ref={index === 0 ? firstLinkRef : undefined}
-                    href={anchorHref(item.href)}
-                    onClick={close}
-                    className={className}
-                  >
-                    {content}
-                  </a>
-                ) : (
-                  <Link to={item.href} onClick={close} className={className}>
-                    {content}
-                  </Link>
-                )}
-              </li>
-            )
-          })}
-        </ul>
-
-        <div className="mt-10">
-          <SocialLinks className="mb-6 text-fg" />
-          <p className="text-sm text-muted">
-            Åbent {hours.daysLong} kl.&nbsp;{hours.time}
-          </p>
-          <a
-            href={`tel:${business.phoneHref}`}
-            onClick={close}
-            className="press label mt-3 inline-flex min-h-14 w-full items-center justify-center bg-cta px-6 text-base font-bold tabular-nums text-cta-fg hover:brightness-110"
-          >
-            Ring {business.phoneDisplay}
-          </a>
-        </div>
-      </nav>
-    </>
+        ))}
+    </nav>
   )
 }
 
-export default Navigation
+// Mobil (< 768 px): knappen "Menu" øverst til højre åbner et overlay i fuld
+// skærm (KOMPONENTER.md §6). role="dialog" + aria-modal, fokus fanges, Esc
+// lukker, og fokus går tilbage til "Menu".
+export function MobileMenu({ placement = 'compact' }) {
+  const pathname = usePathname()
+  // Menuen er åben på den side, den blev åbnet på, så et sideskift (også via
+  // browserens tilbage-knap) lukker den uden ekstra effekt.
+  const [openOn, setOpenOn] = useState(null)
+  const open = openOn === pathname
+  const buttonRef = useRef(null)
+  const dialogRef = useRef(null)
+  const closeRef = useRef(null)
+
+  const close = useCallback((returnFocus = true) => {
+    setOpenOn(null)
+    // Næste frame: først når dialogen er lukket (og fokus-vagten fjernet).
+    if (returnFocus) requestAnimationFrame(() => buttonRef.current?.focus())
+  }, [])
+
+  useEffect(() => {
+    if (!open) return
+    closeRef.current?.focus()
+    const onKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        event.preventDefault()
+        close()
+        return
+      }
+      if (event.key !== 'Tab') return
+      const focusables = dialogRef.current.querySelectorAll('a[href], button')
+      const first = focusables[0]
+      const last = focusables[focusables.length - 1]
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault()
+        last.focus()
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault()
+        first.focus()
+      }
+    }
+    // Safari springer links over med Tab (kun ⌥Tab når dem), så den simple
+    // først/sidst-fælde ovenfor er ikke nok: lander fokus uden for dialogen,
+    // mens den er åben, sendes det tilbage til "Luk".
+    const onFocusIn = (event) => {
+      if (dialogRef.current && !dialogRef.current.contains(event.target)) closeRef.current?.focus()
+    }
+    document.addEventListener('keydown', onKeyDown)
+    document.addEventListener('focusin', onFocusIn)
+    return () => {
+      document.removeEventListener('keydown', onKeyDown)
+      document.removeEventListener('focusin', onFocusIn)
+    }
+  }, [open, close])
+
+  const top = {
+    full: 'top-(--menu-btn-top-full)',
+    compact: 'top-(--menu-btn-top-compact)',
+    menu: 'top-(--menu-btn-top-menu)',
+  }[placement]
+
+  return (
+    <>
+      <button
+        ref={buttonRef}
+        type="button"
+        onClick={() => setOpenOn(pathname)}
+        aria-haspopup="dialog"
+        aria-expanded={open}
+        aria-controls="mobilmenu"
+        className={`absolute right-2 ${top} flex min-h-(--tap-min) min-w-(--tap-min) items-center justify-center px-3 font-semibold underline underline-offset-(--underline-offset-btn) md:hidden`}
+      >
+        {ui.menuOpen}
+      </button>
+
+      <div
+        ref={dialogRef}
+        id="mobilmenu"
+        role="dialog"
+        aria-modal="true"
+        aria-label={ui.menuDialogLabel}
+        data-open={open}
+        inert={!open}
+        className="overlay fixed inset-0 z-50 flex flex-col bg-cream p-5 md:hidden"
+      >
+        <div className="flex items-center justify-between">
+          {/* lazy: overlayet er skjult ved load, så ordmærket hentes først, når det åbnes */}
+          <Wordmark className="w-(--wordmark)" loading="lazy" />
+          <button
+            ref={closeRef}
+            type="button"
+            onClick={() => close()}
+            className="flex min-h-(--tap-min) min-w-(--tap-min) items-center justify-end font-semibold underline underline-offset-(--underline-offset-btn)"
+          >
+            {ui.menuClose}
+          </button>
+        </div>
+
+        <nav aria-label={ui.navLabel} className="mt-8 flex flex-col text-lg leading-none font-semibold">
+          {nav.map((item) => {
+            const current = isCurrent(pathname, item.href)
+            return (
+              <Link
+                key={item.href}
+                to={item.href}
+                onClick={() => close(false)}
+                aria-current={current ? 'page' : undefined}
+                className={`border-b border-line py-3 ${current ? '' : 'no-underline'}`}
+              >
+                {item.label}
+              </Link>
+            )
+          })}
+        </nav>
+
+        <a
+          href={`tel:${business.phoneHref}`}
+          className="bar press mt-auto block bg-black px-4 py-(--overlay-bar-pad) text-center text-cream no-underline"
+        >
+          <span className="block text-lg font-bold tabular-nums">{business.phoneDisplay}</span>
+          <span className="mt-1 block text-xs">{hours.line}</span>
+        </a>
+      </div>
+    </>
+  )
+}

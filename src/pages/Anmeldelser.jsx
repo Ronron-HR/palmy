@@ -1,20 +1,28 @@
+import { anmeldelser, google, reviewText, reviewsWithText } from '../content'
 import Layout from '../components/Layout'
-import AnmeldelserBlok, { Rating } from '../components/AnmeldelserBlok'
+import Anmeldelse from '../components/Anmeldelse'
+import SideTitel from '../components/SideTitel'
 
-// /anmeldelser: gæsternes Google-anmeldelser samlet på en side. Øverst et stort
-// gennemsnit på smaragd, derunder alle anmeldelserne på elfenben.
+// /anmeldelser — typografi som hovedperson: citaterne store (28/1.35), navn
+// under, Palmys svar med en tynd streg. Ingen datoer, stjerner eller karrusel.
+const withoutText = google.reviews.filter((r) => !r.text).map((r) => r.name)
+
 function Anmeldelser() {
   return (
     <Layout>
-      <header className="theme-ink bg-bg text-fg">
-        <div className="mx-auto grid max-w-6xl items-end gap-8 px-4 pb-12 pt-14 sm:px-6 sm:pb-16 sm:pt-20 lg:grid-cols-12">
-          <h1 className="font-display text-h1 text-fg lg:col-span-7">
-            Anmeldelser
-          </h1>
-          <Rating className="lg:col-span-5" />
-        </div>
-      </header>
-      <AnmeldelserBlok variant="full" />
+      <SideTitel>{anmeldelser.heading}</SideTitel>
+      <p className="mt-(--sign-info-gap) font-bold">{reviewText.summary(google)}</p>
+
+      {reviewsWithText.map((review) => (
+        <Anmeldelse key={review.name} review={review} variant="side" />
+      ))}
+
+      {withoutText.length > 0 && <p className="mt-6">{anmeldelser.alsoRated(withoutText)}</p>}
+      <p className="mt-6">
+        <a href={google.url} target="_blank" rel="noopener">
+          {anmeldelser.writeReview}
+        </a>
+      </p>
     </Layout>
   )
 }

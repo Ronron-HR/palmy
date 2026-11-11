@@ -6,9 +6,18 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <meta name="theme-color" content="#14110f" />
+    <meta name="theme-color" content="#F0E9D9" />
 
     <!-- Skrifttyper er selv-hostede (importeres i src/main.jsx) — ingen Google Fonts. -->
+
+    <!-- Menuens forskudte indtoning kun første gang i sessionen (MOTION.md).
+         Sættes før første paint, så den prerenderede menu ikke blinker. -->
+    <script>
+      try {
+        if (!sessionStorage.getItem('palmy-menu-intro'))
+          document.documentElement.setAttribute('data-menu-intro', '')
+      } catch (e) {}
+    </script>
 
     <!-- SEO-BLOK: erstattes pr. rute af scripts/prerender.mjs ved build
          (kilde: src/seo.js). Værdierne herunder er forsidens og bruges kun i
@@ -31,6 +40,7 @@
     />
     <meta property="og:url" content="https://www.palmyspisested.com/" />
     <meta property="og:image" content="https://www.palmyspisested.com/images/palmy-og.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />

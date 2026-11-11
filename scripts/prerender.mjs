@@ -13,7 +13,7 @@
 // den aldrig kan komme i utakt med ruterne.
 
 import { execSync } from 'node:child_process'
-import { mkdir, readFile, rm, writeFile } from 'node:fs/promises'
+import { mkdir, readFile, readdir, rm, writeFile } from 'node:fs/promises'
 import { dirname, join, resolve } from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 
@@ -33,6 +33,28 @@ async function main() {
     throw new Error(`prerender: index.html mangler ${ROOT_TAG}`)
   }
 
+  // Preload af de skrifter, første skærm bruger (Libre Caslon 700 + 400 italic,
+  // Source Sans 3 400/600/700 — latin-subset, woff2). Vite hasher filnavnene,
+  // så de findes her efter build. Source Sans italic (kun undertitlen under
+  // "Hovedretter") hentes først, når den bruges.
+  const CRITICAL_FONTS = [
+    /^libre-caslon-text-latin-700-normal-[\w-]+\.woff2$/,
+    /^libre-caslon-text-latin-400-italic-[\w-]+\.woff2$/,
+    /^source-sans-3-latin-400-normal-[\w-]+\.woff2$/,
+    /^source-sans-3-latin-600-normal-[\w-]+\.woff2$/,
+    /^source-sans-3-latin-700-normal-[\w-]+\.woff2$/,
+  ]
+  // Caslon italic bruges kun i forsidens tagline → preloades kun dér.
+  const assetFiles = await readdir(join(dist, 'assets'))
+  const preloadFor = (path) =>
+    CRITICAL_FONTS.filter((re) => path === '/' || !String(re).includes('400-italic'))
+      .map((re) => {
+        const file = assetFiles.find((f) => re.test(f))
+        if (!file) throw new Error(`prerender: skrift mangler i dist/assets: ${re}`)
+        return `<link rel="preload" as="font" type="font/woff2" href="/assets/${file}" crossorigin />`
+      })
+      .join('\n    ')
+
   const entry = pathToFileURL(join(ssrDir, 'entry-server.js')).href
   const { render, PRERENDER_ROUTES, renderSitemap } = await import(entry)
 
@@ -45,7 +67,7 @@ async function main() {
 
     // Funktions-replacement, så '$' i indholdet aldrig tolkes som mønster.
     const page = template
-      .replace(SEO_BLOCK, () => `<!--seo:start-->\n    ${head}\n    <!--seo:end-->`)
+      .replace(SEO_BLOCK, () => `<!--seo:start-->\n    ${preloadFor(route.path)}\n    ${head}\n    <!--seo:end-->`)
       .replace(ROOT_TAG, () => `<div id="root">${html}</div>`)
 
     const out = join(dist, route.file)

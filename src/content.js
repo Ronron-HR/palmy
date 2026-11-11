@@ -18,13 +18,13 @@ export const business = {
   postalCode,
   city,
   address: `${street}, ${postalCode} ${city}`,
-  googleMapsUrl: 'https://maps.google.com/?q=Hjortshøj+Stationsvej+6,+8530+Hjortshøj',
+  googleMapsUrl: 'https://maps.google.com/?q=Hjortsh%C3%B8j+Stationsvej+6,+8530+Hjortsh%C3%B8j',
 }
 
 // ── Tider ét sted ────────────────────────────────────────────
-// De tre tidspunkter findes KUN her (HH:MM). Alle visningstekster og den live
-// åben/lukket-status (src/lib/openStatus.js) afledes af dem, så tiderne aldrig
-// kommer i utakt.
+// De tre tidspunkter findes KUN her (HH:MM). Alle visningstekster og
+// openingHoursSpecification (seo.js) afledes af dem, så tiderne aldrig kommer i
+// utakt. Sitet viser ingen åben/lukket-status (handoff v3).
 const preorderStart = '15:00' // telefonen åbner for forudbestilling
 const openTime = '16:00' // første afhentning
 const closeTime = '20:30' // sidste afhentning / lukketid
@@ -36,9 +36,6 @@ export const hours = {
   daysLong: 'fredag og lørdag',
   // openDays: 0=søndag … 5=fredag, 6=lørdag.
   openDays: [5, 6],
-  // Manuelle lukkedage (ISO 'yyyy-mm-dd') der OVERTRUMFER openDays — slår både
-  // OPEN og PREORDER fra (helligdage, ferie). Fx: ['2025-12-24', '2025-12-25'].
-  closedDates: [],
   preorderStart, // '15:00'
   openTime, // '16:00'
   closeTime, // '20:30'
@@ -50,27 +47,14 @@ export const hours = {
   note: 'Vi har kun åbent fredag og lørdag – så kig forbi, mens vi har åbent.',
   // Hvad note'en reelt fortæller: de øvrige dage er der lukket (jf. FAQ).
   closedNote: 'Resten af ugen har vi lukket.',
-  // Kort linje brugt flere steder (menu, kontakt, footer).
-  preorderNote: `Forudbestil fra kl.\u00a0${dk(preorderStart)} – afhent fra kl.\u00a0${dk(openTime)} og helt frem til lukketid kl.\u00a0${dk(closeTime)}.`,
-  // Todelt forklaring til Find os-sektionen.
-  preorderLine: `Ring og forudbestil allerede fra kl.\u00a0${dk(preorderStart)}.`,
-  pickupLine: `Afhentning fra kl.\u00a0${dk(openTime)} og frem til vi lukker kl.\u00a0${dk(closeTime)}.`,
-}
-
-// "Bestil tidligt" — restaurantens egen opfordring: jo tidligere man ringer, jo
-// bedre. Tider afledes af hours; teksten er ejerens budskab.
-export const bestilTidligt = {
-  heading: 'Jo tidligere du bestiller, jo bedre',
-  steps: [
-    { time: dk(preorderStart), text: 'Telefonen åbner for forudbestilling' },
-    { time: dk(openTime), text: 'Afhentning starter' },
-    { time: dk(closeTime), text: 'Vi lukker' },
-  ],
-}
-
-export const menuInfo = {
-  numberNote:
-    'Numrene følger vores menukort – du kan bestille efter nummer, når du ringer.',
+  // TEKST.md: "Åbningstider skrives altid sådan: Fredag og lørdag 16.00–20.30".
+  line: `Fredag og lørdag ${dk(openTime)}–${dk(closeTime)}`,
+  // Skiltets og bjælkernes undertekst (TEKST.md).
+  preorderShort: `Forudbestil fra kl. ${dk(preorderStart)} fredag og lørdag`,
+  // Find os' to guldblokke. Almindelige mellemrum, så linjerne brydes som i
+  // prototypen.
+  preorderLine: `Ring og forudbestil allerede fra kl. ${dk(preorderStart)}.`,
+  pickupLine: `Afhentning fra kl. ${dk(openTime)} og frem til vi lukker kl. ${dk(closeTime)}.`,
 }
 
 // Sociale profiler (oplyst af ejeren, nov. 2026).
@@ -108,36 +92,66 @@ export const frame = {
   tagline: 'Vietnamesisk mad med kærlighed',
 }
 
-// Hovednavigation. `href` på formen '/#id' er et anker på forsiden; resten er
-// egne sider.
+// Hovednavigation (TEKST.md). Mobilmenuen viser alle seks; desktop-linjen
+// viser ikke "Forside" (prototypen: ordmærket/logoet er vejen hjem).
 export const nav = [
+  { label: 'Forside', href: '/', desktop: false },
   { label: 'Menu', href: '/menu' },
   { label: 'Historien', href: '/historien' },
   { label: 'Billeder', href: '/billeder' },
   { label: 'Anmeldelser', href: '/anmeldelser' },
-  { label: 'Find os', href: '/#kontakt' },
+  { label: 'Find os', href: '/find-os' },
 ]
 
-export const hero = {
-  // H1 i to linjer: "Vietnamesisk mad" + kursiv "i Hjortshøj".
-  lead: 'Vietnamesisk mad',
-  tail: `i ${city}`,
-  subheading: `Familiedrevet køkken med frisklavet mad efter egne opskrifter. Ring og bestil til afhentning – vi har åbent ${hours.daysLong}.`,
+// Faste UI-ord (TEKST.md "Fælles").
+export const ui = {
+  menuOpen: 'Menu',
+  menuClose: 'Luk',
+  menuDialogLabel: 'Menu',
+  navLabel: 'Hovedmenu',
+  skipLink: 'Spring til indhold',
+  logoAlt: business.name,
+  ringBar: `Ring og bestil · ${business.phoneDisplay}`,
+  instagram: 'Instagram',
+  facebook: 'Facebook',
 }
 
-// Retter på forsiden ("Menukort"-sektionen): udvalgte numre fra det trykte kort.
-// Navn, tekst og priser hentes ALTID fra data/menu.ts — aldrig herfra.
-//
-// ⚠️ AFVENTER VERIFICERING mod det trykte menukort (ejerens beslutning 8. nov.
-// 2026). Så længe `verificeret` er false, vises rækken KUN i udviklingsmiljøet
-// (med en tydelig markering) — aldrig i produktionsbuildet. Når retterne er
-// sammenholdt med kortet ret for ret: ret `verificeret` til true (og skift evt.
-// numre), og de vises for alle. Sektionen ser komplet ud uden dem (kategorierne).
-export const forsideRetter = {
-  verificeret: false,
-  // Én ret pr. køkkenmåde: rulle, wok, stegt, karry, nudelskål, suppe.
-  // Alternativer: 4 (stegte nudler med oksekød), 18 (indbagt kylling), 21 (grøn karry).
-  numre: ['1', '3', '6', '11', '12', '13'],
+// Forsiden efter menuen (TEKST.md "Forside").
+export const home = {
+  family:
+    'Palmy drives af Thi og Nam. Maden laves efter familiens opskrifter, og de står selv i køkkenet hver fredag og lørdag.',
+  familyLink: 'Historien',
+  allReviews: 'Alle anmeldelser',
+}
+
+// Anmeldelser (KOMPONENTER.md §7). Teksterne står i `google.reviews`.
+export const reviewText = {
+  summary: (g) => `${g.rating} på Google · ${g.count} anmeldelser`,
+  source: 'Google',
+  replyPrefix: 'Svar fra Palmy:',
+}
+
+// Menukortet (TEKST.md "Menu"). Retter og priser står KUN i data/menu.ts.
+export const menuText = {
+  // Siden har intet synligt h1 (kompakt skilt → kategorier); dette læses op
+  // og bruges af søgemaskiner.
+  pageHeading: 'Menukort',
+  navLabel: 'Menukategorier',
+  printButton: 'Udskriv menukortet',
+  spicy: 'STÆRK',
+}
+
+// Skiltet "Bestil på forhånd" øverst på forsiden (TEKST.md "Forside").
+export const sign = {
+  heading: 'Bestil på forhånd',
+  lead: 'Ring og bestil efter nummeret på menukortet, så er maden klar, når du kommer.',
+  blocks: [
+    {
+      label: 'Afhentning:',
+      text: `Fra kl. ${dk(openTime)} og frem til lukketid kl. ${dk(closeTime)}`,
+    },
+    { label: 'Bestilling:', text: 'Kun over telefonen, bestil efter nummer.' },
+  ],
 }
 
 // Familiens tekst, ordret. Brug `historie.chapters` til visning.
@@ -164,36 +178,114 @@ export const historie = {
   ],
   outro: historieTekst[3],
   closing: 'Kom forbi og smag selv – fredag eller lørdag.',
+  menuLink: 'Se menukortet',
 }
 
+// Billeder: rækkefølgen og billederne står i media.js (galleri); billedteksterne
+// her, i samme rækkefølge (TEKST.md "Billeder").
 export const billeder = {
   heading: 'Billeder',
   intro: 'Fra køkkenet og spisesalen – optaget hos os i Hjortshøj.',
+  captions: [
+    'Karry, der simrer i gryden.',
+    'Wokken over gasflammen.',
+    'Karryen simrer. Kort loop uden lyd.',
+    'Hjortshøj Stationsvej 6.',
+    'Rejer og grøntsager i wokken. Kort loop uden lyd.',
+    'Spisesalen.',
+  ],
 }
 
-export const kontakt = {
-  heading: 'Find os i Hjortshøj',
+// Anmeldelser-siden (prototypen "Palmy Sider").
+export const anmeldelser = {
+  heading: 'Anmeldelser',
+  // Anmeldelser uden tekst nævnes ved navn (Google: 5 stjerner).
+  alsoRated: (names) => `${names.join(' og ')} gav også 5 stjerner.`,
+  writeReview: 'Skriv en anmeldelse på Google',
 }
 
-// Ofte stillede spørgsmål. Svarene bygger KUN på oplysninger, der allerede
-// står andre steder på siden (tider, adresse, telefon, menu). Bruges både i
-// FAQ-sektionen på forsiden og i FAQPage-schema (src/seo.js).
+// Privatlivspolitik — ordret fra prototypen (Maps-afsnittet er erstattet af
+// linket til Google Maps under Cookies). Ikke juridisk gennemgået (MANGLER.md).
+// `phone: true` = afsnittet slutter med telefonnummeret som link.
+export const privatliv = {
+  heading: 'Privatlivspolitik',
+  updated: 'Senest opdateret: november 2026',
+  sections: [
+    {
+      title: 'Dataansvarlig',
+      paragraphs: [
+        {
+          text: `${business.name}, ${business.address}. Har du spørgsmål til denne politik, er du velkommen til at ringe på `,
+          phone: true,
+        },
+      ],
+    },
+    {
+      title: 'Hvilke oplysninger vi indsamler',
+      paragraphs: [
+        { text: 'Hjemmesiden har ingen kontaktformular, ingen brugerkonto og ingen onlinebetaling, så du giver ikke selv oplysninger til os gennem siden.' },
+        { text: 'Hjemmesiden drives via Cloudflare. Som ved alle besøg på en hjemmeside modtager serveren de tekniske oplysninger, din browser altid sender, fx IP-adresse og browsertype.' },
+        { text: 'Hjemmesidens egen kode indeholder ingen værktøjer til måling af besøg eller klik. Når du trykker på en knap for at ringe op, åbner din telefon blot opkaldet.' },
+      ],
+    },
+    {
+      title: 'Skrifttyper',
+      paragraphs: [
+        { text: 'Sidens skrifttyper ligger på selve hjemmesiden og hentes ikke fra andre tjenester. Der sendes derfor ingen oplysninger om dig til tredjepart, når skrifttyperne indlæses.' },
+      ],
+    },
+    {
+      title: 'Cookies',
+      paragraphs: [
+        { text: 'Hjemmesiden sætter ikke selv cookies. Når du trykker på vores adresse, åbnes Google Maps i et nyt vindue, og her gælder Googles privatlivspolitik.' },
+        { text: 'Restaurantens interne opslagsside til personalet gemmer en kopi af menukortet i browserens lokale lager. Den indeholder ingen oplysninger om besøgende.' },
+        // Tilføjet af Ronny 11.11.2026 (menuens intro, MenuSections.jsx).
+        { text: 'Menukortets lille intro-animation gemmer en markering i din browsers sessionStorage, så den kun vises én gang pr. besøg. Den indeholder ingen oplysninger om dig.' },
+      ],
+    },
+    {
+      title: 'Bestilling',
+      paragraphs: [
+        { text: 'Bestilling og forudbestilling sker over telefon. Vi gemmer ikke dine oplysninger digitalt gennem hjemmesiden – din bestilling håndteres direkte af os i restauranten.' },
+      ],
+    },
+    {
+      title: 'Dine rettigheder',
+      paragraphs: [
+        { text: 'Efter databeskyttelsesforordningen (GDPR) har du ret til indsigt i, berigtigelse af og sletning af eventuelle oplysninger, vi måtte have om dig. Hjemmesiden har ingen formularer eller brugerkonti, så vi har normalt ingen oplysninger, der er knyttet til dig ved navn. Kontakt os endelig, hvis du har spørgsmål.' },
+      ],
+    },
+  ],
+}
+
+// 404 (TEKST.md "404").
+export const notFound = {
+  heading: 'Siden findes ikke',
+  text: 'Adressen er måske ændret. Menukortet og telefonnummeret er de samme.',
+  links: [
+    { label: 'Gå til menukortet', href: '/menu' },
+    { label: 'Gå til forsiden', href: '/' },
+  ],
+}
+
+// Find os (TEKST.md + prototypen "Palmy Sider").
+export const findOs = {
+  heading: 'Find os',
+  region: 'Nord for Aarhus.',
+  blocks: [
+    { label: 'Åbent', text: `${hours.line}. Resten af ugen holder vi lukket.` },
+    { label: 'Telefon', phone: true },
+    { label: 'Bestil:', text: hours.preorderLine, gold: true },
+    { label: 'Afhentning:', text: hours.pickupLine, gold: true },
+  ],
+  qaHeading: 'Spørgsmål og svar',
+}
+
+// Spørgsmål og svar på Find os — som almindelig tekst, ingen accordion. Kun de
+// to spørgsmål, TEKST.md beholder. Bruges også i FAQPage-schema (src/seo.js),
+// så schemaet altid matcher det, der står på siden.
 export const faq = {
-  heading: 'Ofte stillede spørgsmål',
   items: [
-    {
-      question: 'Hvor ligger Palmy Spisested?',
-      answer: `Vi ligger på ${business.address} – nord for Aarhus. Du kan finde vej via Google Maps.`,
-      link: { label: 'Se på Google Maps', href: business.googleMapsUrl, external: true },
-    },
-    {
-      question: 'Hvornår har I åbent?',
-      answer: `Vi har åbent ${hours.daysLong} kl.\u00a0${hours.time}. Resten af ugen holder vi lukket.`,
-    },
-    {
-      question: 'Hvornår kan jeg bestille takeaway?',
-      answer: `Ring til os på ${business.phoneDisplay} – vi tager imod forudbestillinger fra kl.\u00a0${dk(preorderStart)} ${hours.daysLong}. Maden kan hentes fra kl.\u00a0${dk(openTime)} og frem til vi lukker kl.\u00a0${dk(closeTime)}.`,
-    },
     {
       question: 'Kan jeg bestille online?',
       answer: 'Nej – al bestilling foregår over telefonen. Det går hurtigst, hvis du bestiller efter nummeret på menukortet.',
@@ -202,13 +294,33 @@ export const faq = {
       question: 'Hvilken slags mad laver I?',
       answer: 'Vietnamesisk mad efter familiens egne opskrifter – blandt andet hjemmelavede forårsruller, stegte nudler, Bún og rød karry. Der er også en lille børnemenu.',
     },
-    {
-      question: 'Hvor kan jeg se menuen?',
-      answer: 'Hele menukortet med priser står på menusiden. Du kan også åbne det som en printvenlig udgave.',
-      link: { label: 'Åbn menukortet', href: '/menu' },
-    },
   ],
 }
 
 // Menudata (retter, priser, numre) bor i ./data/menu.ts — det er den eneste
 // kilde til menuen, delt af kundemenuen, bestillingsvisningen og printkortet.
+
+// Kun anmeldelser med tekst vises som citat (2 af 4 i dag).
+export const reviewsWithText = google.reviews.filter((r) => r.text)
+
+// Interne sider (noindex): /bestilling til personalet og /menu/print.
+export const internt = {
+  bestilling: {
+    heading: 'Bestilling',
+    subheading: `${business.name} — internt opslag`,
+    placeholder: 'Nummer eller navn…',
+    searchLabel: 'Søg efter menunummer eller retnavn',
+    clear: 'Ryd søgning',
+    ask: 'Spørg kunden',
+    price: 'Pris',
+    noMatch: (q) => `Intet match for "${q}"`,
+    empty: 'Tast et menunummer eller søg på navn',
+    allNumbers: 'Alle numre',
+    home: '← Forsiden',
+  },
+  print: {
+    heading: 'Menukort',
+    back: '← Tilbage til menukortet',
+    print: 'Udskriv / gem som PDF',
+  },
+}

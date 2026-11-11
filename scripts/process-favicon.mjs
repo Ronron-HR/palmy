@@ -11,7 +11,7 @@ const svg = join(root, 'public', 'favicon.svg')
 await sharp(svg, { density: 384 }).resize(32, 32).png().toFile(join(root, 'public', 'favicon-32.png'))
 await sharp(svg, { density: 384 })
   .resize(180, 180)
-  .flatten({ background: '#14110f' })
+  .flatten({ background: '#23362B' }) // samme grøn som ikonets egen baggrund
   .png()
   .toFile(join(root, 'public', 'apple-touch-icon.png'))
 console.log('✓ favicon-32.png, apple-touch-icon.png')

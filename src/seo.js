@@ -7,7 +7,7 @@
 // Alle fakta (navn, adresse, tider, priser) hentes fra content.js og
 // data/menu.ts — intet hardcodes her.
 
-import { business, faq, hours, social } from './content'
+import { business, faq, google, hours, social } from './content'
 import { SECTIONS, dishes, getDishesBySection } from './data/menu'
 
 // Kanonisk domæne. www-varianten er den offentlige adresse; apex 301'er hertil
@@ -19,7 +19,9 @@ const OG_IMAGE = {
   url: abs('/images/palmy-og.jpg'),
   width: 1200,
   height: 630,
-  alt: `Retter fra ${business.name} – vietnamesisk mad i ${business.city}`,
+  // Logoet på grøn (scripts/make-og.mjs), ingen anden tekst.
+  alt: `${business.name} – logo med to palmer på mørkegrøn`,
+  type: 'image/jpeg',
 }
 
 // Koordinater for Hjortshøj Stationsvej 6 (fra det eksisterende schema).
@@ -112,7 +114,7 @@ export function restaurantSchema({ fullMenu = false } = {}) {
     description: `${business.name} er en familiedrevet ${business.kind} i ${business.city}. Åbent ${hours.daysLong} kl. ${hours.time}.`,
     url: abs('/'),
     telephone: business.phone,
-    servesCuisine: 'Vietnamese',
+    servesCuisine: 'Vietnamesisk',
     priceRange: priceRange(),
     currenciesAccepted: 'DKK',
     image: [
@@ -156,14 +158,16 @@ export function faqSchema() {
 
 // ── Ruter ───────────────────────────────────────────────────
 
-const SITE_SUFFIX = ` | ${business.name}`
+// Titler og beskrivelser ordret fra PALMY-INDHOLD.md §7 (Ronny, 11.11.2026).
+// Interne sider og 404 (TEKST.md) bruger samme "·"-mønster.
+const SITE_SUFFIX = ` · ${business.name}`
 
 const ROUTES = {
   '/': {
     title: `${business.name} | Vietnamesisk restaurant i ${business.city}`,
     description: `${business.name} i ${business.city} serverer frisklavet vietnamesisk mad. Se menuen, find åbningstider og ring og bestil takeaway – vi har åbent ${hours.daysLong}.`,
     robots: 'index, follow',
-    jsonLd: () => [restaurantSchema(), websiteSchema(), faqSchema()],
+    jsonLd: () => [restaurantSchema(), websiteSchema()],
     sitemap: { priority: '1.0', changefreq: 'monthly' },
   },
   '/menu': {
@@ -189,14 +193,22 @@ const ROUTES = {
   },
   '/anmeldelser': {
     title: `Anmeldelser${SITE_SUFFIX} – det siger gæsterne`,
-    description: `Læs gæsternes Google-anmeldelser af ${business.name} i ${business.city} – 5,0 i gennemsnit – og skriv din egen.`,
+    description: `Læs gæsternes Google-anmeldelser af ${business.name} i ${business.city} – ${google.rating} i gennemsnit – og skriv din egen.`,
     robots: 'index, follow',
     jsonLd: () => [],
     sitemap: { priority: '0.6', changefreq: 'monthly' },
   },
+  // Spørgsmålene står som tekst på siden → FAQPage-schema her (ikke forsiden).
+  '/find-os': {
+    title: `Find os${SITE_SUFFIX} i ${business.city}`,
+    description: `${business.address}. Åbent ${hours.line.toLowerCase()}. Ring og bestil på ${business.phoneDisplay}.`,
+    robots: 'index, follow',
+    jsonLd: () => [restaurantSchema(), faqSchema()],
+    sitemap: { priority: '0.8', changefreq: 'yearly' },
+  },
   '/privatliv': {
     title: `Privatlivspolitik${SITE_SUFFIX}`,
-    description: `Sådan håndterer ${business.name} i ${business.city} dine oplysninger. Om hosting, skrifttyper, Google Maps og cookies.`,
+    description: `Sådan håndterer ${business.name} i ${business.city} dine oplysninger. Om hosting, skrifttyper og cookies.`,
     robots: 'index, follow',
     jsonLd: () => [],
     sitemap: { priority: '0.2', changefreq: 'yearly' },
@@ -216,8 +228,8 @@ const ROUTES = {
     jsonLd: () => [],
   },
   '/404': {
-    title: `Siden blev ikke fundet${SITE_SUFFIX}`,
-    description: `Siden findes ikke. Gå til forsiden for menu, åbningstider og kontakt til ${business.name} i ${business.city}.`,
+    title: `Siden findes ikke${SITE_SUFFIX}`,
+    description: `Siden findes ikke. Menukortet og telefonnummeret hos ${business.name} i ${business.city} er de samme.`,
     robots: 'noindex, follow',
     jsonLd: () => [],
   },
@@ -248,6 +260,7 @@ export const PRERENDER_ROUTES = [
   { path: '/historien', file: 'historien.html' },
   { path: '/billeder', file: 'billeder.html' },
   { path: '/anmeldelser', file: 'anmeldelser.html' },
+  { path: '/find-os', file: 'find-os.html' },
   { path: '/privatliv', file: 'privatliv.html' },
   { path: '/menu/print', file: 'menu/print.html' },
   { path: '/bestilling', file: 'bestilling.html' },
@@ -288,6 +301,7 @@ export function renderHead(pathname) {
     `<meta property="og:description" content="${escapeAttr(seo.description)}" />`,
     ...(seo.canonical ? [`<meta property="og:url" content="${escapeAttr(seo.canonical)}" />`] : []),
     `<meta property="og:image" content="${escapeAttr(OG_IMAGE.url)}" />`,
+    `<meta property="og:image:type" content="${OG_IMAGE.type}" />`,
     `<meta property="og:image:width" content="${OG_IMAGE.width}" />`,
     `<meta property="og:image:height" content="${OG_IMAGE.height}" />`,
     `<meta property="og:image:alt" content="${escapeAttr(OG_IMAGE.alt)}" />`,
@@ -296,10 +310,6 @@ export function renderHead(pathname) {
     `<meta name="twitter:description" content="${escapeAttr(seo.description)}" />`,
     `<meta name="twitter:image" content="${escapeAttr(OG_IMAGE.url)}" />`,
     `<meta name="twitter:image:alt" content="${escapeAttr(OG_IMAGE.alt)}" />`,
-    // Forsidens hero-poster er LCP-elementet — hent den med det samme.
-    ...(seo.pathname === '/'
-      ? [`<link rel="preload" as="image" href="/videos/hero/palmy-hero-poster-mobil-720x1280.jpg" fetchpriority="high" />`]
-      : []),
     ...seo.jsonLd().map(jsonLdScript),
   ]
   return tags.join('\n    ')

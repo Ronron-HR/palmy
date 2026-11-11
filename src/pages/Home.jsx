@@ -1,25 +1,31 @@
+import { google, home, reviewText, reviewsWithText } from '../content'
 import Layout from '../components/Layout'
-import Hero from '../components/Hero'
-import BestilNu from '../components/BestilNu'
-import MenuIndgang from '../components/MenuIndgang'
-import HistorieTeaser from '../components/HistorieTeaser'
-import AnmeldelserBlok from '../components/AnmeldelserBlok'
-import FindOs from '../components/FindOs'
-import Faq from '../components/Faq'
+import Link from '../components/Link'
+import MenuSections from '../components/menu/MenuSections'
+import Anmeldelse from '../components/Anmeldelse'
 
-// Forsiden er en indgang, ikke hele sitet: hero, tidtavle, menuen, et glimt af
-// historien, gæsternes ord, og hvor og hvornår man finder os. Køkkenbillederne bor
-// på /billeder.
+// Forside — hovedperson: menuen (DESIGN.md "Sektionsplan"):
+// 1 skiltet (Layout) · 2 sticky kategori-nav · 3 hele menukortet med karryfoto
+// · 4 to-tre linjer om Thi og Nam · 5 anmeldelse 1 og 2 · 6 footer.
 function Home() {
   return (
-    <Layout>
-      <Hero />
-      <BestilNu />
-      <MenuIndgang />
-      <HistorieTeaser />
-      <AnmeldelserBlok variant="teaser" />
-      <FindOs />
-      <Faq />
+    <Layout sign="full" column="wide">
+      <MenuSections variant="forside" />
+
+      <p className="max-w-(--col-text) pt-14 text-md leading-relaxed md:pt-16">
+        {home.family}{' '}
+        <Link to="/historien" className="text-base">
+          {home.familyLink}
+        </Link>
+      </p>
+
+      <section className="max-w-(--col-text) pt-10 leading-relaxed">
+        <p className="mb-5 font-bold">{reviewText.summary(google)}</p>
+        {reviewsWithText.slice(0, 2).map((review) => (
+          <Anmeldelse key={review.name} review={review} variant="forside" />
+        ))}
+        <Link to="/anmeldelser">{home.allReviews}</Link>
+      </section>
     </Layout>
   )
 }

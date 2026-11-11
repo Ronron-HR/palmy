@@ -53,10 +53,10 @@ export const SECTIONS: Section[] = [
     title: 'Hovedretter',
     note: 'Alle retter serveres med ris eller nudler',
   },
-  { id: 'ekstra-retter', title: 'Ekstra Retter' },
+  { id: 'ekstra-retter', title: 'Ekstra retter' },
   { id: 'boernemenu', title: 'Børnemenu' },
   { id: 'drikkevarer', title: 'Drikkevarer' },
-  { id: 'tilbehoer', title: 'Ekstra Tilbehør' },
+  { id: 'tilbehoer', title: 'Ekstra tilbehør' },
 ]
 
 const source: DishSource[] = [
@@ -75,15 +75,17 @@ const source: DishSource[] = [
     number: '2',
     name: 'Hjemmelavede Fem Små Forårsruller',
     description:
-      'Med hakket svinekød, æg, løg, hvidløgspulver, asiatiske svampe og gulerødder. Serveres med sød chilisauce.',
+      'Med hakket svinekød, æg, løg, hvidløgspulver, asiatiske svampe og gulerødder. Serveres med sød chilisauce',
     price: 45,
     section: 'forretter',
   },
 
   // ── HOVEDRETTER (sektionsnote: se SECTIONS) ─────────────────
   {
+    // Ronny 11.11.2026: cashewnødder er inkluderet i 95 kr. (kortets "+10 kr"
+    // gælder ikke længere).
     number: '3',
-    name: 'Stegte nudler med kylling og grøntsager',
+    name: 'Stegte nudler med kylling, grøntsager og cashewnødder',
     price: 95,
     section: 'hovedretter',
   },
@@ -102,18 +104,20 @@ const source: DishSource[] = [
   {
     number: '6',
     name: 'Stegt and med ris eller nudler og kinesisk sød sauce',
-    description: 'Med champignon, løg, porre og rød og grøn peberfrugt',
+    description: 'Med champignon, løg, porre, bambusskud, majs, rød og grøn peberfrugt',
+    note: 'Vælg ris eller nudler',
     price: 115,
-    choices: ['Ris', 'Nudler'],
+    choices: ['Ris', 'Nudler'], // bruges af /bestilling
     section: 'hovedretter',
   },
   {
     number: '7',
-    name: 'Indbagte store rejer med sur-sød sauce (Ris)',
-    price: 95,
+    name: 'Indbagte store rejer med sur-sød sauce (ris)',
+    variants: [{ label: '5 stk.', price: 95 }],
     section: 'hovedretter',
   },
   {
+    // Ronny 11.11.2026: hjemmesidens tekst bevares, uden kortets "-5 stk".
     number: '8',
     name: 'Risnudler med rejer og grøntsager',
     description:
@@ -131,22 +135,23 @@ const source: DishSource[] = [
   {
     number: '10',
     name: 'Oksekød eller kylling med peberfrugt, løg og bambus i rød karry',
+    note: 'Vælg oksekød eller kylling',
     price: 95,
     spicy: true,
-    choices: ['Oksekød', 'Kylling'],
+    choices: ['Oksekød', 'Kylling'], // bruges af /bestilling
     section: 'hovedretter',
   },
   {
     number: '11',
     name: 'Rød karry med ris eller risnudler',
-    description: 'Med bambus, chili, bønnespirer, champignon og kokosmælk',
+    description: 'Med bambus, chili, bennespirer, champignon og kokosmælk',
     variants: [
-      { label: 'Med and', price: 115 },
-      { label: 'Med kylling', price: 95 },
-      { label: 'Med oksekød', price: 95 },
+      { label: 'And', price: 115 },
+      { label: 'Kylling', price: 95 },
+      { label: 'Oksekød', price: 95 },
     ],
     // Bevidst ingen `choices`: valget står allerede i rettens navn, præcis som
-    // på det trykte kort. En "Vælg:"-linje ville gentage navnet ord for ord.
+    // på det trykte kort.
     section: 'hovedretter',
   },
   {
@@ -160,44 +165,45 @@ const source: DishSource[] = [
   {
     number: '13',
     name: 'Tom Kha Gai',
-    description: 'Kokosmælksuppe med kylling, champignon, chili og bønnespirer',
+    description: 'Kokosmælksuppe med kylling, champignon, chili og bennespirer',
     variants: [
-      { label: 'Med kylling', price: 95 },
-      { label: 'Med rejer', price: 105 },
+      { label: 'Kylling', price: 95 },
+      { label: 'Rejer', price: 105 },
     ],
     // Ordret som på det trykte kort — derfor `note` og ikke `choices`.
-    note: 'Kan serveres med ris eller risnudler.',
+    note: 'Kan serveres med ris eller nudler',
     section: 'hovedretter',
   },
   // Nr. 18 og 19 hører til Hovedretter, selvom de står talmæssigt efter
   // Børnemenu — det er korrekt og skal bevares, jf. det trykte kort.
   {
     number: '18',
-    name: 'Indbagt Kylling med sur-sød sauce (Ris)',
-    price: 95,
+    name: 'Indbagt kylling med sur-sød sauce (ris)',
+    variants: [{ label: '8 stk.', price: 95 }],
     section: 'hovedretter',
   },
   {
     number: '19',
-    name: 'Kylling Satay med ris og peanut sauce',
+    name: 'Kylling satay med ris og peanut sauce',
     price: 95,
     section: 'hovedretter',
   },
   {
     number: '20',
-    name: 'Kyllingspyd med Pomfritter',
+    name: 'Kyllingespyd med pommes frites',
     price: 89,
     section: 'hovedretter',
   },
   {
+    // Ronny 11.11.2026: hjemmesidens beskrivelse bevares.
     number: '21',
     name: 'Grøn karry med risnudler eller ris',
     description:
       'Med kokosmælk, svampe, bambusskud, majs, rød og grøn peberfrugt, porre og løg',
     variants: [
-      { label: 'Med kylling', price: 95 },
-      { label: 'Med oksekød', price: 100 },
-      { label: 'Med and', price: 110 },
+      { label: 'Kylling', price: 95 },
+      { label: 'Oksekød', price: 100 },
+      { label: 'And', price: 110 },
     ],
     section: 'hovedretter',
   },
@@ -205,29 +211,26 @@ const source: DishSource[] = [
   // ── EKSTRA RETTER ────────────────────────────────────────
   {
     number: '14',
-    name: '1/2 Grillkylling med pommes frites',
+    name: '½ grillkylling med pommes frites',
     price: 80,
     section: 'ekstra-retter',
   },
   {
     number: '15',
-    name: 'Pommes Frites (Stor portion)',
+    name: 'Pommes frites (stor)',
     price: 35,
     section: 'ekstra-retter',
   },
 
   // ── BØRNEMENU ────────────────────────────────────────────
   {
-    // Eneste ændring på kortet: navnet skifter fra "Crispy Chicken Burger"
-    // til "Crispy Burger", og prisen bliver til to linjer (kylling/oksekød).
-    // Nummeret er UÆNDRET — dette er en prisvariant af nr. 16, ikke en ny ret.
+    // Nr. 16 står som på kortet: én pris, og valget kylling/oksekød i
+    // beskrivelsen. `choices` beholdes, så /bestilling stadig spørger.
     number: '16',
     name: 'Crispy Burger',
-    description: 'Med salat, agurk og pommes frites',
-    variants: [
-      { label: 'Med kylling', price: 79 },
-      { label: 'Med oksekød', price: 79 },
-    ],
+    description: 'Kylling eller oksekød, med salat, agurk og pommes frites og ketchup',
+    price: 79,
+    choices: ['Kylling', 'Oksekød'], // bruges af /bestilling
     section: 'boernemenu',
   },
   {
@@ -254,11 +257,11 @@ const source: DishSource[] = [
 
   // ── EKSTRA TILBEHØR (uden numre) ─────────────────────────
   { number: null, name: 'Ekstra ris', price: 20, section: 'tilbehoer' },
+  { number: null, name: 'Ekstra nudler', price: 20, section: 'tilbehoer' },
   { number: null, name: 'Ekstra kylling', price: 25, section: 'tilbehoer' },
   { number: null, name: 'Ekstra svinekød', price: 25, section: 'tilbehoer' },
   { number: null, name: 'Ekstra oksekød', price: 25, section: 'tilbehoer' },
   { number: null, name: 'Ekstra and', price: 30, section: 'tilbehoer' },
-  { number: null, name: 'Ekstra nudler', price: 20, section: 'tilbehoer' },
   { number: null, name: 'Ekstra peanuts', price: 10, section: 'tilbehoer' },
   {
     number: null,
@@ -266,7 +269,12 @@ const source: DishSource[] = [
     price: 10,
     section: 'tilbehoer',
   },
-  { number: null, name: 'Reje chips', price: 15, section: 'tilbehoer' },
+  {
+    number: null,
+    name: 'Rejechips',
+    variants: [{ label: 'pose', price: 15 }],
+    section: 'tilbehoer',
+  },
 ]
 
 // Intern nøgle afledt af sektion + navn (ikke af array-indeks og ikke af
@@ -334,6 +342,15 @@ export const dishesByNumber: Map<string, Dish> = new Map(
 
 export function getDishesBySection(id: SectionId): Dish[] {
   return dishes.filter((d) => d.section === id)
+}
+
+/** Pris skrives altid sådan: "95 kr." (TEKST.md). */
+export const formatKr = (price: number): string => `${price} kr.`
+
+/** Prislinjer som på kortet: "95 kr." eller "And 115 kr." — én pr. variant. */
+export function getPriceLines(dish: Dish): string[] {
+  if (dish.price != null) return [formatKr(dish.price)]
+  return (dish.variants ?? []).map((v) => `${v.label} ${formatKr(v.price)}`)
 }
 
 /** Kompakt prisvisning til lister hvor der ikke er plads til alle varianter. */

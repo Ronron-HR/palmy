@@ -3,7 +3,7 @@ import { navigate } from '../hooks/usePathname'
 // Intern navigationslink — opdaterer history uden fuld sideindlæsning.
 // Almindelig venstreklik uden modifier-taster fanges; midterklik/nyt-faneblad
 // osv. falder tilbage til normal <a>-adfærd.
-function Link({ to, children, className, onClick }) {
+function Link({ to, children, className, onClick, ...rest }) {
   const handleClick = (event) => {
     if (
       event.defaultPrevented ||
@@ -28,7 +28,7 @@ function Link({ to, children, className, onClick }) {
   }
 
   return (
-    <a href={to} onClick={handleClick} className={className}>
+    <a href={to} onClick={handleClick} className={className} {...rest}>
       {children}
     </a>
   )

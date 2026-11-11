@@ -8,6 +8,7 @@ import Anmeldelser from './pages/Anmeldelser'
 import Bestilling from './pages/Bestilling'
 import MenuPrint from './pages/MenuPrint'
 import Privatliv from './pages/Privatliv'
+import FindOs from './pages/FindOs'
 import NotFound from './pages/NotFound'
 
 // Lille intern router uden ekstern afhængighed — projektet har få faste ruter,
@@ -23,6 +24,7 @@ const PAGES = {
   '/bestilling': Bestilling,
   '/menu/print': MenuPrint,
   '/privatliv': Privatliv,
+  '/find-os': FindOs,
 }
 
 function App() {
