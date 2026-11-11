@@ -1,299 +1,167 @@
 @import "tailwindcss";
+@import "./styles/tokens.css";
 
-/* Designsystem "Skiltet": tre flader — papir, blæk og chili — sat som skiltet på
-   facaden og som en nummereret menutavle: kondenseret versal-skrift til numre og
-   overskrifter, en rolig grotesk til al tekst, hårfine streger, skarpe hjørner.
-   Ingen gradienter, skygger, mønstre eller afrundinger.
-
-   Farverne bruges via SEMANTISKE tokens (bg, surface, fg, muted, line, accent,
-   signal, price, cta, cta-fg, chili). Hvert TEMA nedenfor giver dem nye værdier,
-   så samme komponent virker på papir, blæk og chili — sæt blot
-   `theme-ink bg-bg text-fg` (osv.) på sektionen. `signal` er chili-rød (på blæk
-   lysere, så den kan læses); på chili-fladen er den blæk. */
-@theme {
-  --font-display: 'Anton', 'Arial Narrow', Impact, sans-serif;
-  --font-body: 'Be Vietnam Pro', system-ui, sans-serif;
-
-  /* Typografiskala — fluid via clamp, så 390 px og 1440 px hver får en rigtig
-     størrelse uden breakpoint-spring. Anton er kun til store størrelser. */
-  --text-h1: clamp(2.1rem, 1.4rem + 5.4vw, 6.5rem); /* hero + sidetitler */
-  --text-h1--line-height: 0.98;
-  --text-h2: clamp(2.4rem, 1.5rem + 3.8vw, 4.75rem); /* alle sektionsoverskrifter */
-  --text-h2--line-height: 1;
-  --text-h3: clamp(1.75rem, 1.3rem + 1.8vw, 2.75rem); /* kategorier, kapitler */
-  --text-h3--line-height: 1.02;
-  --text-num: clamp(2.6rem, 2rem + 2.6vw, 4.25rem); /* menunumre */
-  --text-num--line-height: 0.9;
-  --text-board: clamp(2.2rem, 0.2rem + 10.2vw, 9rem); /* tidtavlens tal */
-  --text-board--line-height: 0.9;
-  --text-dish: clamp(1.1rem, 1rem + 0.4vw, 1.3rem); /* retnavn (Be Vietnam Pro 700) */
-  --text-dish--line-height: 1.25;
-  --text-label: 0.8125rem; /* knapper, navigation, små etiketter (versaler) */
-  --text-label--line-height: 1.2;
-  --text-label--letter-spacing: 0.08em;
-
-  --color-open: #7be0a4; /* åben-prikken */
-
-  /* Interne sider (/bestilling, /menu/print): samme palet som de faste farver. */
-  --color-cream: #f2ebdd;
-  --color-green-deep: #14110f;
-  --color-green-deep-light: #2b2520;
-  --color-gold: #b8321e;
-  --color-gold-deep: #8e2615;
-  --color-red-warm: #b8321e;
-  --color-slate-dish: #14110f;
-}
-
-@theme inline {
-  --color-bg: var(--c-bg);
-  --color-surface: var(--c-surface);
-  --color-fg: var(--c-fg);
-  --color-muted: var(--c-muted);
-  --color-line: var(--c-line);
-  --color-accent: var(--c-accent);
-  --color-signal: var(--c-signal);
-  --color-price: var(--c-price);
-  --color-cta: var(--c-cta);
-  --color-cta-fg: var(--c-cta-fg);
-  --color-chili: var(--c-chili);
-}
-
-/* Standard: papir — læse- og menuflade. */
-:root,
-.theme-paper {
-  --c-bg: #f2ebdd;
-  --c-surface: #e7decb;
-  --c-fg: #14110f;
-  --c-muted: #5a5046;
-  --c-line: rgb(20 17 15 / 0.3);
-  --c-accent: #b8321e;
-  --c-signal: #b8321e;
-  --c-price: #14110f;
-  --c-cta: #b8321e;
-  --c-cta-fg: #fbf6ea;
-  --c-chili: #b8321e;
-}
-
-/* Sand: papirets skygge — til sektion nummer to i en række af papirsektioner. */
-.theme-sand {
-  --c-bg: #e7decb;
-  --c-surface: #f2ebdd;
-  --c-muted: #4f463d;
-  --c-signal: #a82c19; /* mørkere rød, så den holder 4,5:1 på sand */
-  --c-accent: #a82c19;
-  --c-chili: #a82c19;
-}
-
-/* Blæk: skiltet. Header, hero, historie, Find os og footer. */
-.theme-ink {
-  --c-bg: #14110f;
-  --c-surface: #221d19;
-  --c-fg: #f2ebdd;
-  --c-muted: #bdb1a0;
-  --c-line: rgb(242 235 221 / 0.28);
-  --c-accent: #e8553a;
-  --c-signal: #e8553a;
-  --c-price: #f2ebdd;
-  --c-cta: #e8553a;
-  --c-cta-fg: #14110f;
-  --c-chili: #e8553a;
-}
-
-/* Chili: den ene farveflade — tidtavlen og bestil-panelet på menuen. */
-.theme-red {
-  --c-bg: #b8321e;
-  --c-surface: #a02a18;
-  --c-fg: #fbf6ea;
-  --c-muted: #f8e6db;
-  --c-line: rgb(251 246 234 / 0.45);
-  --c-accent: #fbf6ea;
-  --c-signal: #14110f;
-  --c-price: #fbf6ea;
-  --c-cta: #14110f;
-  --c-cta-fg: #fbf6ea;
-  --c-chili: #fbf6ea;
-}
-
-/* Print og internt opslag. */
-.paper {
-  --c-bg: #faf6ee;
-  --c-surface: #ffffff;
-  --c-fg: #14110f;
-  --c-muted: #5a5046;
-  --c-line: rgb(20 17 15 / 0.2);
-  --c-accent: #14110f;
-  --c-signal: #14110f;
-  --c-price: #b8321e;
-  --c-cta: #14110f;
-  --c-cta-fg: #faf6ee;
-  --c-chili: #b8321e;
-}
-
-html {
-  scroll-behavior: smooth;
-  scroll-padding-top: 4.5rem;
-}
-
-body {
-  font-family: var(--font-body);
-  background-color: var(--color-bg);
-  color: var(--color-fg);
-  -webkit-tap-highlight-color: transparent;
-  -webkit-font-smoothing: antialiased;
-}
-
-/* Display-skriften (Anton) er altid versal — som skiltet og menutavlen. */
-.font-display {
-  text-transform: uppercase;
-  letter-spacing: 0.005em;
-}
-h1,
-h2,
-h3 {
-  text-wrap: balance;
-}
+/* Palmy Spisested v3 — "det trykte Palmy".
+   Alle værdier kommer fra src/styles/tokens.css. Her står kun det, der ikke
+   kan udtrykkes som Tailwind-klasser: grundstil, fokus og bevægelse
+   (MOTION.md, ordret oversat). */
 
 @layer base {
-  :focus-visible {
-    outline: 2px solid var(--c-accent);
-    outline-offset: 3px;
-  }
-  /* <main> får kun fokus programmatisk (efter sideskift) — ingen ring. */
-  #indhold:focus {
-    outline: none;
-  }
-}
-
-/* Den faste bund-bar (mobil) må ikke dække et fokuseret element. */
-@media (max-width: 767px) {
   html {
-    scroll-padding-bottom: 5.5rem;
+    background-color: var(--color-cream);
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--color-cream);
+    color: var(--color-black);
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    /* Prototyperne sætter linjehøjden pr. element; resten er "normal". */
+    line-height: var(--leading-normal);
+  }
+
+  /* Links er understreget som i prototyperne (Tailwinds preflight fjerner det). */
+  a {
+    color: inherit;
+    text-decoration-line: underline;
+    text-decoration-thickness: var(--line);
+    text-underline-offset: var(--underline-offset);
+  }
+
+  b,
+  strong {
+    font-weight: var(--weight-bold);
+  }
+
+  /* DESIGN.md: 2 px outline #171715, offset 2 px, på alle interaktive elementer. */
+  :focus-visible {
+    outline: var(--focus-width) solid var(--color-black);
+    outline-offset: var(--focus-offset);
   }
 }
 
-/* Hero: posteren ligger bag videoen (ses før den er klar, ved reduced motion
-   og "spar data") — samme billede som <video poster>. */
-.hero-poster {
-  background: #14110f url('/videos/hero/palmy-hero-poster-mobil-720x1280.jpg') center / cover
-    no-repeat;
-}
-/* Læsbarhed bag teksten på mobil, hvor teksten ligger OVER videoen: en ensartet
-   blæk-tone over hele billedet (ingen gradient). */
-.hero-shade {
-  background: rgb(20 17 15 / 0.42);
+/* Hover kun med mus (MOTION.md). Sorte bjælker (.bar) skifter ikke farve. */
+@media (hover: hover) and (pointer: fine) {
+  a:not(.bar):hover {
+    color: var(--color-green);
+  }
 }
 
-/* Heroens ene indtoning: hver overskriftslinje stiger op bag en maske. */
-@keyframes rise {
-  from {
-    transform: translateY(105%);
-  }
-  to {
-    transform: none;
-  }
-}
-.rise {
-  display: block;
-  animation: rise 0.5s cubic-bezier(0.2, 0.7, 0.1, 1) both;
-  animation-delay: var(--d, 0ms);
+/* Footerens bund: ring-barens højde + 36 px, så baren aldrig dækker teksten. */
+@utility pb-ringbar {
+  padding-bottom: calc(var(--ringbar-height) + var(--ringbar-clearance));
 }
 
-/* Stjerner, der tændes én ad gangen, og tekst, der toner ind. Kun transform og
-   opacity (hurtigt), og de startes forfra via `key` (se hooks/useReplay.js). */
-@keyframes pop {
-  from {
-    opacity: 0;
-    transform: scale(0.3) rotate(-25deg);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-.pop {
-  animation: pop 0.32s cubic-bezier(0.2, 0.9, 0.3, 1.35) both;
-  animation-delay: var(--d, 0ms);
-}
-@keyframes fade {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-.fade {
-  animation: fade 0.4s ease-out both;
-  animation-delay: var(--d, 0ms);
+/* Spalter: 1040 (Forside/Menu) og 680 (øvrige), begge inkl. 20 px sidemargen
+   som i prototyperne. */
+@utility frame-wide {
+  max-width: calc(var(--col-menu-desktop) + 2 * var(--gutter-mobile));
 }
 
-/* Vandret kategorilinje / galleri: kan scrolles, men uden synlig scrollbar. */
-.no-scrollbar {
-  scrollbar-width: none;
-}
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
-}
+/* ── Bevægelse (MOTION.md) ─────────────────────────────────── */
 
-/* Diskret trykfeedback: knappen giver efter på pointer-down. */
+/* Tryk: telefonbjælke, ring-bar, "Udskriv" */
 .press {
-  transition-property: background-color, color, border-color, transform, filter;
-  transition-duration: 150ms;
-  transition-timing-function: ease-out;
+  transition: transform var(--dur-press) var(--ease-out);
 }
 .press:active {
-  transform: scale(0.97);
+  transform: scale(var(--press-scale));
 }
 
-/* Knapsprog: ÉN knap — Ring (RingKnap.jsx), en skarp rektangel i chili. Alle andre
-   handlinger er `.tlink`: versal tekst med en signal-streg under. Ingen piller. */
-@layer components {
-  .tlink {
-    display: inline-flex;
-    min-height: 2.75rem;
-    align-items: center;
-    font-size: var(--text-label);
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--c-fg);
-    text-decoration-line: underline;
-    text-decoration-color: var(--c-signal);
-    text-decoration-thickness: 2px;
-    text-underline-offset: 6px;
-    transition: color 150ms ease-out;
+/* Nav-links: understregningen vokser fra venstre. Aktuel side står understreget. */
+.link-nav {
+  position: relative;
+  text-decoration-line: none;
+}
+.link-nav::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: var(--link-underline-bottom);
+  height: var(--line);
+  background: currentColor;
+  transform: scaleX(1);
+  transform-origin: left;
+}
+.link-nav:not([aria-current="page"])::after {
+  transform: scaleX(0);
+}
+@media (hover: hover) and (pointer: fine) {
+  .link-nav::after {
+    transition: transform var(--dur-link) var(--ease-out);
   }
-  .tlink:hover {
-    color: var(--c-signal);
+  .link-nav:hover::after {
+    transform: scaleX(1);
   }
-  .tlink:active {
-    opacity: 0.7;
-  }
+}
 
-  /* Små versal-etiketter (navigation, tabeloverskrifter). */
-  .label {
-    font-size: var(--text-label);
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
+/* Mobilmenu */
+.overlay {
+  opacity: 0;
+  transform: translateY(var(--overlay-shift));
+  visibility: hidden;
+  transition:
+    opacity var(--dur-overlay-out) var(--ease-out),
+    transform var(--dur-overlay-out) var(--ease-out),
+    visibility 0s linear var(--dur-overlay-out);
+}
+.overlay[data-open="true"] {
+  opacity: 1;
+  transform: none;
+  visibility: visible;
+  transition:
+    opacity var(--dur-overlay-in) var(--ease-out),
+    transform var(--dur-overlay-in) var(--ease-out),
+    visibility 0s;
+}
 
-  /* Sektionshøjde: samme rytme overalt, så ingen sektion er "tilfældig". */
-  .section-y {
-    padding-block: clamp(4rem, 2.4rem + 6vw, 7rem);
+/* Ring-bar */
+.ring-bar {
+  transform: translateY(100%);
+  transition: transform var(--dur-bar-out) var(--ease-out);
+}
+.ring-bar[data-visible="true"] {
+  transform: translateY(0);
+  transition-duration: var(--dur-bar-in);
+}
+.ring-bar[data-visible="true"]:active {
+  transform: scale(var(--press-scale));
+}
+
+/* Sideskift */
+.page {
+  animation: page-in var(--dur-page) ease both;
+}
+@keyframes page-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    transition-duration: 0.01ms !important;
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    scroll-behavior: auto !important;
-  }
-  .press:active {
+  .press:active,
+  .ring-bar[data-visible="true"]:active {
     transform: none;
+  }
+  .overlay,
+  .overlay[data-open="true"] {
+    transform: none;
+  }
+  .ring-bar {
+    transform: none;
+    opacity: 0;
+    transition: opacity var(--dur-bar-out) var(--ease-out);
+  }
+  .ring-bar[data-visible="true"] {
+    transform: none;
+    opacity: 1;
+  }
+  .link-nav::after {
+    transition: none;
   }
 }

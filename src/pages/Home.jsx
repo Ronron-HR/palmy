@@ -12,7 +12,7 @@ import Faq from '../components/Faq'
 // på /billeder.
 function Home() {
   return (
-    <Layout>
+    <Layout sign="full" column="wide">
       <Hero />
       <BestilNu />
       <MenuIndgang />

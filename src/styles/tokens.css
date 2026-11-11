@@ -1,0 +1,174 @@
+/* Palmy Spisested — design tokens. Komponenter refererer KUN til disse.
+ *
+ * Afsnit 1 er design_handoff_palmy/tokens.css ordret (blot inde i Tailwinds
+ * @theme i stedet for :root, så navnene både er CSS-variabler og
+ * Tailwind-klasser: bg-cream, text-lg, font-serif, ease-out …).
+ * Afsnit 2 kobler skalaen til Tailwinds navnerum og fjerner Tailwinds egne
+ * standardværdier, så kun disse tokens kan bruges.
+ * Afsnit 3 er mål fra prototyperne, som ligger uden for skalaen (godkendt af
+ * Ronny 11.11.2026: navngivne tokens, aldrig rå værdier, aldrig afrundet).
+ * `static` = alle variabler skrives til :root, også dem uden klasse.
+ */
+@theme static {
+  /* Tailwinds standardpaletter, -skrifter, -størrelser osv. fjernes. */
+  --color-*: initial;
+  --font-*: initial;
+  --font-weight-*: initial;
+  --text-*: initial;
+  --leading-*: initial;
+  --tracking-*: initial;
+  --spacing: initial;
+  --spacing-*: initial;
+  --radius-*: initial;
+  --shadow-*: initial;
+  --inset-shadow-*: initial;
+  --drop-shadow-*: initial;
+  --ease-*: initial;
+  --animate-*: initial;
+  --blur-*: initial;
+  --container-*: initial;
+
+  /* ── 1. Handoff-tokens (ordret) ─────────────────────────────── */
+
+  /* Farver */
+  --color-cream: #F0E9D9;   /* flader */
+  --color-black: #171715;   /* tekst, cirkler, telefonbjælke, ring-bar */
+  --color-green: #23362B;   /* serif-overskrifter, link-hover */
+  --color-gold:  #B2985F;   /* kun logo + guldstreger på skiltet */
+  --color-red:   #B8282F;   /* kun STÆRK */
+  --color-line:  #CFC6B4;   /* kun 1 px-streger */
+
+  /* Fonte */
+  --font-serif: "Libre Caslon Text", Georgia, "Times New Roman", serif;
+  --font-sans: "Source Sans 3", "Segoe UI", Arial, sans-serif;
+
+  /* Typeskala */
+  --text-xs: 14px;
+  --text-base: 17px;
+  --text-md: 20px;
+  --text-lg: 28px;
+  --text-xl: 44px;
+  --text-phone: 52px;          /* forside, mobil */
+  --text-phone-desktop: 88px;  /* forside, ≥1024 px */
+  --leading-tight: 1.1;
+  --leading-body: 1.45;
+  --leading-long: 1.55;
+  --weight-regular: 400;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  /* Spacing */
+  --space-1: 4px;  --space-2: 8px;  --space-3: 12px; --space-4: 16px;
+  --space-5: 20px; --space-6: 24px; --space-8: 32px; --space-10: 40px;
+  --space-12: 48px; --space-14: 56px; --space-16: 64px;
+
+  /* Layout */
+  --gutter-mobile: 20px;
+  --col-text: 680px;
+  --col-menu-desktop: 1040px;
+  --menu-col-gap: 64px;
+  --circle: 32px;
+  --tap-min: 44px;
+  --nav-height: 48px;
+  --ringbar-height: 60px;
+
+  /* Form */
+  --radius: 0;
+  --radius-circle: 50%;
+  --line: 1px;
+
+  /* Bevægelse */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --dur-press: 160ms;
+  --dur-link: 200ms;
+  --dur-nav: 200ms;
+  --dur-overlay-in: 240ms;
+  --dur-overlay-out: 160ms;
+  --dur-bar-in: 240ms;
+  --dur-bar-out: 180ms;
+  --dur-menu-in: 300ms;
+  --stagger: 50ms;
+  --dur-reveal: 600ms;
+  --dur-page: 150ms;
+
+  /* ── 2. Kobling til Tailwinds navnerum ──────────────────────── */
+
+  /* Spacing-skalaen som klasser: p-1 … p-16 = 4 … 64 px. Intet andet. */
+  --spacing-0: 0px;
+  --spacing-1: var(--space-1);
+  --spacing-2: var(--space-2);
+  --spacing-3: var(--space-3);
+  --spacing-4: var(--space-4);
+  --spacing-5: var(--space-5);
+  --spacing-6: var(--space-6);
+  --spacing-8: var(--space-8);
+  --spacing-10: var(--space-10);
+  --spacing-12: var(--space-12);
+  --spacing-14: var(--space-14);
+  --spacing-16: var(--space-16);
+
+  /* font-regular / font-semibold / font-bold */
+  --font-weight-regular: var(--weight-regular);
+  --font-weight-semibold: var(--weight-semibold);
+  --font-weight-bold: var(--weight-bold);
+
+  /* ── 3. Mål fra prototyperne uden for skalaen ───────────────── */
+  /* Navngivet efter brug. Kilde: KOMPONENTER.md og de to .dc.html-filer. */
+
+  /* Linjehøjder (leading-*) */
+  --leading-none: 1;            /* telefonnumre, mobilmenuens links */
+  --leading-normal: normal;     /* desktop-forsidens linje under bjælken */
+  --leading-address: 1.08;      /* adressen på Find os (44 px) */
+  --leading-heading: 1.15;      /* h1, "Bestil på forhånd", citatet */
+  --leading-snug: 1.3;          /* retnavn, pris, kompakt bjælkes undertekst */
+  --leading-info: 1.35;         /* skiltets infoblokke (mobil), store anmeldelser */
+  --leading-desc: 1.4;          /* beskrivelser, forsidens sætning (mobil) */
+  --leading-relaxed: 1.5;       /* anmeldelser på forsiden, familieteksten */
+  --leading-loose: 1.6;         /* footer */
+
+  /* Spatiering (tracking-*) */
+  --tracking-phone: -0.01em;    /* 52 px-nummeret på mobil */
+  --tracking-badge: 0.04em;     /* STÆRK */
+
+  /* Fulde skilt (Forside) */
+  --logo-full-m: 112px;         /* logobredde, mobil */
+  --logo-full-d: 200px;         /* logobredde, desktop */
+  --sign-top-m: 14px;           /* luft over logoet, mobil */
+  --sign-tagline-d: 6px;        /* tagline under logo, desktop */
+  --sign-lead-d: 6px;           /* sætningen under h1, desktop */
+  --sign-bar-pad-t-d: 18px;     /* telefonbjælkens top-padding, desktop */
+  --sign-bar-pad-b-m: 10px;     /* telefonbjælkens bund-padding, mobil */
+  --sign-info-gap: 10px;        /* linjen under bjælken; afstand mellem infoblokke (mobil) */
+  --sign-blocks-top-m: 14px;    /* infoblokke under linjen, mobil */
+  --sign-blocks-gap-d: 14px;    /* afstand mellem infoblokke, desktop */
+
+  /* Kompakt skilt (alle andre sider) */
+  --wordmark: 128px;            /* ordmærkets bredde */
+  --wordmark-menu-d: 160px;     /* ordmærket på Menu, desktop */
+  --menu-btn-top-full: 8px;     /* "Menu"-knappens top, Forside */
+  --menu-btn-top-compact: 6px;  /* "Menu"-knappens top, øvrige sider */
+  --menu-btn-top-menu: 4px;     /* "Menu"-knappens top, Menu */
+  --underline-offset-btn: 4px;  /* understregning på Menu/Luk */
+
+  /* Mobilmenu */
+  --overlay-bar-pad: 14px;      /* telefonbjælkens lodrette padding */
+
+  /* Footer */
+  --ringbar-clearance: 36px;    /* ekstra luft under footeren over ring-baren (60 + 36) */
+
+  /* Links og fokus (README: "2 px outline #171715, offset 2 px") */
+  --underline-offset: 3px;
+  --focus-width: 2px;
+  --focus-offset: 2px;
+  --tracking-none: 0em;         /* 88 px-nummeret på desktop har ingen spatiering */
+
+  /* Bevægelse (værdier fra MOTION.md) */
+  --press-scale: 0.97;          /* :active på telefonbjælke, ring-bar, "Udskriv" */
+  --overlay-shift: -8px;        /* mobilmenuen kommer 8 px oppefra */
+  --menu-shift: 8px;            /* menuens kategorier ved første load */
+  /* Nav-links' voksende understregning. MOTION.md's eksempel siger -2px, men
+     målt i Chromium lander prototypens understregning (offset 3 px) 3 px over
+     linjeboksens bund — 3px giver samme placering som i skærmbillederne. */
+  --link-underline-bottom: 3px;
+}

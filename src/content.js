@@ -18,7 +18,7 @@ export const business = {
   postalCode,
   city,
   address: `${street}, ${postalCode} ${city}`,
-  googleMapsUrl: 'https://maps.google.com/?q=Hjortshøj+Stationsvej+6,+8530+Hjortshøj',
+  googleMapsUrl: 'https://maps.google.com/?q=Hjortsh%C3%B8j+Stationsvej+6,+8530+Hjortsh%C3%B8j',
 }
 
 // ── Tider ét sted ────────────────────────────────────────────
@@ -52,6 +52,10 @@ export const hours = {
   closedNote: 'Resten af ugen har vi lukket.',
   // Kort linje brugt flere steder (menu, kontakt, footer).
   preorderNote: `Forudbestil fra kl.\u00a0${dk(preorderStart)} – afhent fra kl.\u00a0${dk(openTime)} og helt frem til lukketid kl.\u00a0${dk(closeTime)}.`,
+  // TEKST.md: "Åbningstider skrives altid sådan: Fredag og lørdag 16.00–20.30".
+  line: `Fredag og lørdag ${dk(openTime)}–${dk(closeTime)}`,
+  // Skiltets og bjælkernes undertekst (TEKST.md).
+  preorderShort: `Forudbestil fra kl. ${dk(preorderStart)} fredag og lørdag`,
   // Todelt forklaring til Find os-sektionen.
   preorderLine: `Ring og forudbestil allerede fra kl.\u00a0${dk(preorderStart)}.`,
   pickupLine: `Afhentning fra kl.\u00a0${dk(openTime)} og frem til vi lukker kl.\u00a0${dk(closeTime)}.`,
@@ -108,15 +112,42 @@ export const frame = {
   tagline: 'Vietnamesisk mad med kærlighed',
 }
 
-// Hovednavigation. `href` på formen '/#id' er et anker på forsiden; resten er
-// egne sider.
+// Hovednavigation (TEKST.md). Mobilmenuen viser alle seks; desktop-linjen
+// viser ikke "Forside" (prototypen: ordmærket/logoet er vejen hjem).
 export const nav = [
+  { label: 'Forside', href: '/', desktop: false },
   { label: 'Menu', href: '/menu' },
   { label: 'Historien', href: '/historien' },
   { label: 'Billeder', href: '/billeder' },
   { label: 'Anmeldelser', href: '/anmeldelser' },
-  { label: 'Find os', href: '/#kontakt' },
+  { label: 'Find os', href: '/find-os' },
 ]
+
+// Faste UI-ord (TEKST.md "Fælles").
+export const ui = {
+  menuOpen: 'Menu',
+  menuClose: 'Luk',
+  menuDialogLabel: 'Menu',
+  navLabel: 'Hovedmenu',
+  skipLink: 'Spring til indhold',
+  logoAlt: business.name,
+  ringBar: `Ring og bestil · ${business.phoneDisplay}`,
+  instagram: 'Instagram',
+  facebook: 'Facebook',
+}
+
+// Skiltet "Bestil på forhånd" øverst på forsiden (TEKST.md "Forside").
+export const sign = {
+  heading: 'Bestil på forhånd',
+  lead: 'Ring og bestil efter nummeret på menukortet, så er maden klar, når du kommer.',
+  blocks: [
+    {
+      label: 'Afhentning:',
+      text: `Fra kl. ${dk(openTime)} og frem til lukketid kl. ${dk(closeTime)}`,
+    },
+    { label: 'Bestilling:', text: 'Kun over telefonen, bestil efter nummer.' },
+  ],
+}
 
 export const hero = {
   // H1 i to linjer: "Vietnamesisk mad" + kursiv "i Hjortshøj".

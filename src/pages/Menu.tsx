@@ -13,7 +13,7 @@ function MenuPage() {
   const status = useOpenStatus()
 
   return (
-    <Layout>
+    <Layout column="wide" menuPage>
       <header className="theme-ink bg-bg text-fg">
         <div className="mx-auto max-w-6xl px-4 pb-10 pt-14 sm:px-6 sm:pb-14 sm:pt-20">
           <h1 className="font-display text-h1 text-fg">Menukort</h1>
