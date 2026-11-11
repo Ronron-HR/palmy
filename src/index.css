@@ -1,4 +1,5 @@
-@import "tailwindcss";
+/* Kun src/ scannes for klasser (ikke docs/, README eller prototyper). */
+@import "tailwindcss" source("./");
 @import "./styles/tokens.css";
 
 /* Palmy Spisested v3 — "det trykte Palmy".

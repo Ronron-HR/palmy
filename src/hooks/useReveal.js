@@ -12,6 +12,10 @@ export function useReveal() {
   useEffect(() => {
     const el = ref.current
     if (!el || !('IntersectionObserver' in window)) return
+    // Står fotoet allerede i billedet ved load, "kommer det ikke i billedet" —
+    // det vises med det samme (og forsinker ikke LCP).
+    const box = el.getBoundingClientRect()
+    if (box.top < window.innerHeight && box.bottom > 0) return
     el.dataset.reveal = 'armed'
     const io = new IntersectionObserver(
       (entries) => {

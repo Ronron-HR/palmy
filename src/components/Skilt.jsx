@@ -12,12 +12,13 @@ import Link from './Link'
 const LOGO = { src: '/logo/palmy-logo-moerk-transparent.svg', width: 1651, height: 1059 } // viewBox 825,5 × 529,5
 const WORDMARK = { src: '/logo/palmy-ordmaerke-moerk-transparent.svg', width: 1651, height: 493 } // viewBox 825,5 × 246,5
 
-export const Wordmark = ({ className = '' }) => (
+export const Wordmark = ({ className = '', loading }) => (
   <img
     src={WORDMARK.src}
     width={WORDMARK.width}
     height={WORDMARK.height}
     alt={ui.logoAlt}
+    loading={loading}
     className={`block h-auto ${className}`}
   />
 )

@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 import { ui } from '../content'
-import { usePathname } from '../hooks/usePathname'
+import { hasNavigated, usePathname } from '../hooks/usePathname'
 import { DesktopNav, MobileMenu } from './Navigation'
 import Skilt from './Skilt'
 import Footer from './Footer'
@@ -19,7 +19,7 @@ function Layout({ children, sign = 'compact', column = 'text', menuPage = false 
   const placement = sign === 'full' ? 'full' : menuPage ? 'menu' : 'compact'
 
   return (
-    <div key={pathname} className="page">
+    <div key={pathname} className={hasNavigated() ? 'page' : undefined}>
       <a
         href="#indhold"
         className="sr-only z-30 bg-black px-4 py-2 text-cream no-underline focus:not-sr-only focus:absolute focus:top-3 focus:left-4"

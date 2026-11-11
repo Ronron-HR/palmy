@@ -9,13 +9,14 @@ import LoopVideo from './LoopVideo'
 const ASPECT = { dish: 'aspect-dish', wide: 'aspect-wide' }
 const SIZES = '(min-width: 768px) 640px, 100vw'
 
-function Foto({ item }) {
+function Foto({ item, priority }) {
   const ref = useReveal()
   return (
     <div ref={ref}>
       <Picture
         id={item.image}
         sizes={SIZES}
+        priority={priority}
         className={`block w-full object-cover ${ASPECT[item.aspect]}`}
         style={{ objectPosition: `var(--pos-${item.pos})` }}
       />
@@ -29,7 +30,8 @@ function Galleri() {
       {galleri.map((item, i) => (
         <figure key={item.image ?? item.video}>
           {item.type === 'image' ? (
-            <Foto item={item} />
+            // Første foto står over folden på mobil: ikke lazy, fetchpriority high.
+            <Foto item={item} priority={i === 0} />
           ) : (
             <LoopVideo
               id={item.video}

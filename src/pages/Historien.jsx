@@ -28,6 +28,7 @@ function Historien() {
 
       <Picture
         id="spisesal"
+        priority
         sizes="(min-width: 768px) 560px, 100vw"
         className="mt-10 block aspect-dish w-full max-w-(--img-historien) object-cover object-(--pos-spisesal)"
       />

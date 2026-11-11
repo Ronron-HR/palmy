@@ -29,12 +29,20 @@ function patchHistory() {
     window.dispatchEvent(new Event('locationchange'))
   }
   window.addEventListener('popstate', () => {
+    navigated = true
     window.dispatchEvent(new Event('locationchange'))
   })
 }
 
+// Har brugeren skiftet side inden for sitet? Sideskift-fade (MOTION.md) gælder
+// kun der — ikke ved første indlæsning, hvor den prerenderede side skal
+// vises med det samme (ellers tæller Chrome ikke indholdet som LCP).
+let navigated = false
+export const hasNavigated = () => navigated
+
 export function navigate(path) {
   if (typeof window === 'undefined') return
+  navigated = true
   window.history.pushState({}, '', path)
   // Ny side skal starte fra toppen — ellers lander man midt på siden, når man
   // fx klikker "Menukort" i footeren.

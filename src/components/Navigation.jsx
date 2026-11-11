@@ -103,7 +103,8 @@ export function MobileMenu({ placement = 'compact' }) {
         className="overlay fixed inset-0 z-50 flex flex-col bg-cream p-5 md:hidden"
       >
         <div className="flex items-center justify-between">
-          <Wordmark className="w-(--wordmark)" />
+          {/* lazy: overlayet er skjult ved load, så ordmærket hentes først, når det åbnes */}
+          <Wordmark className="w-(--wordmark)" loading="lazy" />
           <button
             ref={closeRef}
             type="button"
