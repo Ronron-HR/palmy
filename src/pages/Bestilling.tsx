@@ -159,7 +159,8 @@ function Bestilling() {
                 </div>
               )}
 
-              {dish.note && (
+              {/* Noten gentager valget, når retten har `choices` (fx nr. 6 og 10). */}
+              {dish.note && !dish.choices && (
                 <p className="mt-4 text-sm italic text-green-deep/70">{dish.note}</p>
               )}
 
