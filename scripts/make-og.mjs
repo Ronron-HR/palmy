@@ -1,5 +1,6 @@
 // Delebillede (Open Graph) 1200×630: palmy-logo-paa-groen.svg centreret på
 // #23362B, ingen anden tekst (Ronny, 11.11.2026). Kør: node scripts/make-og.mjs
+// Logoet ligger i scripts/assets/ (kopi fra handoff-mappen, som ikke er i git).
 //
 // Logoets tegnede flade fylder 825,5 × 529,5 af SVG'ens 1000 × 609 og står
 // allerede centreret i filen. Det skaleres, så den tegnede flade er halvdelen
@@ -18,7 +19,7 @@ const SVG_W = 1000
 const target = H / 2 // tegnet højde i px
 const logoW = Math.round((SVG_W * target) / INK_H)
 
-const svg = readFileSync(join(root, 'design_handoff_palmy/assets/logo/palmy-logo-paa-groen.svg'))
+const svg = readFileSync(join(root, 'scripts/assets/palmy-logo-paa-groen.svg'))
 const logo = await sharp(svg, { density: 300 }).resize({ width: logoW }).png().toBuffer()
 const meta = await sharp(logo).metadata()
 
