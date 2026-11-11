@@ -133,6 +133,21 @@ export const ui = {
   facebook: 'Facebook',
 }
 
+// Forsiden efter menuen (TEKST.md "Forside").
+export const home = {
+  family:
+    'Palmy drives af Thi og Nam. Maden laves efter familiens opskrifter, og de står selv i køkkenet hver fredag og lørdag.',
+  familyLink: 'Historien',
+  allReviews: 'Alle anmeldelser',
+}
+
+// Anmeldelser (KOMPONENTER.md §7). Teksterne står i `google.reviews`.
+export const reviewText = {
+  summary: (g) => `${g.rating} på Google · ${g.count} anmeldelser`,
+  source: 'Google',
+  replyPrefix: 'Svar fra Palmy:',
+}
+
 // Menukortet (TEKST.md "Menu"). Retter og priser står KUN i data/menu.ts.
 export const menuText = {
   // Siden har intet synligt h1 (kompakt skilt → kategorier); dette læses op
@@ -250,3 +265,6 @@ export const faq = {
 
 // Menudata (retter, priser, numre) bor i ./data/menu.ts — det er den eneste
 // kilde til menuen, delt af kundemenuen, bestillingsvisningen og printkortet.
+
+// Kun anmeldelser med tekst vises som citat (2 af 4 i dag).
+export const reviewsWithText = google.reviews.filter((r) => r.text)

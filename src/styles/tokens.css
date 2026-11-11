@@ -176,6 +176,12 @@
   --cat-pad-t-d: 36px;          /* luft over kategorititel, desktop */
   --btn-print-h: 48px;          /* "Udskriv menukortet" */
 
+  /* Anmeldelser (KOMPONENTER.md §7) */
+  --review-gap: 28px;           /* mellem anmeldelser på forsiden */
+  --review-name-gap: 6px;       /* citat → "Navn, Google" (forside) */
+  --review-name-gap-side: 14px; /* citat → navn (Anmeldelser) */
+  --review-reply-gap-side: 10px;/* navn → Palmys svar (Anmeldelser) */
+
   /* Kategori-navigation (KOMPONENTER.md §4) */
   --cat-btn-pad: 10px;          /* vandret padding pr. knap */
   --cat-gap-d: 4px;             /* afstand mellem knapper, desktop */
