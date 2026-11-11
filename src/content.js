@@ -300,3 +300,25 @@ export const faq = {
 
 // Kun anmeldelser med tekst vises som citat (2 af 4 i dag).
 export const reviewsWithText = google.reviews.filter((r) => r.text)
+
+// Interne sider (noindex): /bestilling til personalet og /menu/print.
+export const internt = {
+  bestilling: {
+    heading: 'Bestilling',
+    subheading: `${business.name} — internt opslag`,
+    placeholder: 'Nummer eller navn…',
+    searchLabel: 'Søg efter menunummer eller retnavn',
+    clear: 'Ryd søgning',
+    ask: 'Spørg kunden',
+    price: 'Pris',
+    noMatch: (q) => `Intet match for "${q}"`,
+    empty: 'Tast et menunummer eller søg på navn',
+    allNumbers: 'Alle numre',
+    home: '← Forsiden',
+  },
+  print: {
+    heading: 'Menukort',
+    back: '← Tilbage til menukortet',
+    print: 'Udskriv / gem som PDF',
+  },
+}

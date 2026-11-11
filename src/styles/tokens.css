@@ -201,6 +201,11 @@
   --cat-gap-d: 4px;             /* afstand mellem knapper, desktop */
   --cat-underline: 3px;         /* den aktive streg */
 
+  /* Interne sider */
+  --keypad-w: 320px;            /* /bestilling: taltastaturets bredde */
+  --a4-landscape-w: 297mm;      /* /menu/print: A4 liggende */
+  --a4-landscape-h: 210mm;
+
   /* Mobilmenu */
   --overlay-bar-pad: 14px;      /* telefonbjælkens lodrette padding */
 
