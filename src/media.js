@@ -26,15 +26,6 @@ export const images = {
     ],
     alt: 'Rejer og grøntsager i wokken over blå gasflamme',
   },
-  flamme: {
-    dir: 'food',
-    name: 'flamme-under-wokken',
-    sizes: [
-      [480, 600],
-      [800, 1000],
-    ],
-    alt: 'Blå gasflamme under wokken i Palmys køkken',
-  },
   spisesal: {
     dir: 'restaurant',
     name: 'spisesal',
@@ -57,16 +48,11 @@ export const images = {
 }
 
 // Korte, lydløse loops fra Palmys køkken (720×1280, lodrette).
+// Korte, lydløse loops fra Palmys køkken (720×1280, vist beskåret til 4:5).
+// Hero-videoerne og flamme-wok bruges ikke (BILLEDKORT.md "Bruges ikke").
 export const videos = {
-  flammeWok: { name: 'flamme-wok' },
-  karrySimrer: { name: 'karry-simrer' },
-  wokRejer: { name: 'wok-rejer' },
-}
-
-export const heroVideo = {
-  mp4: '/videos/hero/palmy-hero-mobil-720x1280.mp4',
-  webm: '/videos/hero/palmy-hero-mobil-720x1280.webm',
-  poster: '/videos/hero/palmy-hero-poster-mobil-720x1280.jpg',
+  karrySimrer: { name: 'karry-simrer', pos: 'karry' },
+  wokRejer: { name: 'wok-rejer', pos: 'wokVideo' },
 }
 
 export const videoSources = ({ name }) => ({
@@ -75,15 +61,14 @@ export const videoSources = ({ name }) => ({
   poster: `/videos/food/palmy-${name}-poster-720x1280.webp`,
 })
 
-// Rækkefølgen i /billeder-galleriet. `ratio` er bredde/højde, så skinnen kan
-// reservere pladsen (ingen layout shift) og kortene får varieret bredde.
+// Rækkefølgen på /billeder (prototypen "Palmy Sider"). `aspect` og `pos` er
+// navne på tokens (aspect-dish/-wide, --pos-*) — BILLEDKORT.md.
+// Billedteksterne står i content.js (billeder.captions), i samme rækkefølge.
 export const galleri = [
-  { type: 'image', image: 'karry', ratio: 4 / 5 },
-  { type: 'video', video: 'flammeWok', ratio: 9 / 16 },
-  { type: 'image', image: 'spisesal', ratio: 4 / 5 },
-  { type: 'video', video: 'karrySimrer', ratio: 9 / 16 },
-  { type: 'image', image: 'wok', ratio: 4 / 5 },
-  { type: 'image', image: 'facade', ratio: 16 / 9 },
-  { type: 'video', video: 'wokRejer', ratio: 9 / 16 },
-  { type: 'image', image: 'flamme', ratio: 4 / 5 },
+  { type: 'image', image: 'karry', aspect: 'dish', pos: 'karry' },
+  { type: 'image', image: 'wok', aspect: 'dish', pos: 'wok' },
+  { type: 'video', video: 'karrySimrer', aspect: 'dish', pos: 'karry' },
+  { type: 'image', image: 'facade', aspect: 'wide', pos: 'facade' },
+  { type: 'video', video: 'wokRejer', aspect: 'dish', pos: 'wokVideo' },
+  { type: 'image', image: 'spisesal', aspect: 'dish', pos: 'spisesal' },
 ]

@@ -172,12 +172,15 @@
   --pos-facade: 50% 60%;
   --pos-wok: 50% 70%;           /* skærer rodet i toppen væk */
   --pos-spisesal: 50% 40%;
+  --pos-karry: 50% 50%;
+  --pos-wokVideo: 50% 60%;      /* videoen med rejer i wokken */
 
   /* Sider i 680-spalten (prototypen "Palmy Sider") */
   --address-underline: 2px;     /* adressen på Find os */
   --address-underline-offset: 6px;
   --page-blocks-gap: 20px;      /* Find os: infoblokke og spørgsmål */
   --img-historien: 560px;       /* spisesalen på Historien, desktop (BILLEDKORT.md) */
+  --measure-privatliv: 36em;    /* tekstbredde på Privatliv */
 
   /* Menurække og kategorier (KOMPONENTER.md §3) */
   --row-pad: 14px;              /* lodret padding i en menurække */

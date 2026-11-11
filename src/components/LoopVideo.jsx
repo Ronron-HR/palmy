@@ -1,53 +1,48 @@
 import { useEffect, useRef } from 'react'
 import { videos, videoSources } from '../media'
 
-// Kort, lydløst loop fra køkkenet. Dekorativt (aria-hidden), og det gør ikke
-// siden tung:
-//  - preload="none": intet hentes, før videoen nærmer sig skærmen
-//  - spiller kun mens den er synlig (sparer CPU/batteri)
-//  - ved reduced motion, "spar data" og meget langsom forbindelse startes den
-//    aldrig — posteren bliver stående
-function LoopVideo({ id, className = '' }) {
+// Kort, lydløst loop fra køkkenet (MOTION.md "Videoer"):
+// - muted playsinline loop preload="none" poster aria-hidden. Ingen autoplay.
+// - Afspilles kun, når mindst 50 % er i billedet; pauses, så snart den forlader.
+// - prefers-reduced-motion: reduce eller navigator.connection.saveData:
+//   afspilning startes aldrig — kun posterbilledet vises.
+function LoopVideo({ id, className = '', style }) {
   const ref = useRef(null)
   const sources = videoSources(videos[id])
 
   useEffect(() => {
     const video = ref.current
-    if (!video) return
-    video.muted = true // lydløs som property, ikke kun som attribut
+    if (!video || !('IntersectionObserver' in window)) return
+    video.muted = true // også som property (iOS)
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const saveData = navigator.connection?.saveData === true
+    if (reduced || saveData) return
 
-    const connection = navigator.connection
-    const skip =
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
-      connection?.saveData === true ||
-      /(^|-)2g$/.test(connection?.effectiveType ?? '')
-    if (skip) return
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          video.play().catch(() => {
-            // Autoplay afvist (fx strømsparetilstand) — posteren står tilbage.
-          })
-        } else {
-          video.pause()
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.intersectionRatio >= 0.5) video.play().catch(() => {})
+          else video.pause()
         }
       },
-      { threshold: 0.35 },
+      { threshold: [0, 0.5] },
     )
-    observer.observe(video)
-    return () => observer.disconnect()
+    io.observe(video)
+    return () => io.disconnect()
   }, [])
 
   return (
     <video
       ref={ref}
-      className={`loop-video ${className}`}
+      className={className}
+      style={style}
       muted
       loop
       playsInline
       preload="none"
       poster={sources.poster}
+      width={720}
+      height={1280}
       aria-hidden="true"
       tabIndex={-1}
     >

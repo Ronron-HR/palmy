@@ -57,22 +57,6 @@ export const hours = {
   pickupLine: `Afhentning fra kl. ${dk(openTime)} og frem til vi lukker kl. ${dk(closeTime)}.`,
 }
 
-// "Bestil tidligt" — restaurantens egen opfordring: jo tidligere man ringer, jo
-// bedre. Tider afledes af hours; teksten er ejerens budskab.
-export const bestilTidligt = {
-  heading: 'Jo tidligere du bestiller, jo bedre',
-  steps: [
-    { time: dk(preorderStart), text: 'Telefonen åbner for forudbestilling' },
-    { time: dk(openTime), text: 'Afhentning starter' },
-    { time: dk(closeTime), text: 'Vi lukker' },
-  ],
-}
-
-export const menuInfo = {
-  numberNote:
-    'Numrene følger vores menukort – du kan bestille efter nummer, når du ringer.',
-}
-
 // Sociale profiler (oplyst af ejeren, nov. 2026).
 export const social = {
   facebook: 'https://www.facebook.com/profile.php?id=61593688294152',
@@ -170,28 +154,6 @@ export const sign = {
   ],
 }
 
-export const hero = {
-  // H1 i to linjer: "Vietnamesisk mad" + kursiv "i Hjortshøj".
-  lead: 'Vietnamesisk mad',
-  tail: `i ${city}`,
-  subheading: `Familiedrevet køkken med frisklavet mad efter egne opskrifter. Ring og bestil til afhentning – vi har åbent ${hours.daysLong}.`,
-}
-
-// Retter på forsiden ("Menukort"-sektionen): udvalgte numre fra det trykte kort.
-// Navn, tekst og priser hentes ALTID fra data/menu.ts — aldrig herfra.
-//
-// ⚠️ AFVENTER VERIFICERING mod det trykte menukort (ejerens beslutning 8. nov.
-// 2026). Så længe `verificeret` er false, vises rækken KUN i udviklingsmiljøet
-// (med en tydelig markering) — aldrig i produktionsbuildet. Når retterne er
-// sammenholdt med kortet ret for ret: ret `verificeret` til true (og skift evt.
-// numre), og de vises for alle. Sektionen ser komplet ud uden dem (kategorierne).
-export const forsideRetter = {
-  verificeret: false,
-  // Én ret pr. køkkenmåde: rulle, wok, stegt, karry, nudelskål, suppe.
-  // Alternativer: 4 (stegte nudler med oksekød), 18 (indbagt kylling), 21 (grøn karry).
-  numre: ['1', '3', '6', '11', '12', '13'],
-}
-
 // Familiens tekst, ordret. Brug `historie.chapters` til visning.
 const historieTekst = [
     'Palmy Spisested er en familiedrevet restaurant, startet af Thi og Nam. Med familiens opskrifter som fundament åbnede de deres vietnamesiske restaurant i Danmark – og den blev hurtigt et sted med mange glade, loyale gæster.',
@@ -219,9 +181,89 @@ export const historie = {
   menuLink: 'Se menukortet',
 }
 
+// Billeder: rækkefølgen og billederne står i media.js (galleri); billedteksterne
+// her, i samme rækkefølge (TEKST.md "Billeder").
 export const billeder = {
   heading: 'Billeder',
   intro: 'Fra køkkenet og spisesalen – optaget hos os i Hjortshøj.',
+  captions: [
+    'Karry, der simrer i gryden.',
+    'Wokken over gasflammen.',
+    'Karryen simrer. Kort loop uden lyd.',
+    'Hjortshøj Stationsvej 6.',
+    'Rejer og grøntsager i wokken. Kort loop uden lyd.',
+    'Spisesalen.',
+  ],
+}
+
+// Anmeldelser-siden (prototypen "Palmy Sider").
+export const anmeldelser = {
+  heading: 'Anmeldelser',
+  // Anmeldelser uden tekst nævnes ved navn (Google: 5 stjerner).
+  alsoRated: (names) => `${names.join(' og ')} gav også 5 stjerner.`,
+  writeReview: 'Skriv en anmeldelse på Google',
+}
+
+// Privatlivspolitik — ordret fra prototypen (Maps-afsnittet er erstattet af
+// linket til Google Maps under Cookies). Ikke juridisk gennemgået (MANGLER.md).
+// `phone: true` = afsnittet slutter med telefonnummeret som link.
+export const privatliv = {
+  heading: 'Privatlivspolitik',
+  updated: 'Senest opdateret: november 2026',
+  sections: [
+    {
+      title: 'Dataansvarlig',
+      paragraphs: [
+        {
+          text: `${business.name}, ${business.address}. Har du spørgsmål til denne politik, er du velkommen til at ringe på `,
+          phone: true,
+        },
+      ],
+    },
+    {
+      title: 'Hvilke oplysninger vi indsamler',
+      paragraphs: [
+        { text: 'Hjemmesiden har ingen kontaktformular, ingen brugerkonto og ingen onlinebetaling, så du giver ikke selv oplysninger til os gennem siden.' },
+        { text: 'Hjemmesiden drives via Cloudflare. Som ved alle besøg på en hjemmeside modtager serveren de tekniske oplysninger, din browser altid sender, fx IP-adresse og browsertype.' },
+        { text: 'Hjemmesidens egen kode indeholder ingen værktøjer til måling af besøg eller klik. Når du trykker på en knap for at ringe op, åbner din telefon blot opkaldet.' },
+      ],
+    },
+    {
+      title: 'Skrifttyper',
+      paragraphs: [
+        { text: 'Sidens skrifttyper ligger på selve hjemmesiden og hentes ikke fra andre tjenester. Der sendes derfor ingen oplysninger om dig til tredjepart, når skrifttyperne indlæses.' },
+      ],
+    },
+    {
+      title: 'Cookies',
+      paragraphs: [
+        { text: 'Hjemmesiden sætter ikke selv cookies. Når du trykker på vores adresse, åbnes Google Maps i et nyt vindue, og her gælder Googles privatlivspolitik.' },
+        { text: 'Restaurantens interne opslagsside til personalet gemmer en kopi af menukortet i browserens lokale lager. Den indeholder ingen oplysninger om besøgende.' },
+      ],
+    },
+    {
+      title: 'Bestilling',
+      paragraphs: [
+        { text: 'Bestilling og forudbestilling sker over telefon. Vi gemmer ikke dine oplysninger digitalt gennem hjemmesiden – din bestilling håndteres direkte af os i restauranten.' },
+      ],
+    },
+    {
+      title: 'Dine rettigheder',
+      paragraphs: [
+        { text: 'Efter databeskyttelsesforordningen (GDPR) har du ret til indsigt i, berigtigelse af og sletning af eventuelle oplysninger, vi måtte have om dig. Hjemmesiden har ingen formularer eller brugerkonti, så vi har normalt ingen oplysninger, der er knyttet til dig ved navn. Kontakt os endelig, hvis du har spørgsmål.' },
+      ],
+    },
+  ],
+}
+
+// 404 (TEKST.md "404").
+export const notFound = {
+  heading: 'Siden findes ikke',
+  text: 'Adressen er måske ændret. Menukortet og telefonnummeret er de samme.',
+  links: [
+    { label: 'Gå til menukortet', href: '/menu' },
+    { label: 'Gå til forsiden', href: '/' },
+  ],
 }
 
 // Find os (TEKST.md + prototypen "Palmy Sider").
