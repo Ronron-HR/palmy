@@ -144,14 +144,18 @@ export const menuText = {
 // Forsidens hero (palmy_handoff INDHOLD.md / SIDE-FOR-SIDE.md).
 export const hero = {
   eyebrow: 'Vietnamesisk køkken · Hjortshøj',
-  lines: ['Lidt Vietnam.', 'Helt', 'hjemmelavet.'],
+  titleA: 'Lidt Vietnam.',
+  titleB: 'Helt hjemmelavet.',
+  sub: 'Vietnamesisk mad med kærlighed. Fra vores familie til dit bord.',
   menuCta: 'Se menukortet',
-  phoneCta: 'Ring og bestil ·',
+  phoneCta: 'Ring og bestil',
+  info: 'Fre–lør 16.00–20.30 · Forudbestil fra kl. 15.00',
+  caption: 'Nr. 3 · Stegte nudler med kylling',
   vertical: 'Familiedrevet · Fuld af smag',
-  stamp: 'Lavet med kærlighed ♥',
   dishesHeading: 'Hvad frister i dag?',
   dishesLink: 'Se hele menukortet',
   dishesLabel: 'Fra vores køkken',
+  familyAlt: 'Thi og Nam, der driver Palmy Spisested',
 }
 
 // Fælles sektioner fra palmy_handoff (INDHOLD.md "Gennemgående tekster").

@@ -1,7 +1,7 @@
 import { forwardRef } from 'react'
-import { business, frame, hero, hours, nav, shared, sign, ui } from '../content'
+import { business, hours, nav, shared, ui } from '../content'
 import { usePathname } from '../hooks/usePathname'
-import Picture from './Picture'
+import Hero from './Hero'
 import Link from './Link'
 
 // Skiltet "Bestil på forhånd" fra disken (KOMPONENTER.md §1 og §2).
@@ -55,71 +55,21 @@ export const SiteHeader = forwardRef(function SiteHeader(_, phoneRef) {
   )
 })
 
-// Forsidens hero (palmy_handoff "Palmy Spisested"): stor overskrift til
-// venstre, foto af Thi og Nam til højre med lodret label og stemplet "Lavet
-// med kærlighed" på billedkanten. På mobil: tekst over billedet, stemplet
-// inde i billedet. Knappen "Ring og bestil" er ring-barens mål.
+// Forsiden: header + hero (Hero.jsx) + infobånd.
 const FullSign = forwardRef(function FullSign(_, phoneRef) {
   return (
     <>
       <SiteHeader />
-
-      <section aria-labelledby="hero-titel" className="hero mt-6 flex flex-wrap items-stretch gap-x-16 gap-y-8 md:mt-10">
-        <div className="hero-text relative z-10 flex flex-[1_1_320px] flex-col justify-center">
-          <p className="intro eyebrow text-red" style={{ '--d': 0 }}>{hero.eyebrow}</p>
-          <h1 id="hero-titel" className="intro hero-h1 mt-4 font-serif text-green" style={{ '--d': 1 }}>
-            {hero.lines.map((line) => (
-              <span key={line} className="block">{line}</span>
-            ))}
-          </h1>
-          <p className="intro mt-5 font-serif text-lead leading-snug" style={{ '--d': 2 }}>{frame.tagline}.</p>
-          <div className="intro mt-8 flex flex-wrap items-center gap-x-6 gap-y-4" style={{ '--d': 3 }}>
-            <Link to="/menu" className="btn no-underline">
-              {hero.menuCta} <span aria-hidden="true" className="font-sans">↗</span>
-            </Link>
-            <a ref={phoneRef} href={`tel:${business.phoneHref}`} className="btn btn-phone no-underline">
-              {hero.phoneCta} <span className="tabular-nums">{business.phoneDisplay}</span>
-            </a>
-          </div>
-        </div>
-
-        <div className="hero-media relative flex-[1.45_1_380px]">
-          <figure className="relative m-0 h-full overflow-hidden bg-food">
-            <Picture
-              id="thiOgNam"
-              priority
-              sizes="(min-width: 768px) 560px, 100vw"
-              className="hero-img block h-full w-full object-cover"
-            />
-          </figure>
-          <p aria-hidden="true" className="vertical-label hidden md:flex">{hero.vertical}</p>
-          <p className="stamp hidden md:grid">
-            <span>{hero.stamp}</span>
-          </p>
-        </div>
-      </section>
-
-      <ul className="info-band -mx-(--gutter-mobile) mt-10 md:mx-0 md:mt-14">
+      <Hero ref={phoneRef} />
+      <ul className="info-band -mx-(--gutter-mobile) mt-0 md:mx-0">
         <li>{hours.line}</li>
-        <li>{hours.preorderShort}</li>
+        <li>Forudbestil fra kl. {hours.preorderStart.replace(':', '.')}</li>
         <li>
-          <a href={`tel:${business.phoneHref}`} className="tabular-nums">{business.phoneDisplay}</a>
+          <a href={`tel:${business.phoneHref}`} className="tabular-nums">
+            {business.phoneDisplay}
+          </a>
         </li>
       </ul>
-
-      <div className="mt-8 grid gap-4 leading-desc md:mt-10 md:grid-cols-2 md:gap-10">
-        <p className="max-w-(--col-text) text-md">{sign.lead}</p>
-        <div className="flex flex-col gap-(--sign-info-gap)">
-          {sign.blocks.map((block) => (
-            <p key={block.label} className="border-l-2 border-gold pl-3">
-              <b>{block.label}</b> {block.text}
-            </p>
-          ))}
-          <p className="border-l-2 border-gold pl-3">
-            <a href={business.googleMapsUrl} target="_blank" rel="noopener">{business.address}</a>
-          </p>
-        </div>
-      </div>
     </>
   )
 })
