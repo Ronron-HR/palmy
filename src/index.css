@@ -15,7 +15,7 @@
   body {
     margin: 0;
     background-color: var(--color-cream);
-    color: var(--color-black);
+    color: var(--color-ink);
     font-family: var(--font-sans);
     font-size: var(--text-base);
     /* Prototyperne sætter linjehøjden pr. element; resten er "normal". */
@@ -51,7 +51,7 @@
 /* Hover kun med mus (MOTION.md). Sorte bjælker (.bar) skifter ikke farve. */
 @media (hover: hover) and (pointer: fine) {
   a:not(.bar):not(.btn):hover {
-    color: var(--color-red);
+    color: var(--color-green);
   }
 }
 
@@ -277,7 +277,7 @@ html[data-menu-intro] .cat {
 }
 .btn-phone {
   background: transparent;
-  color: var(--color-green);
+  color: var(--color-ink);
   padding: 6px 0;
   border-bottom: 2px solid currentColor;
 }
@@ -287,7 +287,7 @@ html[data-menu-intro] .cat {
   }
   .btn-phone:hover {
     background: transparent;
-    color: var(--color-red);
+    color: var(--color-green);
   }
 }
 .btn:active {
@@ -484,11 +484,6 @@ html[data-menu-intro] .cat {
   text-decoration: none;
   transition: color 0.2s ease;
 }
-.ph-phone-icon {
-  flex: none;
-  width: 26px;
-  height: 26px;
-}
 .ph-phone-num {
   display: block;
   margin-top: 3px;
@@ -510,13 +505,6 @@ html[data-menu-intro] .cat {
   font-size: 15px;
   line-height: 1.4;
   color: var(--color-ink);
-}
-.ph-dot {
-  flex: none;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--color-gold);
 }
 
 /* Den grønne scene med tallerkenen: fuld bredde på mobil. */
@@ -829,7 +817,7 @@ html[data-menu-intro] .cat {
   font-style: italic;
   font-size: clamp(24px, 2.6vw, 32px);
   line-height: 1.2;
-  color: var(--color-red);
+  color: var(--color-ink);
   padding-top: 20px;
   border-top: 2px solid var(--color-gold);
 }
@@ -844,7 +832,7 @@ html[data-menu-intro] .cat {
   font-style: italic;
   font-size: clamp(44px, 6vw, 72px);
   line-height: 1;
-  color: var(--color-red);
+  color: var(--color-ink);
   text-decoration: none;
 }
 
@@ -940,7 +928,7 @@ html[data-menu-intro] .cat {
   font-style: italic;
   font-size: clamp(28px, 4vw, 44px);
   line-height: 1;
-  color: var(--color-green);
+  color: var(--color-ink);
   white-space: nowrap;
 }
 .marquee-dot {
@@ -995,6 +983,17 @@ html[data-menu-intro] .cat {
   .roll-btn {
     transition: none;
   }
+}
+
+/* ── Al tekst er sort; kun priser er røde (.price). Bjælker, knapper og den
+   grønne afslutning har creme tekst på mørk flade og røres ikke. ── */
+.text-green,
+.text-red,
+.text-muted {
+  color: var(--color-ink);
+}
+.price {
+  color: var(--color-red);
 }
 
 /* ── Print (/menu på A4, README "Print") ─────────────────────
