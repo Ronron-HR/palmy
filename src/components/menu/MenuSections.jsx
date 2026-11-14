@@ -136,7 +136,7 @@ function MenuSections({ variant = 'menu' }) {
             data-cat={section.id}
             aria-current={active === section.id ? 'true' : undefined}
             onClick={(e) => onNavClick(e, section.id)}
-            className="cat-link flex min-h-(--nav-height) flex-none items-center px-(--cat-btn-pad) font-semibold no-underline"
+            className="cat-link flex min-h-(--nav-height) flex-none items-center px-(--cat-btn-pad) font-serif text-md no-underline"
           >
             {section.title}
           </a>
@@ -144,7 +144,7 @@ function MenuSections({ variant = 'menu' }) {
         <span
           ref={underlineRef}
           aria-hidden="true"
-          className="cat-underline pointer-events-none absolute -bottom-px left-0 md:bottom-0 h-(--cat-underline) w-px origin-left bg-black"
+          className="cat-underline pointer-events-none absolute -bottom-px left-0 md:bottom-0 h-(--cat-underline) w-px origin-left bg-gold"
         />
       </nav>
 

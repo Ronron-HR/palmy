@@ -141,6 +141,19 @@ export const menuText = {
   spicy: 'STÆRK',
 }
 
+// Forsidens hero (palmy_handoff INDHOLD.md / SIDE-FOR-SIDE.md).
+export const hero = {
+  eyebrow: 'Vietnamesisk køkken · Hjortshøj',
+  lines: ['Lidt Vietnam.', 'Helt', 'hjemmelavet.'],
+  menuCta: 'Se menukortet',
+  phoneCta: 'Ring og bestil ·',
+  vertical: 'Familiedrevet · Fuld af smag',
+  stamp: 'Lavet med kærlighed',
+  dishesHeading: 'Hvad frister i dag?',
+  dishesLink: 'Se hele menukortet',
+  dishesLabel: 'Fra vores køkken',
+}
+
 // Skiltet "Bestil på forhånd" øverst på forsiden (TEKST.md "Forside").
 export const sign = {
   heading: 'Bestil på forhånd',

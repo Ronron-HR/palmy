@@ -37,15 +37,21 @@
 
   /* DESIGN.md: 2 px outline #171715, offset 2 px, på alle interaktive elementer. */
   :focus-visible {
-    outline: var(--focus-width) solid var(--color-black);
-    outline-offset: var(--focus-offset);
+    outline: var(--focus-width) solid var(--color-red);
+    outline-offset: 3px;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
   }
 }
 
 /* Hover kun med mus (MOTION.md). Sorte bjælker (.bar) skifter ikke farve. */
 @media (hover: hover) and (pointer: fine) {
-  a:not(.bar):hover {
-    color: var(--color-green);
+  a:not(.bar):not(.btn):hover {
+    color: var(--color-red);
   }
 }
 
@@ -230,6 +236,279 @@ html[data-menu-intro] .cat {
 @keyframes menu-in-fade {
   from {
     opacity: 0;
+  }
+}
+
+
+/* ── palmy_handoff: forside-hero, knapper, stempel, infobånd, retkort ── */
+
+/* DM Serif Display findes kun i 400: ingen falsk fed. */
+.font-serif {
+  font-weight: var(--weight-regular);
+}
+
+.eyebrow {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-eyebrow);
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+.hero-h1 {
+  font-size: var(--text-hero);
+  line-height: var(--leading-hero);
+  letter-spacing: var(--tracking-hero);
+}
+@media (width >= 48rem) {
+  /* Overskriften må række ind over billedkanten på desktop. */
+  .hero-text {
+    margin-right: clamp(-48px, -3vw, 0px);
+  }
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  min-height: var(--tap-min);
+  padding: 14px 26px;
+  background: var(--color-green);
+  color: var(--color-cream);
+  font-family: var(--font-serif);
+  font-size: 21px;
+  line-height: 1.15;
+  transition:
+    background-color 0.2s ease,
+    transform 0.12s ease;
+}
+.btn-phone {
+  background: transparent;
+  color: var(--color-green);
+  padding: 6px 0;
+  border-bottom: 2px solid currentColor;
+}
+@media (hover: hover) and (pointer: fine) {
+  .btn:hover {
+    background: var(--color-green-dark);
+  }
+  .btn-phone:hover {
+    background: transparent;
+    color: var(--color-red);
+  }
+}
+.btn:active {
+  transform: translateY(1px) scale(var(--press-scale));
+}
+
+.text-link {
+  font-family: var(--font-serif);
+  font-size: 20px;
+  text-decoration: none;
+  border-bottom: 2px solid currentColor;
+  padding-bottom: 6px;
+}
+
+.bg-food {
+  background-color: var(--color-food);
+}
+.hero-media {
+  min-height: var(--hero-img-h);
+}
+.hero-img {
+  position: absolute;
+  inset: 0;
+  object-position: 50% 30%;
+}
+@media (width < 48rem) {
+  .hero-media {
+    min-height: 0;
+    aspect-ratio: 4 / 5;
+    max-height: 78vh;
+  }
+}
+
+.stamp {
+  position: absolute;
+  z-index: 2;
+  left: 16px;
+  bottom: 16px;
+  display: grid;
+  place-items: center;
+  width: var(--stamp);
+  height: var(--stamp);
+  padding: 14px;
+  border-radius: 50%;
+  background: var(--color-cream-light);
+  border: 2px solid var(--color-red);
+  box-shadow: 0 0 0 4px var(--color-cream);
+  color: var(--color-red);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: var(--weight-bold);
+  letter-spacing: 0.12em;
+  line-height: 1.25;
+  text-align: center;
+  text-transform: uppercase;
+  transform: rotate(-12deg);
+}
+@media (width < 48rem) {
+  .stamp {
+    --stamp: 100px;
+    font-size: 11px;
+  }
+}
+@media (width >= 48rem) {
+  .stamp {
+    left: -62px;
+    bottom: 48px;
+  }
+}
+
+.vertical-label {
+  position: absolute;
+  right: -34px;
+  top: 0;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin: 0;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-size: 12px;
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-green);
+}
+.vertical-label::before {
+  content: "";
+  width: 2px;
+  height: 120px;
+  background: var(--color-gold);
+}
+/* Kun når der er plads til labelen uden for billedet. */
+@media (width < 72rem) {
+  .vertical-label {
+    display: none;
+  }
+}
+
+.info-band {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px 0;
+  margin-block-end: 0;
+  padding: 16px var(--gutter-mobile);
+  list-style: none;
+  background: var(--color-green);
+  color: var(--color-cream);
+  font-size: 13px;
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  text-align: center;
+}
+.info-band li {
+  padding: 0 18px;
+}
+.info-band li + li {
+  border-left: 1px solid var(--color-gold);
+}
+@media (width < 48rem) {
+  .info-band {
+    flex-direction: column;
+  }
+  .info-band li + li {
+    border-left: 0;
+    border-top: 1px solid var(--color-gold);
+    padding-top: 10px;
+  }
+}
+.info-band a:focus-visible {
+  outline-color: var(--color-olive-light);
+}
+@media (hover: hover) and (pointer: fine) {
+  .info-band a:hover {
+    color: var(--color-olive-light);
+  }
+}
+
+.dish-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));
+  gap: 44px clamp(20px, 3vw, 40px);
+}
+.dish-grid > li {
+  max-width: 480px;
+}
+.dish-photo {
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: var(--color-food);
+}
+.dish-photo img {
+  object-fit: cover;
+  transition: transform 0.6s var(--ease-reveal);
+}
+@media (hover: hover) and (pointer: fine) {
+  .dish-grid li:hover .dish-photo img {
+    transform: scale(1.035);
+  }
+}
+
+.dish-number {
+  font-size: var(--text-num);
+  line-height: 1;
+}
+.price {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: var(--text-price);
+  color: var(--color-red);
+}
+.choice-tag {
+  padding: 5px 9px;
+  background: var(--color-olive-tint);
+  color: var(--color-green);
+  font-size: 12px;
+  font-weight: var(--weight-bold);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* Hero-intro: diskret, kun ved første indlæsning af siden. */
+.intro {
+  animation: intro-in 0.8s var(--ease-reveal) both;
+  animation-delay: calc(120ms + var(--d, 0) * 120ms);
+}
+@keyframes intro-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+}
+.hero-media {
+  animation: intro-fade 1s var(--ease-reveal) 0.2s both;
+}
+@keyframes intro-fade {
+  from {
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .intro,
+  .hero-media {
+    animation: none;
+  }
+  .btn,
+  .dish-photo img {
+    transition: none;
+  }
+  .btn:active {
+    transform: none;
   }
 }
 

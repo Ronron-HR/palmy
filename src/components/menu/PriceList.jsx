@@ -5,7 +5,7 @@ import { getPriceLines } from '../../data/menu'
 function PriceList({ dish, className = '' }) {
   return (
     <p
-      className={`flex flex-col items-end leading-snug font-bold whitespace-nowrap tabular-nums ${className}`}
+      className={`flex flex-col items-end price leading-snug whitespace-nowrap tabular-nums ${className}`}
     >
       {getPriceLines(dish).map((line) => (
         <span key={line}>{line}</span>

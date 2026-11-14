@@ -9,20 +9,20 @@ import PriceList from './PriceList'
 // står i `note`. Choices bruges af /bestilling.
 function DishCard({ dish }) {
   return (
-    <div className="menu-row grid grid-cols-[var(--circle)_minmax(0,1fr)_auto] items-start gap-x-3 border-b border-line py-(--row-pad) md:gap-x-4">
+    <div className="menu-row grid grid-cols-[var(--num-col)_minmax(0,1fr)_auto] items-start gap-x-3 border-b border-line py-(--row-pad) md:gap-x-4">
       <NumberBadge number={dish.number} />
 
       <div className="flex min-w-0 flex-col gap-(--row-text-gap)">
-        <p className="leading-snug font-bold">
+        <p className="font-serif text-md leading-snug text-green">
           {dish.name}
           {dish.spicy && (
-            <span className="badge-spicy ml-2 bg-red px-(--badge-pad-x) py-(--badge-pad-y) text-xs font-bold tracking-badge text-cream md:tracking-none">
+            <span className="badge-spicy ml-2 inline-block border border-red px-(--badge-pad-x) py-(--badge-pad-y) align-middle font-sans text-xs font-bold tracking-eyebrow text-red">
               {menuText.spicy}
             </span>
           )}
         </p>
-        {dish.description && <p className="leading-desc">{dish.description}</p>}
-        {dish.note && <p className="leading-desc">{dish.note}</p>}
+        {dish.description && <p className="leading-desc text-muted">{dish.description}</p>}
+        {dish.note && <p className="choice-tag mt-1 self-start">{dish.note}</p>}
       </div>
 
       <PriceList dish={dish} />

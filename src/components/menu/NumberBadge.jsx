@@ -4,7 +4,9 @@
 // kortet) — aldrig et indeks.
 // size="large" bruges kun af den interne /bestilling.
 function NumberBadge({ number, size = 'normal' }) {
-  if (number == null) return <span aria-hidden="true" className="block size-(--circle)" />
+  if (number == null) return <span aria-hidden="true" className="block" />
+  if (size !== 'large')
+    return <span className="dish-number font-serif italic text-red tabular-nums">{number}</span>
   const dims = size === 'large' ? 'size-16 text-lg' : 'size-(--circle) text-base'
   return (
     <span

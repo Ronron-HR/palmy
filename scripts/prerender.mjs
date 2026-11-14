@@ -33,16 +33,14 @@ async function main() {
     throw new Error(`prerender: index.html mangler ${ROOT_TAG}`)
   }
 
-  // Preload af de skrifter, første skærm bruger (Libre Caslon 700 + 400 italic,
-  // Source Sans 3 400/600/700 — latin-subset, woff2). Vite hasher filnavnene,
+  // Preload af de skrifter, første skærm bruger (DM Serif Display 400,
+  // Albert Sans 400/700 — latin-subset, woff2). Vite hasher filnavnene,
   // så de findes her efter build. Source Sans italic (kun undertitlen under
   // "Hovedretter") hentes først, når den bruges.
   const CRITICAL_FONTS = [
-    /^libre-caslon-text-latin-700-normal-[\w-]+\.woff2$/,
-    /^libre-caslon-text-latin-400-italic-[\w-]+\.woff2$/,
-    /^source-sans-3-latin-400-normal-[\w-]+\.woff2$/,
-    /^source-sans-3-latin-600-normal-[\w-]+\.woff2$/,
-    /^source-sans-3-latin-700-normal-[\w-]+\.woff2$/,
+    /^dm-serif-display-latin-400-normal-[\w-]+\.woff2$/,
+    /^albert-sans-latin-400-normal-[\w-]+\.woff2$/,
+    /^albert-sans-latin-700-normal-[\w-]+\.woff2$/,
   ]
   // Caslon italic bruges kun i forsidens tagline → preloades kun dér.
   const assetFiles = await readdir(join(dist, 'assets'))

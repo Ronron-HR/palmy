@@ -1,5 +1,6 @@
 import { forwardRef } from 'react'
-import { business, frame, hours, sign, ui } from '../content'
+import { business, frame, hero, hours, sign, ui } from '../content'
+import Picture from './Picture'
 import Link from './Link'
 
 // Skiltet "Bestil på forhånd" fra disken (KOMPONENTER.md §1 og §2).
@@ -9,7 +10,6 @@ import Link from './Link'
 // Telefonbjælken videresender sin ref, så ring-baren kan se, hvornår det store
 // nummer er ude af skærmen (MOTION.md).
 
-const LOGO = { src: '/logo/palmy-logo-moerk-transparent.svg', width: 1651, height: 1059 } // viewBox 825,5 × 529,5
 const WORDMARK = { src: '/logo/palmy-ordmaerke-moerk-transparent.svg', width: 1651, height: 493 } // viewBox 825,5 × 246,5
 
 export const Wordmark = ({ className = '', loading }) => (
@@ -23,53 +23,73 @@ export const Wordmark = ({ className = '', loading }) => (
   />
 )
 
+// Forsidens hero (palmy_handoff "Palmy Spisested"): stor overskrift til
+// venstre, foto af Thi og Nam til højre med lodret label og stemplet "Lavet
+// med kærlighed" på billedkanten. På mobil: tekst over billedet, stemplet
+// inde i billedet. Knappen "Ring og bestil" er ring-barens mål.
 const FullSign = forwardRef(function FullSign(_, phoneRef) {
   return (
     <>
-      <header className="flex flex-col items-center pt-(--sign-top-m) text-center md:pt-(--sign-top-d)">
-        <img
-          src={LOGO.src}
-          width={LOGO.width}
-          height={LOGO.height}
-          alt={ui.logoAlt}
-          fetchPriority="high"
-          className="block h-auto w-(--logo-full-m) md:w-(--logo-full-d)"
-        />
-        <p className="mt-(--sign-tagline-m) font-serif text-base italic md:mt-(--sign-tagline-d)">{frame.tagline}</p>
+      <header className="flex items-center justify-between gap-4 pt-5 md:pt-6">
+        <Link to="/" className="no-underline" aria-label={ui.logoAlt}>
+          <Wordmark className="w-(--wordmark)" />
+        </Link>
       </header>
 
-      <div className="pt-4 md:pt-10">
-        <h1 className="font-serif text-lg leading-heading font-bold text-green">{sign.heading}</h1>
-        <p className="mt-1 mb-3 leading-desc md:mt-(--sign-lead-d) md:mb-4 md:leading-body">
-          {sign.lead}
-        </p>
+      <section aria-labelledby="hero-titel" className="hero mt-6 flex flex-wrap items-stretch gap-x-10 gap-y-8 md:mt-10">
+        <div className="hero-text relative z-10 flex flex-[1_1_320px] flex-col justify-center">
+          <p className="intro eyebrow text-red" style={{ '--d': 0 }}>{hero.eyebrow}</p>
+          <h1 id="hero-titel" className="intro hero-h1 mt-4 font-serif text-green" style={{ '--d': 1 }}>
+            {hero.lines.map((line) => (
+              <span key={line} className="block">{line}</span>
+            ))}
+          </h1>
+          <p className="intro mt-5 font-serif text-lead leading-snug" style={{ '--d': 2 }}>{frame.tagline}.</p>
+          <div className="intro mt-8 flex flex-wrap items-center gap-x-6 gap-y-4" style={{ '--d': 3 }}>
+            <Link to="/menu" className="btn no-underline">
+              {hero.menuCta} <span aria-hidden="true" className="font-sans">↗</span>
+            </Link>
+            <a ref={phoneRef} href={`tel:${business.phoneHref}`} className="btn btn-phone no-underline">
+              {hero.phoneCta} <span className="tabular-nums">{business.phoneDisplay}</span>
+            </a>
+          </div>
+        </div>
 
-        <a
-          ref={phoneRef}
-          href={`tel:${business.phoneHref}`}
-          className="bar press block bg-black px-4 pt-3 pb-(--sign-bar-pad-b-m) text-center text-cream no-underline md:pt-(--sign-bar-pad-t-d) md:pb-4"
-        >
-          <span className="block text-phone leading-none font-bold tracking-phone tabular-nums md:tracking-none lg:text-phone-desktop">
-            {business.phoneDisplay}
-          </span>
-          <span className="mt-2 block text-xs">{hours.preorderShort}</span>
-        </a>
+        <div className="hero-media relative flex-[1.45_1_380px]">
+          <figure className="relative m-0 h-full overflow-hidden bg-food">
+            <Picture
+              id="thiOgNam"
+              priority
+              sizes="(min-width: 768px) 50vw, 100vw"
+              className="hero-img block h-full w-full object-cover"
+            />
+          </figure>
+          <p aria-hidden="true" className="vertical-label hidden md:flex">{hero.vertical}</p>
+          <p className="stamp">
+            <span>{hero.stamp}</span>
+          </p>
+        </div>
+      </section>
 
-        <p className="mt-(--sign-info-gap) leading-desc md:leading-normal">
-          {hours.line} ·{' '}
-          <a href={business.googleMapsUrl} target="_blank" rel="noopener">
-            {business.street}
-          </a>
-        </p>
+      <ul className="info-band -mx-(--gutter-mobile) mt-10 md:mx-0 md:mt-14">
+        <li>{hours.line}</li>
+        <li>{hours.preorderShort}</li>
+        <li>
+          <a href={`tel:${business.phoneHref}`} className="tabular-nums">{business.phoneDisplay}</a>
+        </li>
+      </ul>
 
-        <div className="mt-(--sign-blocks-top-m) flex flex-col gap-(--sign-info-gap) leading-info md:mt-5 md:gap-(--sign-blocks-gap-d) md:leading-desc">
+      <div className="mt-8 grid gap-4 leading-desc md:mt-10 md:grid-cols-2 md:gap-10">
+        <p className="max-w-(--col-text) text-md">{sign.lead}</p>
+        <div className="flex flex-col gap-(--sign-info-gap)">
           {sign.blocks.map((block) => (
-            <p key={block.label} className="border-l border-gold pl-3">
-              <b>{block.label}</b>
-              <br />
-              {block.text}
+            <p key={block.label} className="border-l-2 border-gold pl-3">
+              <b>{block.label}</b> {block.text}
             </p>
           ))}
+          <p className="border-l-2 border-gold pl-3">
+            <a href={business.googleMapsUrl} target="_blank" rel="noopener">{business.address}</a>
+          </p>
         </div>
       </div>
     </>

@@ -6,13 +6,16 @@ import { images } from '../media'
 // billeder i første skærm. `imgRef` bruges af foto-reveal (useReveal).
 function Picture({ id, sizes = '100vw', priority = false, className = '', alt, imgRef, style }) {
   const img = images[id]
-  const url = (w, h, ext) => `/images/${img.dir}/palmy-${img.name}-${w}x${h}.${ext}`
+  const url = (w, h, ext) =>
+    img.handoff
+      ? `/images/${img.dir}/${img.handoff}-${w}.webp`
+      : `/images/${img.dir}/palmy-${img.name}-${w}x${h}.${ext}`
   const srcset = (ext) => img.sizes.map(([w, h]) => `${url(w, h, ext)} ${w}w`).join(', ')
   const [fw, fh] = img.sizes[Math.min(1, img.sizes.length - 1)]
 
   return (
     <picture>
-      <source type="image/avif" srcSet={srcset('avif')} sizes={sizes} />
+      {!img.webpOnly && <source type="image/avif" srcSet={srcset('avif')} sizes={sizes} />}
       <source type="image/webp" srcSet={srcset('webp')} sizes={sizes} />
       <img
         ref={imgRef}

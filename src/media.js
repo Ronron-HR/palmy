@@ -6,6 +6,44 @@
 // (billeder findes som AVIF + WebP, videoer som MP4 + WebM med WebP-poster).
 
 export const images = {
+  // Thi og Nam (forsidens hero). Beskåret til parret og let opklaret fra
+  // ejerens eget foto; 588 er højeste bredde (kilden er lille).
+  thiOgNam: {
+    dir: 'restaurant',
+    name: 'thi-og-nam',
+    sizes: [
+      [392, 490],
+      [588, 735],
+    ],
+    alt: 'Thi og Nam, der driver Palmy Spisested',
+  },
+  // Palmys autentiske billedpakke (palmy_handoff/billeder, nov. 2026). Kun
+  // WebP; filnavnet er <navn>-<bredde>.webp.
+  foraarsruller: {
+    dir: 'food', handoff: '02-fem-smaa-foraarsruller', webpOnly: true,
+    sizes: [[480, 732], [800, 1219], [925, 1410]],
+    alt: 'Fem små forårsruller med sød chilisauce på blå-hvid tallerken',
+  },
+  nudler: {
+    dir: 'food', handoff: '03-stegte-nudler-kylling', webpOnly: true,
+    sizes: [[480, 558], [800, 931], [1152, 1340]],
+    alt: 'Stegte nudler med kylling og grøntsager på blå-hvid tallerken',
+  },
+  and: {
+    dir: 'food', handoff: '06-and-ris-sauce', webpOnly: true,
+    sizes: [[480, 555], [800, 924], [1082, 1250]],
+    alt: 'Stegt and med ris og kinesisk sød sauce på blå-hvid tallerken',
+  },
+  koekkenWok: {
+    dir: 'food', handoff: 'koekken-wok-rejer', webpOnly: true,
+    sizes: [[480, 600], [800, 1000], [1200, 1500]],
+    alt: 'Wok med rød karry over gasblus i Palmys køkken',
+  },
+  koekkenKarry: {
+    dir: 'food', handoff: 'koekken-karry', webpOnly: true,
+    sizes: [[480, 600], [800, 1000], [1080, 1350]],
+    alt: 'Karry med kokosmælk og forårsløg simrer over gasblus',
+  },
   karry: {
     dir: 'food',
     name: 'karry-i-gryden',

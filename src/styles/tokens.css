@@ -32,16 +32,23 @@
   /* ── 1. Handoff-tokens (ordret) ─────────────────────────────── */
 
   /* Farver */
-  --color-cream: #F0E9D9;   /* flader */
-  --color-black: #171715;   /* tekst, cirkler, telefonbjælke, ring-bar */
-  --color-green: #23362B;   /* serif-overskrifter, link-hover */
-  --color-gold:  #B2985F;   /* kun logo + guldstreger på skiltet */
-  --color-red:   #B8282F;   /* kun STÆRK */
-  --color-line:  #CFC6B4;   /* kun 1 px-streger */
+  /* Palette fra palmy_handoff (nov. 2026): creme · skovgrøn · murstensrød ·
+     olivenguld. "black" er nu skovgrøn, så al tekst og alle bjælker følger. */
+  --color-cream: #F6EBD7;   /* sidebaggrund, tekst på grøn */
+  --color-cream-light: #FBF3E4; /* stemplets fyld */
+  --color-black: #14432F;   /* brødtekst, bjælker, knapper (skovgrøn) */
+  --color-green: #14432F;   /* overskrifter */
+  --color-green-dark: #0D3122; /* hover på grønne knapper */
+  --color-gold:  #B9B45A;   /* olivenguld: kun streger og dekoration, aldrig tekst på creme */
+  --color-olive-light: #D9D48A; /* link-hover/fokus på grøn */
+  --color-olive-tint: #E7E2B8;  /* valgmærker */
+  --color-red:   #A8321E;   /* numre, priser, STÆRK, hover på telefonknap */
+  --color-muted: #3C5A4B;   /* beskrivelser */
+  --color-line:  #DCCFB4;   /* 1 px-rækkeskillere */
 
   /* Fonte */
-  --font-serif: "Libre Caslon Text", Georgia, "Times New Roman", serif;
-  --font-sans: "Source Sans 3", "Segoe UI", Arial, sans-serif;
+  --font-serif: "DM Serif Display", Georgia, serif;
+  --font-sans: "Albert Sans", system-ui, sans-serif;
 
   /* Typeskala */
   --text-xs: 14px;
@@ -227,4 +234,19 @@
      målt i Chromium lander prototypens understregning (offset 3 px) 3 px over
      linjeboksens bund — 3px giver samme placering som i skærmbillederne. */
   --link-underline-bottom: 3px;
+
+  /* Forside-hero (palmy_handoff DESIGN-SYSTEM.md) */
+  --text-hero: clamp(42px, 6.2vw, 80px);
+  --text-lead: clamp(19px, 2vw, 24px);
+  --leading-hero: 0.98;
+  --tracking-hero: -0.02em;
+  --tracking-eyebrow: 0.2em;
+  --tracking-label: 0.3em;
+  --stamp: 120px;
+  --hero-img-h: clamp(440px, 58vw, 640px);
+  --ease-reveal: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --num-col: clamp(40px, 5vw, 60px);
+  --text-num: clamp(28px, 3vw, 36px);
+  --text-price: clamp(21px, 2.1vw, 25px);
+  --color-food: #1D1B18;
 }
