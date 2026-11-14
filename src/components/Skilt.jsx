@@ -36,7 +36,7 @@ const FullSign = forwardRef(function FullSign(_, phoneRef) {
         </Link>
       </header>
 
-      <section aria-labelledby="hero-titel" className="hero mt-6 flex flex-wrap items-stretch gap-x-10 gap-y-8 md:mt-10">
+      <section aria-labelledby="hero-titel" className="hero mt-6 flex flex-wrap items-stretch gap-x-16 gap-y-8 md:mt-10">
         <div className="hero-text relative z-10 flex flex-[1_1_320px] flex-col justify-center">
           <p className="intro eyebrow text-red" style={{ '--d': 0 }}>{hero.eyebrow}</p>
           <h1 id="hero-titel" className="intro hero-h1 mt-4 font-serif text-green" style={{ '--d': 1 }}>
@@ -60,7 +60,7 @@ const FullSign = forwardRef(function FullSign(_, phoneRef) {
             <Picture
               id="thiOgNam"
               priority
-              sizes="(min-width: 768px) 50vw, 100vw"
+              sizes="(min-width: 768px) 560px, 100vw"
               className="hero-img block h-full w-full object-cover"
             />
           </figure>

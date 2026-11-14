@@ -7,13 +7,13 @@
 
 export const images = {
   // Thi og Nam (forsidens hero). Beskåret til parret og let opklaret fra
-  // ejerens eget foto; 588 er højeste bredde (kilden er lille).
+  // ejerens eget foto; 720 er højeste bredde (kilden er lille).
   thiOgNam: {
     dir: 'restaurant',
     name: 'thi-og-nam',
     sizes: [
-      [392, 490],
-      [588, 735],
+      [480, 590],
+      [720, 885],
     ],
     alt: 'Thi og Nam, der driver Palmy Spisested',
   },

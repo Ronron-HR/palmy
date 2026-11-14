@@ -95,9 +95,9 @@
   --dur-overlay-out: 160ms;
   --dur-bar-in: 240ms;
   --dur-bar-out: 180ms;
-  --dur-menu-in: 300ms;
-  --stagger: 50ms;
-  --dur-reveal: 600ms;
+  --dur-menu-in: 200ms;
+  --stagger: 30ms;
+  --dur-reveal: 400ms;
   --dur-page: 150ms;
 
   /* ── 2. Kobling til Tailwinds navnerum ──────────────────────── */
@@ -236,14 +236,14 @@
   --link-underline-bottom: 3px;
 
   /* Forside-hero (palmy_handoff DESIGN-SYSTEM.md) */
-  --text-hero: clamp(42px, 6.2vw, 80px);
-  --text-lead: clamp(19px, 2vw, 24px);
+  --text-hero: clamp(40px, 4.6vw, 64px);
+  --text-lead: clamp(18px, 1.5vw, 21px);
   --leading-hero: 0.98;
   --tracking-hero: -0.02em;
   --tracking-eyebrow: 0.2em;
   --tracking-label: 0.3em;
   --stamp: 120px;
-  --hero-img-h: clamp(440px, 58vw, 640px);
+  --hero-img-max: 560px;
   --ease-reveal: cubic-bezier(0.2, 0.7, 0.2, 1);
   --num-col: clamp(40px, 5vw, 60px);
   --text-num: clamp(28px, 3vw, 36px);

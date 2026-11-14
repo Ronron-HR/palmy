@@ -261,12 +261,6 @@ html[data-menu-intro] .cat {
   line-height: var(--leading-hero);
   letter-spacing: var(--tracking-hero);
 }
-@media (width >= 48rem) {
-  /* Overskriften må række ind over billedkanten på desktop. */
-  .hero-text {
-    margin-right: clamp(-48px, -3vw, 0px);
-  }
-}
 
 .btn {
   display: inline-flex;
@@ -314,17 +308,19 @@ html[data-menu-intro] .cat {
   background-color: var(--color-food);
 }
 .hero-media {
-  min-height: var(--hero-img-h);
+  /* Billedets eget format (4:5-ish), så fotoet aldrig forstørres mere end nødvendigt. */
+  aspect-ratio: 480 / 590;
+  max-width: var(--hero-img-max);
+  align-self: center;
 }
 .hero-img {
   position: absolute;
   inset: 0;
-  object-position: 50% 30%;
+  object-position: 50% 20%;
 }
 @media (width < 48rem) {
   .hero-media {
-    min-height: 0;
-    aspect-ratio: 4 / 5;
+    max-width: none;
     max-height: 78vh;
   }
 }
@@ -479,28 +475,20 @@ html[data-menu-intro] .cat {
   text-transform: uppercase;
 }
 
-/* Hero-intro: diskret, kun ved første indlæsning af siden. */
+/* Hero-intro: kort og uden ventetid, så siden føles øjeblikkelig.
+   Fotoet animeres ikke (det er sidens LCP og skal vises med det samme). */
 .intro {
-  animation: intro-in 0.8s var(--ease-reveal) both;
-  animation-delay: calc(120ms + var(--d, 0) * 120ms);
+  animation: intro-in 0.35s var(--ease-reveal) both;
+  animation-delay: calc(var(--d, 0) * 40ms);
 }
 @keyframes intro-in {
   from {
     opacity: 0;
-    transform: translateY(18px);
-  }
-}
-.hero-media {
-  animation: intro-fade 1s var(--ease-reveal) 0.2s both;
-}
-@keyframes intro-fade {
-  from {
-    opacity: 0;
+    transform: translateY(8px);
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .intro,
-  .hero-media {
+  .intro {
     animation: none;
   }
   .btn,
