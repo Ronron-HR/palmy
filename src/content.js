@@ -155,7 +155,6 @@ export const hero = {
   dishesHeading: 'Hvad frister i dag?',
   dishesLink: 'Se hele menukortet',
   dishesLabel: 'Fra vores køkken',
-  familyAlt: 'Thi og Nam, der driver Palmy Spisested',
 }
 
 // Fælles sektioner fra palmy_handoff (INDHOLD.md "Gennemgående tekster").

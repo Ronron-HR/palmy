@@ -102,15 +102,6 @@ function Home() {
             {home.family}{' '}
             <Link to="/historien">{home.familyLink}</Link>
           </p>
-          <figure className="family-photo mt-8">
-            <Picture
-              id="thiOgNam"
-              sizes="(min-width: 768px) 320px, 70vw"
-              alt={hero.familyAlt}
-              className="block h-full w-full object-cover"
-            />
-            <figcaption className="eyebrow mt-3 text-red">Thi og Nam</figcaption>
-          </figure>
         </div>
         <div>
           {reviewsWithText.slice(0, 2).map((review) => (

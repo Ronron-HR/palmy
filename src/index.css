@@ -649,17 +649,6 @@ html[data-menu-intro] .cat {
   }
 }
 
-.family-photo {
-  margin-inline: 0;
-  max-width: 300px;
-}
-.family-photo picture {
-  display: block;
-  aspect-ratio: 480 / 590;
-  overflow: hidden;
-  background: var(--color-food);
-}
-
 @media (prefers-reduced-motion: reduce) {
   .ph-frond-a,
   .ph-frond-b {

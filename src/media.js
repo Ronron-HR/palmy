@@ -6,17 +6,6 @@
 // (billeder findes som AVIF + WebP, videoer som MP4 + WebM med WebP-poster).
 
 export const images = {
-  // Thi og Nam (forsidens hero). Beskåret til parret og let opklaret fra
-  // ejerens eget foto; 720 er højeste bredde (kilden er lille).
-  thiOgNam: {
-    dir: 'restaurant',
-    name: 'thi-og-nam',
-    sizes: [
-      [480, 590],
-      [720, 885],
-    ],
-    alt: 'Thi og Nam, der driver Palmy Spisested',
-  },
   // Palmys autentiske billedpakke (palmy_handoff/billeder, nov. 2026). Kun
   // WebP; filnavnet er <navn>-<bredde>.webp.
   foraarsruller: {
