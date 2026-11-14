@@ -537,59 +537,62 @@ html[data-menu-intro] .cat {
   flex-direction: column;
   align-items: center;
 }
-/* Palmerne fra Palmys logo (public/images/palmy-palmer.svg) som maske, så
-   farven styres her. De svajer fra stammens fod i ujævne vindstød, og
-   kronen giver sig lidt (skew), som i en let brise. */
-.ph-palm {
+/* Palmerne (Palm.jsx). Stamme og ø står stille. Hvert blad svajer om kronen
+   i sin egen takt og med sit eget udsving; kronen vugger oven i købet meget
+   svagt. Resultatet er en jævn vind i stedet for en hoppende palme. */
+.palm {
   position: absolute;
-  aspect-ratio: 362 / 268;
   pointer-events: none;
-  -webkit-mask: url("/images/palmy-palmer.svg") center / contain no-repeat;
-  mask: url("/images/palmy-palmer.svg") center / contain no-repeat;
-  transform-origin: 44% 94%;
-  animation: ph-palm-sway 6.8s ease-in-out infinite;
+  fill: currentColor;
+  overflow: visible;
 }
-.ph-palm-stage {
-  z-index: 0;
-  width: 340px;
-  left: -70px;
-  bottom: -14px;
-  background: var(--color-olive-light);
-  opacity: 0.34;
+.palm-crown,
+.palm-frond {
+  transform-origin: var(--ox) var(--oy);
+  will-change: transform;
 }
-.ph-palm-stage-b {
+.palm-crown {
+  animation: palm-crown var(--dur, 7s) ease-in-out var(--delay, 0s) infinite alternate;
+}
+.palm-frond {
+  animation: palm-frond var(--dur, 5s) ease-in-out var(--delay, 0s) infinite;
+}
+@keyframes palm-crown {
+  from { rotate: -0.9deg; }
+  to { rotate: 1.1deg; }
+}
+@keyframes palm-frond {
+  0%   { rotate: calc(var(--amp) * -0.7); }
+  22%  { rotate: calc(var(--amp) * 0.55); }
+  41%  { rotate: calc(var(--amp) * 0.1); }
+  63%  { rotate: calc(var(--amp) * 1); }
+  82%  { rotate: calc(var(--amp) * -0.2); }
+  100% { rotate: calc(var(--amp) * -0.7); }
+}
+.palm-stage {
   z-index: 0;
-  width: 230px;
-  right: -60px;
-  top: 18px;
-  background: var(--color-olive-light);
-  opacity: 0.2;
+  width: 380px;
+  left: -90px;
+  bottom: -26px;
+  color: var(--color-olive-light);
+  opacity: 0.42;
+}
+.palm-stage-b {
+  z-index: 0;
+  width: 240px;
+  right: -64px;
+  top: 12px;
+  color: var(--color-olive-light);
+  opacity: 0.24;
   transform: scaleX(-1);
-  animation: ph-palm-sway-b 8.3s ease-in-out -3s infinite;
 }
-.ph-palm-text {
+.palm-text {
   z-index: -1;
-  width: min(84vw, 420px);
-  right: 0;
-  bottom: 8px;
-  background: var(--color-green);
+  width: min(86vw, 430px);
+  right: -8px;
+  bottom: 0;
+  color: var(--color-green);
   opacity: 0.07;
-  animation-duration: 9s;
-}
-@keyframes ph-palm-sway {
-  0%, 100% { rotate: 0deg; transform: skewX(0deg); }
-  20% { rotate: 1.8deg; transform: skewX(-1.2deg); }
-  34% { rotate: 0.6deg; transform: skewX(-0.3deg); }
-  55% { rotate: 2.6deg; transform: skewX(-1.8deg); }
-  72% { rotate: 0.9deg; transform: skewX(-0.5deg); }
-  86% { rotate: 1.9deg; transform: skewX(-1.1deg); }
-}
-@keyframes ph-palm-sway-b {
-  0%, 100% { rotate: 0deg; transform: scaleX(-1) skewX(0deg); }
-  25% { rotate: -1.6deg; transform: scaleX(-1) skewX(1deg); }
-  45% { rotate: -0.5deg; transform: scaleX(-1) skewX(0.3deg); }
-  65% { rotate: -2.3deg; transform: scaleX(-1) skewX(1.6deg); }
-  82% { rotate: -0.8deg; transform: scaleX(-1) skewX(0.5deg); }
 }
 .ph-plate {
   position: relative;
@@ -668,19 +671,19 @@ html[data-menu-intro] .cat {
   .ph-plate {
     width: min(100%, 460px);
   }
-  .ph-palm-stage {
-    width: 520px;
-    left: -110px;
-    bottom: -20px;
-  }
-  .ph-palm-stage-b {
-    width: 300px;
-    right: -70px;
-    top: 30px;
-  }
-  .ph-palm-text {
+  .palm-stage {
     width: 560px;
-    right: -40px;
+    left: -120px;
+    bottom: -30px;
+  }
+  .palm-stage-b {
+    width: 310px;
+    right: -70px;
+    top: 24px;
+  }
+  .palm-text {
+    width: 580px;
+    right: -30px;
     bottom: -10px;
   }
   .ph-side {
@@ -729,7 +732,8 @@ html[data-menu-intro] .cat {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .ph-palm {
+  .palm-crown,
+  .palm-frond {
     animation: none;
   }
   .ph-phone {

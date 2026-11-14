@@ -2,18 +2,19 @@ import { forwardRef } from 'react'
 import { business, hero } from '../content'
 import Link from './Link'
 import Picture from './Picture'
+import Palm from './Palm'
 
 // Forsidens hero — "Palmy under palmerne".
 // Tekst i sort på creme til venstre (mobil: øverst) med en svag palme bag sig,
 // og en dyb palmegrøn scene til højre med palmerne fra Palmys eget logo
-// (public/images/palmy-palmer.svg) og Palmys foto af nr. 3 på den blå-hvide
+// (Palm.jsx) og Palmys foto af nr. 3 på den blå-hvide
 // tallerken i en creme ramme. Maden vises i sit eget format, uden tekst
 // ovenpå. "Ring og bestil" er ring-barens mål (forwardRef).
 const Hero = forwardRef(function Hero(_, phoneRef) {
   return (
     <section aria-labelledby="hero-titel" className="ph">
       <div className="ph-text">
-        <span aria-hidden="true" className="ph-palm ph-palm-text" />
+        <Palm className="palm-text" seed={2} />
         <p className="eyebrow ph-eyebrow">{hero.eyebrow}</p>
         <h1 id="hero-titel" className="ph-title">
           <span className="block">{hero.titleA}</span>
@@ -44,8 +45,8 @@ const Hero = forwardRef(function Hero(_, phoneRef) {
       </div>
 
       <div className="ph-stage">
-        <span aria-hidden="true" className="ph-palm ph-palm-stage" />
-        <span aria-hidden="true" className="ph-palm ph-palm-stage-b" />
+        <Palm className="palm-stage" seed={0} />
+        <Palm className="palm-stage-b" seed={1} />
         <figure className="ph-plate">
           <Picture
             id="nudler"
