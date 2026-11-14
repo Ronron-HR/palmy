@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import { ui } from '../content'
 import { hasNavigated, usePathname } from '../hooks/usePathname'
-import { DesktopNav, MobileMenu } from './Navigation'
+import { MobileMenu } from './Navigation'
 import Skilt from './Skilt'
 import Footer from './Footer'
 import RingBar from './RingBar'
@@ -12,11 +12,9 @@ import RingBar from './RingBar'
 // column "wide" = 1040-spalten (Forside, Menu), "text" = 680 (øvrige).
 // <main id="indhold"> er målet for "Spring til indhold" og for fokus efter
 // sideskift (Link.jsx).
-function Layout({ children, sign = 'compact', column = 'text', menuPage = false }) {
+function Layout({ children, sign = 'compact', menuPage = false, closing = 'default' }) {
   const pathname = usePathname()
   const phoneRef = useRef(null)
-  const wide = column === 'wide'
-  const placement = sign === 'full' ? 'full' : menuPage ? 'menu' : 'compact'
 
   return (
     <div key={pathname} className={hasNavigated() ? 'page' : undefined}>
@@ -26,15 +24,12 @@ function Layout({ children, sign = 'compact', column = 'text', menuPage = false 
       >
         {ui.skipLink}
       </a>
-      <DesktopNav />
-      <div
-        className={`relative mx-auto px-(--gutter-mobile) ${wide ? 'frame-wide' : 'max-w-(--col-text)'}`}
-      >
-        <MobileMenu placement={placement} />
+      <div className="frame relative mx-auto">
+        <MobileMenu />
         <Skilt ref={phoneRef} variant={sign} menuPage={menuPage} />
         <main id="indhold">{children}</main>
-        <Footer bleed={wide} />
       </div>
+      <Footer closing={closing} />
       <RingBar targetRef={phoneRef} />
     </div>
   )

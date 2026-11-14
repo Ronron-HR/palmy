@@ -6,7 +6,7 @@ import MenuSections from '../components/menu/MenuSections'
 // menukortet" → footer (DESIGN.md "Menu"). Alt fra data/menu.ts.
 function MenuPage() {
   return (
-    <Layout column="wide" menuPage>
+    <Layout menuPage closing="menu">
       <h1 className="sr-only">{menuText.pageHeading}</h1>
       <MenuSections variant="menu" />
       <div className="mt-8">

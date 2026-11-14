@@ -96,11 +96,11 @@ export const frame = {
 // viser ikke "Forside" (prototypen: ordmærket/logoet er vejen hjem).
 export const nav = [
   { label: 'Forside', href: '/', desktop: false },
-  { label: 'Menu', href: '/menu' },
-  { label: 'Historien', href: '/historien' },
-  { label: 'Billeder', href: '/billeder' },
+  { label: 'Menu', href: '/menu', main: true },
+  { label: 'Historien', href: '/historien', main: true },
+  { label: 'Billeder', href: '/billeder', main: true },
   { label: 'Anmeldelser', href: '/anmeldelser' },
-  { label: 'Find os', href: '/find-os' },
+  { label: 'Find os', href: '/find-os', main: true },
 ]
 
 // Faste UI-ord (TEKST.md "Fælles").
@@ -148,10 +148,36 @@ export const hero = {
   menuCta: 'Se menukortet',
   phoneCta: 'Ring og bestil ·',
   vertical: 'Familiedrevet · Fuld af smag',
-  stamp: 'Lavet med kærlighed',
+  stamp: 'Lavet med kærlighed ♥',
   dishesHeading: 'Hvad frister i dag?',
   dishesLink: 'Se hele menukortet',
   dishesLabel: 'Fra vores køkken',
+}
+
+// Fælles sektioner fra palmy_handoff (INDHOLD.md "Gennemgående tekster").
+export const shared = {
+  ringCta: 'Ring og bestil',
+  marquee: ['Vietnamesisk mad', 'Familiedrevet', 'Hjortshøj'],
+  closing: {
+    default: { heading: 'Fra vores familie. Til dit bord.', text: 'Thi og Nam står selv i køkkenet hver fredag og lørdag.' },
+    menu: { heading: 'Fundet din ret? Ring og bestil.', text: 'Bestil efter rettens nummer. Forudbestil fra kl. 15.00.' },
+  },
+  footerReviews: 'Anmeldelser',
+  footerPrivacy: 'Privatliv',
+  rollLabel: 'Fra køkkenet',
+  rollHeading: 'Maden, som den ser ud hos os',
+}
+
+export const steps = {
+  eyebrow: 'Kun telefonisk bestilling',
+  heading: 'Sådan bestiller du',
+  items: [
+    'Vælg retter fra menukortet.',
+    `Ring på ${business.phoneDisplay} og bestil efter rettens nummer.`,
+    'Aftal et tidspunkt for afhentning.',
+    'Hent maden hos Palmy.',
+  ],
+  note: 'Der kan være travlt omkring aftensmadstid. Ring gerne fra kl. 15.00 og bestil til afhentning senere. Afhentning fra kl. 16.00 til lukketid kl. 20.30.',
 }
 
 // Skiltet "Bestil på forhånd" øverst på forsiden (TEKST.md "Forside").
@@ -179,7 +205,10 @@ const historieTekst = [
 // og genåbningen. Kapitel 2 er delt ved sætningsskiftet, så den sidste sætning
 // kan stå som citat. Kapiteloverskrifterne er blot navne på afsnittene.
 export const historie = {
-  heading: 'Historien om Palmy Spisested',
+  eyebrow: 'Historien · Familiedrevet',
+  heading: 'Thi og Nam i køkkenet.',
+  lead: 'Palmy Spisested er en lille, familiedrevet vietnamesisk restaurant og takeaway i Hjortshøj ved Aarhus.',
+  h2: 'Familiens opskrifter. Hver fredag og lørdag.',
   chapters: [
     { title: 'Familiens opskrifter', text: historieTekst[0] },
     {
@@ -197,20 +226,26 @@ export const historie = {
 // Billeder: rækkefølgen og billederne står i media.js (galleri); billedteksterne
 // her, i samme rækkefølge (TEKST.md "Billeder").
 export const billeder = {
+  eyebrow: 'Fra køkkenet',
   heading: 'Billeder',
+  follow: 'Følg med på Instagram',
   intro: 'Fra køkkenet og spisesalen – optaget hos os i Hjortshøj.',
   captions: [
-    'Karry, der simrer i gryden.',
-    'Wokken over gasflammen.',
-    'Karryen simrer. Kort loop uden lyd.',
-    'Hjortshøj Stationsvej 6.',
-    'Rejer og grøntsager i wokken. Kort loop uden lyd.',
-    'Spisesalen.',
+    'Nr. 3 · Stegte nudler med kylling',
+    'Nr. 2 · Fem små forårsruller',
+    'Fra køkkenet',
+    'Nr. 6 · Stegt and med ris',
+    'Fra køkkenet · kort loop uden lyd',
+    'Fra køkkenet',
+    'Spisesalen',
+    'Wokken · kort loop uden lyd',
+    'Hjortshøj Stationsvej 6',
   ],
 }
 
 // Anmeldelser-siden (prototypen "Palmy Sider").
 export const anmeldelser = {
+  eyebrow: 'Det siger gæsterne',
   heading: 'Anmeldelser',
   // Anmeldelser uden tekst nævnes ved navn (Google: 5 stjerner).
   alsoRated: (names) => `${names.join(' og ')} gav også 5 stjerner.`,
@@ -283,7 +318,12 @@ export const notFound = {
 
 // Find os (TEKST.md + prototypen "Palmy Sider").
 export const findOs = {
+  eyebrow: 'Hjortshøj · Nord for Aarhus',
   heading: 'Find os',
+  mapsCta: 'Åbn i Google Maps',
+  reviewsCta: 'Se anmeldelser',
+  band: ['Kun telefonisk bestilling', 'Bestil efter rettens nummer'],
+  followHeading: 'Følg med fra køkkenet',
   region: 'Nord for Aarhus.',
   blocks: [
     { label: 'Åbent', text: `${hours.line}. Resten af ugen holder vi lukket.` },

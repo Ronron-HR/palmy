@@ -1,7 +1,11 @@
-// Sidetitel på de smalle sider (prototypen "Palmy Sider"): h1 serif 700
-// 28/1.15 grøn, 56 under det kompakte skilt.
-function SideTitel({ children }) {
-  return <h1 className="mt-14 font-serif text-lg leading-heading font-bold text-green">{children}</h1>
+// Sidetitel (palmy_handoff "H1 undersider"): eyebrow i rød versal og stor serif.
+function SideTitel({ eyebrow, children, className = '' }) {
+  return (
+    <div className={`pt-10 md:pt-16 ${className}`}>
+      {eyebrow && <p className="eyebrow text-red">{eyebrow}</p>}
+      <h1 className="page-h1 mt-3 font-serif text-green">{children}</h1>
+    </div>
+  )
 }
 
 export default SideTitel

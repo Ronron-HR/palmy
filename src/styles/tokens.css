@@ -55,7 +55,7 @@
   --text-base: 17px;
   --text-md: 20px;
   --text-lg: 28px;
-  --text-xl: 44px;
+  --text-xl: var(--text-section);
   --text-phone: 52px;          /* forside, mobil */
   --text-phone-desktop: 88px;  /* forside, ≥1024 px */
   --leading-tight: 1.1;
@@ -71,7 +71,7 @@
   --space-12: 48px; --space-14: 56px; --space-16: 64px;
 
   /* Layout */
-  --gutter-mobile: 20px;
+  --gutter-mobile: clamp(20px, 4.5vw, 56px); /* sidemargen (palmy_handoff) */
   --col-text: 680px;
   --col-menu-desktop: 1040px;
   --menu-col-gap: 64px;
@@ -249,4 +249,8 @@
   --text-num: clamp(28px, 3vw, 36px);
   --text-price: clamp(21px, 2.1vw, 25px);
   --color-food: #1D1B18;
+  --color-rule-on-green: #3E6A50;
+  --frame-max: 1320px;
+  --text-page-h1: clamp(44px, 6.5vw, 84px);
+  --text-section: clamp(36px, 5vw, 60px);
 }

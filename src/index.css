@@ -65,6 +65,10 @@
 @utility frame-wide {
   max-width: calc(var(--col-menu-desktop) + 2 * var(--gutter-mobile));
 }
+@utility frame {
+  max-width: var(--frame-max);
+  padding-inline: var(--gutter-mobile);
+}
 
 /* ── Bevægelse (MOTION.md) ─────────────────────────────────── */
 
@@ -349,10 +353,10 @@ html[data-menu-intro] .cat {
   text-transform: uppercase;
   transform: rotate(-12deg);
 }
+/* Mobil: intet stempel oven på fotoet. */
 @media (width < 48rem) {
   .stamp {
-    --stamp: 100px;
-    font-size: 11px;
+    display: none;
   }
 }
 @media (width >= 48rem) {
@@ -434,8 +438,13 @@ html[data-menu-intro] .cat {
 
 .dish-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
   gap: 44px clamp(20px, 3vw, 40px);
+}
+@media (width >= 48rem) {
+  .dish-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
 .dish-grid > li {
   max-width: 480px;
@@ -500,6 +509,269 @@ html[data-menu-intro] .cat {
   }
 }
 
+/* ── palmy_handoff: header, sider, billedrulle, afslutning ── */
+
+.nav-link {
+  font-family: var(--font-serif);
+  font-size: 19px;
+  text-decoration: none;
+  padding-block: 6px;
+  border-bottom: 2px solid transparent;
+}
+.nav-link[aria-current="page"] {
+  border-bottom-color: var(--color-gold);
+}
+.btn-ring {
+  font-size: 19px;
+  padding: 10px 20px;
+}
+@media (hover: hover) and (pointer: fine) {
+  .btn-ring:hover {
+    background: var(--color-red);
+  }
+}
+.btn-light {
+  background: var(--color-cream);
+  color: var(--color-green);
+}
+@media (hover: hover) and (pointer: fine) {
+  .btn-light:hover {
+    background: var(--color-olive-light);
+  }
+}
+
+.page-h1 {
+  font-size: var(--text-page-h1);
+  line-height: var(--leading-hero);
+  letter-spacing: var(--tracking-hero);
+}
+
+.split {
+  display: grid;
+  gap: 40px clamp(32px, 5vw, 72px);
+}
+@media (width >= 48rem) {
+  .split {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+}
+.split-media {
+  aspect-ratio: 4 / 5;
+  max-height: 720px;
+  overflow: hidden;
+  background: var(--color-food);
+}
+@media (width >= 48rem) {
+  .split-media {
+    justify-self: end;
+    width: 100%;
+    max-width: 560px;
+  }
+}
+
+.trio {
+  display: grid;
+  gap: 32px clamp(20px, 3vw, 40px);
+  align-items: start;
+}
+@media (width >= 48rem) {
+  .trio {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+.trio-media,
+.gallery-media,
+.roll-media {
+  overflow: hidden;
+  background: var(--color-food);
+}
+.trio-media {
+  max-width: 480px;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+  gap: 44px clamp(20px, 3vw, 40px);
+  align-items: start;
+}
+.gallery-grid > li {
+  max-width: 520px;
+}
+
+.quote {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(24px, 2.6vw, 32px);
+  line-height: 1.2;
+  color: var(--color-red);
+  padding-top: 20px;
+  border-top: 2px solid var(--color-gold);
+}
+
+.field {
+  border-top: 2px solid var(--color-green);
+  padding-top: 12px;
+  line-height: 1.5;
+}
+.big-phone {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(44px, 6vw, 72px);
+  line-height: 1;
+  color: var(--color-red);
+  text-decoration: none;
+}
+
+.review + .review {
+  border-top: 1px solid var(--color-line);
+  padding-top: 28px;
+}
+.review-quote {
+  font-size: clamp(20px, 2vw, 24px);
+  line-height: 1.35;
+}
+.review-quote-lg {
+  font-size: clamp(24px, 2.6vw, 30px);
+  line-height: 1.3;
+}
+
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+  gap: 28px clamp(20px, 3vw, 40px);
+  padding: 0;
+  list-style: none;
+}
+.steps-grid li {
+  border-top: 2px solid var(--color-gold);
+  padding-top: 16px;
+}
+
+/* Billedrullen */
+.roll-rail {
+  display: flex;
+  gap: clamp(14px, 2vw, 24px);
+  overflow-x: auto;
+  margin: 0 calc(-1 * var(--gutter-mobile));
+  padding: 0 var(--gutter-mobile);
+  scrollbar-width: none;
+  list-style: none;
+}
+.roll-rail::-webkit-scrollbar {
+  display: none;
+}
+.roll-rail > li {
+  flex: none;
+}
+.roll-media {
+  height: clamp(300px, 46vw, 460px);
+}
+.roll-rail figcaption {
+  max-width: 300px;
+}
+.roll-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--tap-min);
+  height: var(--tap-min);
+  border: 1px solid var(--color-green);
+  color: var(--color-green);
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .roll-btn:hover {
+    background: var(--color-green);
+    color: var(--color-cream);
+  }
+}
+.roll-media img {
+  transition: transform 0.6s var(--ease-reveal);
+}
+@media (hover: hover) and (pointer: fine) {
+  .roll-rail li:hover .roll-media img {
+    transform: scale(1.035);
+  }
+}
+
+/* Tekstbånd */
+.marquee {
+  margin-top: clamp(56px, 8vw, 104px);
+  border-top: 1px solid var(--color-green);
+  overflow: hidden;
+  padding: 22px 0;
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 40s linear infinite;
+}
+.marquee-run {
+  display: flex;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(28px, 4vw, 44px);
+  line-height: 1;
+  color: var(--color-green);
+  white-space: nowrap;
+}
+.marquee-dot {
+  padding: 0 0.6em;
+  color: var(--color-gold);
+  font-size: 0.6em;
+  vertical-align: middle;
+}
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Grøn afslutning + sidefod */
+.site-footer {
+  background: var(--color-green);
+  color: var(--color-cream);
+  padding: clamp(56px, 8vw, 96px) 0 calc(var(--ringbar-height) + 36px);
+}
+@media (width >= 48rem) {
+  .site-footer {
+    padding-bottom: 40px;
+  }
+}
+.footer-phone {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(40px, 5vw, 64px);
+  line-height: 1;
+  color: var(--color-cream);
+  text-decoration: none;
+}
+.footer-meta {
+  border-top: 1px solid var(--color-rule-on-green);
+  font-size: 15px;
+}
+.site-footer :focus-visible {
+  outline-color: var(--color-olive-light);
+}
+@media (hover: hover) and (pointer: fine) {
+  .site-footer a:not(.btn):hover {
+    color: var(--color-olive-light);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+  .roll-media img,
+  .roll-btn {
+    transition: none;
+  }
+}
+
 /* ── Print (/menu på A4, README "Print") ─────────────────────
    Skjul navigation, ring-bar, fotos og knapper; behold telefonbjælken som
    tekst; sort på hvid; rækker brydes ikke; en kategorititel står aldrig
@@ -517,6 +789,9 @@ html[data-menu-intro] .cat {
     animation: none;
   }
   nav,
+  .marquee,
+  .site-footer,
+  .roll,
   .ring-bar,
   .overlay,
   button,

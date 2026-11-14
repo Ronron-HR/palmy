@@ -1,5 +1,6 @@
 import { forwardRef } from 'react'
-import { business, frame, hero, hours, sign, ui } from '../content'
+import { business, frame, hero, hours, nav, shared, sign, ui } from '../content'
+import { usePathname } from '../hooks/usePathname'
 import Picture from './Picture'
 import Link from './Link'
 
@@ -23,6 +24,37 @@ export const Wordmark = ({ className = '', loading }) => (
   />
 )
 
+// Fælles header (palmy_handoff "Hovednavigation"): logo til venstre, links og
+// "Ring og bestil" til højre på desktop. Mobil: logo + "Menu"-knappen
+// (Navigation.jsx); ring-baren i bunden er telefonen.
+export const SiteHeader = forwardRef(function SiteHeader(_, phoneRef) {
+  const pathname = usePathname()
+  return (
+    <header className="site-header flex items-center justify-between gap-6 pt-4 pb-2 md:pt-6">
+      <Link to="/" className="no-underline">
+        <Wordmark className="w-(--wordmark)" />
+      </Link>
+      <nav aria-label={ui.navLabel} className="hidden items-center gap-x-8 md:flex">
+        {nav
+          .filter((item) => item.main)
+          .map((item) => (
+            <Link
+              key={item.href}
+              to={item.href}
+              className="nav-link"
+              aria-current={pathname === item.href ? 'page' : undefined}
+            >
+              {item.label}
+            </Link>
+          ))}
+        <a ref={phoneRef} href={`tel:${business.phoneHref}`} className="btn btn-ring no-underline">
+          {shared.ringCta}
+        </a>
+      </nav>
+    </header>
+  )
+})
+
 // Forsidens hero (palmy_handoff "Palmy Spisested"): stor overskrift til
 // venstre, foto af Thi og Nam til højre med lodret label og stemplet "Lavet
 // med kærlighed" på billedkanten. På mobil: tekst over billedet, stemplet
@@ -30,11 +62,7 @@ export const Wordmark = ({ className = '', loading }) => (
 const FullSign = forwardRef(function FullSign(_, phoneRef) {
   return (
     <>
-      <header className="flex items-center justify-between gap-4 pt-5 md:pt-6">
-        <Link to="/" className="no-underline" aria-label={ui.logoAlt}>
-          <Wordmark className="w-(--wordmark)" />
-        </Link>
-      </header>
+      <SiteHeader />
 
       <section aria-labelledby="hero-titel" className="hero mt-6 flex flex-wrap items-stretch gap-x-16 gap-y-8 md:mt-10">
         <div className="hero-text relative z-10 flex flex-[1_1_320px] flex-col justify-center">
@@ -65,7 +93,7 @@ const FullSign = forwardRef(function FullSign(_, phoneRef) {
             />
           </figure>
           <p aria-hidden="true" className="vertical-label hidden md:flex">{hero.vertical}</p>
-          <p className="stamp">
+          <p className="stamp hidden md:grid">
             <span>{hero.stamp}</span>
           </p>
         </div>
@@ -96,32 +124,15 @@ const FullSign = forwardRef(function FullSign(_, phoneRef) {
   )
 })
 
-const CompactSign = forwardRef(function CompactSign({ menuPage }, phoneRef) {
-  return (
-    <>
-      <header className={`flex justify-center pt-(--wordmark-top) ${menuPage ? 'md:pt-(--wordmark-top-menu-d)' : ''}`}>
-        <Link to="/" className="no-underline">
-          <Wordmark className={`w-(--wordmark) ${menuPage ? 'md:w-(--wordmark-menu-d)' : ''}`} />
-        </Link>
-      </header>
-
-      <a
-        ref={phoneRef}
-        href={`tel:${business.phoneHref}`}
-        className={`bar press mt-(--wordmark-gap) ${menuPage ? 'md:mt-(--wordmark-gap-menu-d)' : ''} flex items-baseline justify-between gap-3 bg-black px-4 py-3 text-cream no-underline`}
-      >
-        <span className="text-lg font-bold whitespace-nowrap tabular-nums">{business.phoneDisplay}</span>
-        <span className="text-right text-xs leading-snug">{hours.preorderShort}</span>
-      </a>
-    </>
-  )
+const CompactSign = forwardRef(function CompactSign(_, phoneRef) {
+  return <SiteHeader ref={phoneRef} />
 })
 
-const Skilt = forwardRef(function Skilt({ variant = 'compact', menuPage = false }, phoneRef) {
+const Skilt = forwardRef(function Skilt({ variant = 'compact' }, phoneRef) {
   return variant === 'full' ? (
     <FullSign ref={phoneRef} />
   ) : (
-    <CompactSign ref={phoneRef} menuPage={menuPage} />
+    <CompactSign ref={phoneRef} />
   )
 })
 

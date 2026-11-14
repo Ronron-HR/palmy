@@ -6,33 +6,10 @@ import { Wordmark } from './Skilt'
 
 const isCurrent = (pathname, href) => pathname === href
 
-// Desktop (≥ 768 px): sidelinks centreret over skiltet, 17/600, gap 32
-// (KOMPONENTER.md §1). Aktuel side står understreget; de andre får en
-// understregning, der vokser fra venstre ved hover (MOTION.md).
-export function DesktopNav() {
-  const pathname = usePathname()
-  return (
-    <nav aria-label={ui.navLabel} className="hidden justify-center gap-8 pt-5 font-semibold md:flex">
-      {nav
-        .filter((item) => item.desktop !== false)
-        .map((item) => (
-          <Link
-            key={item.href}
-            to={item.href}
-            className="link-nav"
-            aria-current={isCurrent(pathname, item.href) ? 'page' : undefined}
-          >
-            {item.label}
-          </Link>
-        ))}
-    </nav>
-  )
-}
-
 // Mobil (< 768 px): knappen "Menu" øverst til højre åbner et overlay i fuld
 // skærm (KOMPONENTER.md §6). role="dialog" + aria-modal, fokus fanges, Esc
 // lukker, og fokus går tilbage til "Menu".
-export function MobileMenu({ placement = 'compact' }) {
+export function MobileMenu() {
   const pathname = usePathname()
   // Menuen er åben på den side, den blev åbnet på, så et sideskift (også via
   // browserens tilbage-knap) lukker den uden ekstra effekt.
@@ -83,11 +60,6 @@ export function MobileMenu({ placement = 'compact' }) {
     }
   }, [open, close])
 
-  const top = {
-    full: 'top-(--menu-btn-top-full)',
-    compact: 'top-(--menu-btn-top-compact)',
-    menu: 'top-(--menu-btn-top-menu)',
-  }[placement]
 
   return (
     <>
@@ -98,7 +70,7 @@ export function MobileMenu({ placement = 'compact' }) {
         aria-haspopup="dialog"
         aria-expanded={open}
         aria-controls="mobilmenu"
-        className={`absolute right-2 ${top} flex min-h-(--tap-min) min-w-(--tap-min) items-center justify-center px-3 font-semibold underline underline-offset-(--underline-offset-btn) md:hidden`}
+        className="absolute top-2 right-(--gutter-mobile) flex min-h-(--tap-min) min-w-(--tap-min) items-center justify-center font-serif text-md underline underline-offset-(--underline-offset-btn) md:hidden"
       >
         {ui.menuOpen}
       </button>
@@ -126,7 +98,7 @@ export function MobileMenu({ placement = 'compact' }) {
           </button>
         </div>
 
-        <nav aria-label={ui.navLabel} className="mt-8 flex flex-col text-lg leading-none font-semibold">
+        <nav aria-label={ui.navLabel} className="mt-8 flex flex-col font-serif text-xl leading-none">
           {nav.map((item) => {
             const current = isCurrent(pathname, item.href)
             return (

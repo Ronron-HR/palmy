@@ -4,21 +4,16 @@ import { useReveal } from '../hooks/useReveal'
 import Picture from './Picture'
 import LoopVideo from './LoopVideo'
 
-// Billeder-siden: én spalte, 48 mellem billederne, billedtekst 14 under.
-// Fotos afsløres nedefra én gang (MOTION.md); videoer følger LoopVideo.
-const ASPECT = { dish: 'aspect-dish', wide: 'aspect-wide' }
-const SIZES = '(min-width: 768px) 640px, 100vw'
-
-function Foto({ item, priority }) {
+// /billeder: grid med billedernes eget format, billedtekst under hvert.
+// Fotos afsløres nedefra én gang.
+function Foto({ item }) {
   const ref = useReveal()
   return (
-    <div ref={ref}>
+    <div ref={ref} className="gallery-media" style={{ aspectRatio: item.ratio }}>
       <Picture
         id={item.image}
-        sizes={SIZES}
-        priority={priority}
-        className={`block w-full object-cover ${ASPECT[item.aspect]}`}
-        style={{ objectPosition: `var(--pos-${item.pos})` }}
+        sizes="(min-width: 1100px) 360px, (min-width: 640px) 50vw, 100vw"
+        className="block h-full w-full object-cover"
       />
     </div>
   )
@@ -26,23 +21,26 @@ function Foto({ item, priority }) {
 
 function Galleri() {
   return (
-    <div className="mt-8 flex flex-col gap-12">
+    <ul className="gallery-grid mt-14">
       {galleri.map((item, i) => (
-        <figure key={item.image ?? item.video}>
-          {item.type === 'image' ? (
-            // Første foto står over folden på mobil: ikke lazy, fetchpriority high.
-            <Foto item={item} priority={i === 0} />
-          ) : (
-            <LoopVideo
-              id={item.video}
-              className={`block h-auto w-full bg-black object-cover ${ASPECT[item.aspect]}`}
-              style={{ objectPosition: `var(--pos-${item.pos})` }}
-            />
-          )}
-          <figcaption className="mt-2 text-xs">{billeder.captions[i]}</figcaption>
-        </figure>
+        <li key={item.image ?? item.video}>
+          <figure className="m-0">
+            {item.type === 'image' ? (
+              <Foto item={item} />
+            ) : (
+              <div className="gallery-media" style={{ aspectRatio: item.ratio }}>
+                <LoopVideo
+                  id={item.video}
+                  className="block h-full w-full object-cover"
+                  style={{ objectPosition: `var(--pos-${item.pos})` }}
+                />
+              </div>
+            )}
+            <figcaption className="eyebrow mt-3 text-red">{billeder.captions[i]}</figcaption>
+          </figure>
+        </li>
       ))}
-    </div>
+    </ul>
   )
 }
 

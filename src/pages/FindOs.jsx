@@ -1,51 +1,98 @@
-import { business, faq, findOs } from '../content'
+import { business, faq, findOs, social, ui } from '../content'
 import Layout from '../components/Layout'
+import Link from '../components/Link'
 import Picture from '../components/Picture'
-import SideTitel from '../components/SideTitel'
 
-// /find-os (ny side, typografi som hovedperson): adressen stort som link til
-// Google Maps, tider, telefon, skiltets to guldblokke, facaden og to
-// spørgsmål som almindelig tekst. Ingen kort-embed, ingen accordion.
+// /find-os (palmy_handoff): to kolonner — nummer, felter og knapper til
+// venstre, køkkenfoto til højre — infobånd, sociale links, facade og FAQ.
 function FindOs() {
   return (
     <Layout>
-      <SideTitel>{findOs.heading}</SideTitel>
-      <a
-        href={business.googleMapsUrl}
-        target="_blank"
-        rel="noopener"
-        className="mt-4 block text-xl leading-address font-bold decoration-(length:--address-underline) underline-offset-(--address-underline-offset)"
-      >
-        {business.address}
-      </a>
-      <p className="mt-(--sign-info-gap)">{findOs.region}</p>
+      <section className="split pt-10 md:pt-16">
+        <div>
+          <p className="eyebrow text-red">{findOs.eyebrow}</p>
+          <h1 className="page-h1 mt-3 font-serif text-green">{findOs.heading}</h1>
+          <a href={`tel:${business.phoneHref}`} className="big-phone mt-6 inline-block tabular-nums">
+            {business.phoneDisplay}
+          </a>
+          <div className="mt-8 grid gap-6 sm:grid-cols-2">
+            <div className="field">
+              <h2 className="eyebrow">Adresse</h2>
+              <p className="mt-2">
+                {business.street}
+                <br />
+                {business.postalCode} {business.city}. {findOs.region}
+              </p>
+            </div>
+            {findOs.blocks
+              .filter((block) => !block.phone)
+              .map((block) => (
+                <div key={block.label} className="field">
+                  <h2 className="eyebrow">{block.label.replace(':', '')}</h2>
+                  <p className="mt-2">{block.text}</p>
+                </div>
+              ))}
+          </div>
+          <div className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-4">
+            <a href={business.googleMapsUrl} target="_blank" rel="noopener" className="btn no-underline">
+              {findOs.mapsCta} <span aria-hidden="true" className="font-sans">↗</span>
+            </a>
+            <Link to="/anmeldelser" className="text-link">
+              {findOs.reviewsCta} <span aria-hidden="true">↗</span>
+            </Link>
+          </div>
+        </div>
+        <div className="split-media">
+          <Picture
+            id="koekkenWok"
+            priority
+            sizes="(min-width: 768px) 50vw, 100vw"
+            className="block h-full w-full object-cover"
+          />
+        </div>
+      </section>
 
-      <div className="mt-10 flex flex-col gap-(--page-blocks-gap) leading-body">
-        {findOs.blocks.map((block) => (
-          <p key={block.label} className={block.gold ? 'border-l border-gold pl-3' : ''}>
-            <b>{block.label}</b>
-            <br />
-            {block.phone ? <a href={`tel:${business.phoneHref}`}>{business.phoneDisplay}</a> : block.text}
-          </p>
+      <ul className="info-band mt-14">
+        {findOs.band.map((t) => (
+          <li key={t}>{t}</li>
         ))}
-      </div>
+        <li>
+          <a href={`tel:${business.phoneHref}`} className="tabular-nums">
+            {business.phoneDisplay}
+          </a>
+        </li>
+      </ul>
 
-      <Picture
-        id="facade"
-        sizes="(min-width: 768px) 640px, 100vw"
-        className="mt-10 block aspect-wide w-full object-cover object-(--pos-facade)"
-      />
-
-      <h2 className="mt-12 font-serif text-lg leading-heading font-bold text-green">{findOs.qaHeading}</h2>
-      <div className="mt-4 flex flex-col gap-(--page-blocks-gap) leading-relaxed">
-        {faq.items.map((item) => (
-          <p key={item.question}>
-            <b>{item.question}</b>
-            <br />
-            {item.answer}
+      <section className="split mt-14">
+        <div>
+          <h2 className="font-serif text-xl leading-tight text-green">{findOs.followHeading}</h2>
+          <p className="mt-6 flex flex-wrap gap-x-8 gap-y-3">
+            <a href={social.instagram} className="text-link">
+              {ui.instagram} <span aria-hidden="true">↗</span>
+            </a>
+            <a href={social.facebook} className="text-link">
+              {ui.facebook} <span aria-hidden="true">↗</span>
+            </a>
           </p>
-        ))}
-      </div>
+          <h2 className="mt-14 font-serif text-xl leading-tight text-green">{findOs.qaHeading}</h2>
+          <div className="mt-6 flex flex-col gap-6 leading-relaxed">
+            {faq.items.map((item) => (
+              <div key={item.question} className="field">
+                <h3 className="font-serif text-md text-green">{item.question}</h3>
+                <p className="mt-2">{item.answer}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="self-start">
+          <Picture
+            id="facade"
+            sizes="(min-width: 768px) 50vw, 100vw"
+            className="block aspect-wide w-full object-cover object-(--pos-facade)"
+          />
+          <p className="eyebrow mt-3 text-red">{business.street}</p>
+        </div>
+      </section>
     </Layout>
   )
 }

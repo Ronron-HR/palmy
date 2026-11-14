@@ -99,14 +99,17 @@ export const videoSources = ({ name }) => ({
   poster: `/videos/food/palmy-${name}-poster-720x1280.webp`,
 })
 
-// Rækkefølgen på /billeder (prototypen "Palmy Sider"). `aspect` og `pos` er
-// navne på tokens (aspect-dish/-wide, --pos-*) — BILLEDKORT.md.
-// Billedteksterne står i content.js (billeder.captions), i samme rækkefølge.
+// Rækkefølgen i billedrullen (forsiden) og på /billeder. Kun Palmys egne fotos
+// og loops. `ratio` = billedets eget format, så intet strækkes eller beskæres
+// hårdt. Billedteksterne står i content.js (billeder.captions), samme rækkefølge.
 export const galleri = [
-  { type: 'image', image: 'karry', aspect: 'dish', pos: 'karry' },
-  { type: 'image', image: 'wok', aspect: 'dish', pos: 'wok' },
-  { type: 'video', video: 'karrySimrer', aspect: 'dish', pos: 'karry' },
-  { type: 'image', image: 'facade', aspect: 'wide', pos: 'facade' },
-  { type: 'video', video: 'wokRejer', aspect: 'dish', pos: 'wokVideo' },
-  { type: 'image', image: 'spisesal', aspect: 'dish', pos: 'spisesal' },
+  { type: 'image', image: 'nudler', ratio: '1152 / 1340' },
+  { type: 'image', image: 'foraarsruller', ratio: '925 / 1410' },
+  { type: 'image', image: 'koekkenWok', ratio: '4 / 5' },
+  { type: 'image', image: 'and', ratio: '1082 / 1250' },
+  { type: 'video', video: 'karrySimrer', ratio: '4 / 5', pos: 'karry' },
+  { type: 'image', image: 'koekkenKarry', ratio: '4 / 5' },
+  { type: 'image', image: 'spisesal', ratio: '4 / 5' },
+  { type: 'video', video: 'wokRejer', ratio: '4 / 5', pos: 'wokVideo' },
+  { type: 'image', image: 'facade', ratio: '16 / 9' },
 ]
