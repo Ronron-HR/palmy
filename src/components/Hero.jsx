@@ -53,11 +53,15 @@ function frond() {
 }
 const FROND = frond()
 
-function Frond({ className }) {
+function Frond({ className, flip = false }) {
   return (
     <svg viewBox="0 0 440 440" aria-hidden="true" focusable="false" className={className}>
-      <path d={FROND.leaves} fill="currentColor" />
-      <path d={FROND.rib} fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
+      <g transform={flip ? 'translate(440 0) scale(-1 1)' : undefined}>
+        <g className="ph-flutter">
+          <path d={FROND.leaves} fill="currentColor" />
+          <path d={FROND.rib} fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
+        </g>
+      </g>
     </svg>
   )
 }
@@ -96,7 +100,7 @@ const Hero = forwardRef(function Hero(_, phoneRef) {
       </div>
 
       <div className="ph-stage">
-        <Frond className="ph-frond ph-frond-a" />
+        <Frond className="ph-frond ph-frond-a" flip />
         <Frond className="ph-frond ph-frond-b" />
         <figure className="ph-plate">
           <Picture
