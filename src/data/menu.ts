@@ -150,8 +150,9 @@ const source: DishSource[] = [
       { label: 'Kylling', price: 95 },
       { label: 'Oksekød', price: 95 },
     ],
-    // Bevidst ingen `choices`: valget står allerede i rettens navn, præcis som
-    // på det trykte kort.
+    // Bevidst ingen `choices`. Noten er tilføjet efter Ronnys ønske (14.11.2026),
+    // med samme ordlyd som nr. 13.
+    note: 'Kan serveres med ris eller nudler',
     section: 'hovedretter',
   },
   {
