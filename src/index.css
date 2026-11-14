@@ -340,12 +340,6 @@ html[data-menu-intro] .cat {
   align-items: center;
   gap: 10px;
 }
-.band-icon {
-  flex: none;
-  width: 18px;
-  height: 18px;
-  color: var(--color-gold);
-}
 .band-label {
   color: var(--color-olive-light);
 }
@@ -366,7 +360,6 @@ html[data-menu-intro] .cat {
   }
   .band-item {
     justify-content: flex-start;
-    gap: 14px;
   }
   .info-band li.band-item {
     padding-inline: 0;
