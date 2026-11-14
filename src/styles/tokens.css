@@ -249,6 +249,7 @@
   --text-num: clamp(28px, 3vw, 36px);
   --text-price: clamp(21px, 2.1vw, 25px);
   --color-food: #1D1B18;
+  --color-ink: #1B1E1A; /* sort tekst i heroen */
   --color-rule-on-green: #3E6A50;
   --frame-max: 1320px;
   --text-page-h1: clamp(44px, 6.5vw, 84px);

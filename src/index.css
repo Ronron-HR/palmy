@@ -334,6 +334,52 @@ html[data-menu-intro] .cat {
     padding-top: 10px;
   }
 }
+.band-item {
+  justify-content: center;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.band-icon {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  color: var(--color-gold);
+}
+.band-label {
+  color: var(--color-olive-light);
+}
+.band-label::after {
+  content: "";
+  display: inline-block;
+  width: 14px;
+  height: 1px;
+  margin: 0 10px 0 10px;
+  vertical-align: middle;
+  background: var(--color-gold);
+}
+@media (width < 48rem) {
+  .info-band {
+    align-items: stretch;
+    text-align: left;
+    padding-inline: max(var(--gutter-mobile), calc(50% - 150px));
+  }
+  .band-item {
+    justify-content: flex-start;
+    gap: 14px;
+  }
+  .info-band li.band-item {
+    padding-inline: 0;
+  }
+  .band-label {
+    display: block;
+    margin-bottom: 3px;
+    font-size: 11px;
+  }
+  .band-label::after {
+    display: none;
+  }
+}
 .info-band a:focus-visible {
   outline-color: var(--color-olive-light);
 }
@@ -398,7 +444,12 @@ html[data-menu-intro] .cat {
   margin-top: 16px;
 }
 .ph-text {
+  position: relative;
+  isolation: isolate;
   padding-bottom: 32px;
+}
+.ph-eyebrow {
+  color: var(--color-ink);
 }
 .ph-title {
   margin-top: 14px;
@@ -407,11 +458,10 @@ html[data-menu-intro] .cat {
   font-size: clamp(40px, 10.6vw, 84px);
   line-height: 0.98;
   letter-spacing: -0.02em;
-  color: var(--color-green);
+  color: var(--color-ink);
 }
 .ph-title-b {
   font-style: italic;
-  color: var(--color-red);
 }
 .ph-sub {
   margin-top: 18px;
@@ -420,7 +470,7 @@ html[data-menu-intro] .cat {
   font-family: var(--font-serif);
   font-size: clamp(19px, 1.7vw, 23px);
   line-height: 1.3;
-  color: var(--color-green);
+  color: var(--color-ink);
 }
 .ph-actions {
   margin-top: 26px;
@@ -437,17 +487,14 @@ html[data-menu-intro] .cat {
   font-family: var(--font-serif);
   font-size: 20px;
   line-height: 1.1;
-  color: var(--color-green);
+  color: var(--color-ink);
   text-decoration: none;
   transition: color 0.2s ease;
 }
 .ph-phone-icon {
   flex: none;
-  width: 44px;
-  height: 44px;
-  padding: 11px;
-  border: 1.5px solid currentColor;
-  border-radius: 50%;
+  width: 26px;
+  height: 26px;
 }
 .ph-phone-num {
   display: block;
@@ -459,7 +506,7 @@ html[data-menu-intro] .cat {
 }
 @media (hover: hover) and (pointer: fine) {
   .ph-phone:hover {
-    color: var(--color-red);
+    color: var(--color-green);
   }
 }
 .ph-info {
@@ -469,7 +516,7 @@ html[data-menu-intro] .cat {
   gap: 10px;
   font-size: 15px;
   line-height: 1.4;
-  color: var(--color-muted);
+  color: var(--color-ink);
 }
 .ph-dot {
   flex: none;
@@ -490,58 +537,59 @@ html[data-menu-intro] .cat {
   flex-direction: column;
   align-items: center;
 }
-.ph-frond {
+/* Palmerne fra Palmys logo (public/images/palmy-palmer.svg) som maske, så
+   farven styres her. De svajer fra stammens fod i ujævne vindstød, og
+   kronen giver sig lidt (skew), som i en let brise. */
+.ph-palm {
   position: absolute;
-  color: var(--color-olive-light);
-  opacity: 0.22;
+  aspect-ratio: 362 / 268;
   pointer-events: none;
+  -webkit-mask: url("/images/palmy-palmer.svg") center / contain no-repeat;
+  mask: url("/images/palmy-palmer.svg") center / contain no-repeat;
+  transform-origin: 44% 94%;
+  animation: ph-palm-sway 6.8s ease-in-out infinite;
 }
-/* Palmebladene svajer fra stilken i ujævne vindstød (rotate-egenskaben, så
-   den ikke kolliderer med spejlingen i transform), og småbladene blafrer
-   let. De to blade har forskellig takt, så de aldrig bevæger sig i takt. */
-.ph-frond-a {
-  width: 260px;
-  top: -70px;
-  right: -80px;
-  transform: rotate(12deg);
-  transform-origin: 93% 89%;
-  animation: ph-sway 7.2s ease-in-out infinite;
+.ph-palm-stage {
+  z-index: 0;
+  width: 340px;
+  left: -70px;
+  bottom: -14px;
+  background: var(--color-olive-light);
+  opacity: 0.34;
 }
-.ph-frond-b {
-  width: 240px;
-  bottom: -70px;
-  left: -86px;
-  transform: rotate(8deg);
-  transform-origin: 7% 89%;
-  animation: ph-sway-rev 8.6s ease-in-out -2.4s infinite;
+.ph-palm-stage-b {
+  z-index: 0;
+  width: 230px;
+  right: -60px;
+  top: 18px;
+  background: var(--color-olive-light);
+  opacity: 0.2;
+  transform: scaleX(-1);
+  animation: ph-palm-sway-b 8.3s ease-in-out -3s infinite;
 }
-@keyframes ph-sway {
-  0%, 100% { rotate: 0deg; }
-  18% { rotate: 3.2deg; }
-  30% { rotate: 1.4deg; }
-  52% { rotate: 4.6deg; }
-  70% { rotate: 1.8deg; }
-  86% { rotate: 3.4deg; }
+.ph-palm-text {
+  z-index: -1;
+  width: min(84vw, 420px);
+  right: 0;
+  bottom: 8px;
+  background: var(--color-green);
+  opacity: 0.07;
+  animation-duration: 9s;
 }
-@keyframes ph-sway-rev {
-  0%, 100% { rotate: 0deg; }
-  22% { rotate: -2.8deg; }
-  38% { rotate: -1deg; }
-  58% { rotate: -4.2deg; }
-  76% { rotate: -1.6deg; }
+@keyframes ph-palm-sway {
+  0%, 100% { rotate: 0deg; transform: skewX(0deg); }
+  20% { rotate: 1.8deg; transform: skewX(-1.2deg); }
+  34% { rotate: 0.6deg; transform: skewX(-0.3deg); }
+  55% { rotate: 2.6deg; transform: skewX(-1.8deg); }
+  72% { rotate: 0.9deg; transform: skewX(-0.5deg); }
+  86% { rotate: 1.9deg; transform: skewX(-1.1deg); }
 }
-.ph-flutter {
-  transform-box: fill-box;
-  transform-origin: 0% 100%;
-  animation: ph-flutter 2.8s ease-in-out infinite alternate;
-}
-.ph-frond-b .ph-flutter {
-  animation-duration: 3.3s;
-  animation-delay: -1.1s;
-}
-@keyframes ph-flutter {
-  from { transform: skewX(0deg) scaleY(1); }
-  to { transform: skewX(1.6deg) scaleY(0.985); }
+@keyframes ph-palm-sway-b {
+  0%, 100% { rotate: 0deg; transform: scaleX(-1) skewX(0deg); }
+  25% { rotate: -1.6deg; transform: scaleX(-1) skewX(1deg); }
+  45% { rotate: -0.5deg; transform: scaleX(-1) skewX(0.3deg); }
+  65% { rotate: -2.3deg; transform: scaleX(-1) skewX(1.6deg); }
+  82% { rotate: -0.8deg; transform: scaleX(-1) skewX(0.5deg); }
 }
 .ph-plate {
   position: relative;
@@ -585,8 +633,10 @@ html[data-menu-intro] .cat {
   .ph-plate {
     width: min(52vw, 420px);
   }
-  .info-band {
-    margin-top: 0;
+}
+@media (width >= 64rem) {
+  .ph + .info-band {
+    margin-top: 32px;
   }
 }
 
@@ -618,15 +668,20 @@ html[data-menu-intro] .cat {
   .ph-plate {
     width: min(100%, 460px);
   }
-  .ph-frond-a {
-    width: 420px;
-    top: -120px;
-    right: -90px;
+  .ph-palm-stage {
+    width: 520px;
+    left: -110px;
+    bottom: -20px;
   }
-  .ph-frond-b {
-    width: 420px;
-    bottom: -90px;
-    left: -120px;
+  .ph-palm-stage-b {
+    width: 300px;
+    right: -70px;
+    top: 30px;
+  }
+  .ph-palm-text {
+    width: 560px;
+    right: -40px;
+    bottom: -10px;
   }
   .ph-side {
     display: block;
@@ -674,9 +729,7 @@ html[data-menu-intro] .cat {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .ph-frond-a,
-  .ph-frond-b,
-  .ph-flutter {
+  .ph-palm {
     animation: none;
   }
   .ph-phone {

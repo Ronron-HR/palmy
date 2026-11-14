@@ -4,73 +4,17 @@ import Link from './Link'
 import Picture from './Picture'
 
 // Forsidens hero — "Palmy under palmerne".
-// Tekst på creme til venstre (mobil: øverst), en dyb palmegrøn flade med
-// håndtegnede palmeblade til højre, og Palmys eget foto af nr. 3 på den
-// blå-hvide tallerken i en creme ramme. Maden vises i sit eget format, uden
-// beskæring og uden tekst ovenpå. Knapperne er synlige uden scroll på mobil.
-// "Ring og bestil" er ring-barens mål (forwardRef).
-
-// Et palmeblad: en buet midterribbe og fyldte, smalle småblade, længst på
-// midten og vinklet mod spidsen. Genereres én gang ved import.
-function frond() {
-  const p0 = [30, 392]
-  const p1 = [130, 200]
-  const p2 = [392, 34]
-  const at = (t, u = 1 - t) => [
-    u * u * p0[0] + 2 * u * t * p1[0] + t * t * p2[0],
-    u * u * p0[1] + 2 * u * t * p1[1] + t * t * p2[1],
-  ]
-  const tan = (t) => {
-    const dx = 2 * (1 - t) * (p1[0] - p0[0]) + 2 * t * (p2[0] - p1[0])
-    const dy = 2 * (1 - t) * (p1[1] - p0[1]) + 2 * t * (p2[1] - p1[1])
-    const l = Math.hypot(dx, dy)
-    return [dx / l, dy / l]
-  }
-  const r = (n) => Math.round(n * 10) / 10
-  const rib = `M${p0[0]} ${p0[1]}Q${p1[0]} ${p1[1]} ${p2[0]} ${p2[1]}`
-  let leaves = ''
-  for (let i = 0; i < 15; i++) {
-    const t = 0.16 + i * 0.056
-    const [x, y] = at(t)
-    const [tx, ty] = tan(t)
-    const len = 34 + Math.sin(Math.PI * Math.min((t - 0.1) * 1.25, 1)) * 96
-    for (const side of [1, -1]) {
-      // retning: vinkelret på ribben, vippet mod spidsen
-      let dx = -ty * side + tx * 0.8
-      let dy = tx * side + ty * 0.8
-      const l = Math.hypot(dx, dy)
-      dx /= l
-      dy /= l
-      const ex = x + dx * len
-      const ey = y + dy * len
-      const w = len * 0.11
-      const mx = x + dx * len * 0.45 + tx * len * 0.08
-      const my = y + dy * len * 0.45 + ty * len * 0.08
-      leaves += `M${r(x)} ${r(y)}Q${r(mx - dy * w)} ${r(my + dx * w)} ${r(ex)} ${r(ey)}Q${r(mx + dy * w)} ${r(my - dx * w)} ${r(x)} ${r(y)}Z`
-    }
-  }
-  return { rib, leaves }
-}
-const FROND = frond()
-
-function Frond({ className, flip = false }) {
-  return (
-    <svg viewBox="0 0 440 440" aria-hidden="true" focusable="false" className={className}>
-      <g transform={flip ? 'translate(440 0) scale(-1 1)' : undefined}>
-        <g className="ph-flutter">
-          <path d={FROND.leaves} fill="currentColor" />
-          <path d={FROND.rib} fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
-        </g>
-      </g>
-    </svg>
-  )
-}
-
+// Tekst i sort på creme til venstre (mobil: øverst) med en svag palme bag sig,
+// og en dyb palmegrøn scene til højre med palmerne fra Palmys eget logo
+// (public/images/palmy-palmer.svg) og Palmys foto af nr. 3 på den blå-hvide
+// tallerken i en creme ramme. Maden vises i sit eget format, uden tekst
+// ovenpå. "Ring og bestil" er ring-barens mål (forwardRef).
 const Hero = forwardRef(function Hero(_, phoneRef) {
   return (
     <section aria-labelledby="hero-titel" className="ph">
       <div className="ph-text">
-        <p className="eyebrow text-red">{hero.eyebrow}</p>
+        <span aria-hidden="true" className="ph-palm ph-palm-text" />
+        <p className="eyebrow ph-eyebrow">{hero.eyebrow}</p>
         <h1 id="hero-titel" className="ph-title">
           <span className="block">{hero.titleA}</span>
           <span className="ph-title-b block">{hero.titleB}</span>
@@ -100,8 +44,8 @@ const Hero = forwardRef(function Hero(_, phoneRef) {
       </div>
 
       <div className="ph-stage">
-        <Frond className="ph-frond ph-frond-a" flip />
-        <Frond className="ph-frond ph-frond-b" />
+        <span aria-hidden="true" className="ph-palm ph-palm-stage" />
+        <span aria-hidden="true" className="ph-palm ph-palm-stage-b" />
         <figure className="ph-plate">
           <Picture
             id="nudler"
